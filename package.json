@@ -1,7 +1,8 @@
 {
   "name": "react-studies",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.config.js"
+    "build": "./node_modules/.bin/webpack --config webpack.config.js",
+    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch"
   },
   "author": "km45",
   "license": "MIT",

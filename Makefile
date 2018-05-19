@@ -18,6 +18,10 @@ install:
 build:
 	npm run build
 
+.PHONY: watch
+watch:
+	npm run watch
+
 .PHONY: clean
 clean:
 	rm -fr dist node_modules
