@@ -1,0 +1,21 @@
+{
+  "name": "react-studies",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack --config webpack.config.js"
+  },
+  "author": "km45",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.0.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
+  }
+}
