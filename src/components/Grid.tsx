@@ -1,23 +1,25 @@
 import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
+import update from 'immutability-helper';
 
 export interface GridProps { compiler: string; framework: string; }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the '{}' type.
-export class Grid extends React.Component<GridProps, {}> {
+class GridState {
+    rows: any
+}
+
+export class Grid extends React.Component<GridProps, GridState> {
     _columns: any;
-    _rows: any;
 
     constructor(props: any, context: any) {
         super(props, context);
-        this.createRows();
+        this.state = ({
+            rows: this.createRows()
+        });
         this._columns = [
             { key: 'id', name: 'ID' },
-            { key: 'title', name: 'Title' },
-            { key: 'count', name: 'Count' }];
-
-        this.state = null;
+            { key: 'title', name: 'Title', editable: true },
+            { key: 'count', name: 'Count', editable: true }];
     }
 
     createRows = () => {
@@ -30,19 +32,35 @@ export class Grid extends React.Component<GridProps, {}> {
             });
         }
 
-        this._rows = rows;
+        return rows;
     }
 
     rowGetter = (i: number) => {
-        return this._rows[i];
+        return this.state.rows[i];
     }
+
+    handleGridRowsUpdated = (
+        { fromRow, toRow, updated }: { fromRow: number, toRow: number, updated: any }
+    ) => {
+        let rows = this.state.rows.slice();
+
+        for (let i = fromRow; i <= toRow; i++) {
+            let rowToUpdate = rows[i];
+            let updatedRow = update(rowToUpdate, { $merge: updated });
+            rows[i] = updatedRow;
+        }
+
+        this.setState({ rows });
+    };
 
     render() {
         return <ReactDataGrid
             columns={this._columns}
+            enableCellSelect={true}
+            minHeight={500}
+            onGridRowsUpdated={this.handleGridRowsUpdated}
             rowGetter={this.rowGetter}
-            rowsCount={this._rows.length}
-            minHeight={500} />;
-        // return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
+            rowsCount={this.state.rows.length}
+        />;
     }
 }
