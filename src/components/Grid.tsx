@@ -4,14 +4,19 @@ import update from 'immutability-helper';
 
 export interface GridProps { compiler: string; framework: string; }
 
+class Row {
+    key: string;
+    value: string;
+}
+
 class GridState {
-    rows: any
+    rows: Row[];
 }
 
 export class Grid extends React.Component<GridProps, GridState> {
-    _columns: any;
+    _columns: ReactDataGrid.Column[];
 
-    constructor(props: any, context: any) {
+    constructor(props: GridProps, context: GridState) {
         super(props, context);
         this.state = ({
             rows: this.createRows()
