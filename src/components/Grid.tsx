@@ -17,18 +17,16 @@ export class Grid extends React.Component<GridProps, GridState> {
             rows: this.createRows()
         });
         this._columns = [
-            { key: 'id', name: 'ID' },
-            { key: 'title', name: 'Title', editable: true },
-            { key: 'count', name: 'Count', editable: true }];
+            { key: 'key', name: 'Key', editable: true },
+            { key: 'value', name: 'Value', editable: true },];
     }
 
     createRows = () => {
         let rows = [];
         for (let i = 1; i < 1000; i++) {
             rows.push({
-                id: i,
-                title: 'Title ' + i,
-                count: i * 1000
+                key: 'Sample Key ' + i,
+                value: 'Sample Value ' + i
             });
         }
 
