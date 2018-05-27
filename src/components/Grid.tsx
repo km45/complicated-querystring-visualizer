@@ -23,7 +23,7 @@ export class Grid extends React.Component<GridProps, GridState> {
 
     createRows = () => {
         let rows = [];
-        for (let i = 1; i < 1000; i++) {
+        for (let i = 0; i < 10; i++) {
             rows.push({
                 key: 'Sample Key ' + i,
                 value: 'Sample Value ' + i
