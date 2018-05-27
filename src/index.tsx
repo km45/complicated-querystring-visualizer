@@ -1,15 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Form } from "./components/Form";
-import { Grid } from "./components/Grid";
 import { Hello } from "./components/Hello";
+import { Binder } from "./components/Binder";
 
 ReactDOM.render(
     <div>
         <Hello compiler="TypeScript" framework="React" />
-        <Form compiler="TypeScript" framework="React" />
-        <Grid compiler="TypeScript" framework="React" />
+        <Binder />
     </div>,
     document.getElementById("example")
 );

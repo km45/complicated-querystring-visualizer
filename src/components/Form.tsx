@@ -28,6 +28,16 @@ export class Form extends React.Component<FormProps, FormState> {
         });
     }
 
+    getText(): string {
+        return this.state.text;
+    }
+
+    setText(text: string): void {
+        this.setState({
+            text: text
+        })
+    }
+
     render() {
         return (
             <form>
