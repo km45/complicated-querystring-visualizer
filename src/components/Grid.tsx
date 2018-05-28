@@ -40,6 +40,16 @@ export class Grid extends React.Component<{}, GridState> {
         return this.state.rows[i];
     }
 
+    public getRows(): Row[] {
+        return this.state.rows;
+    }
+
+    public setRows(rows: Row[]): void {
+        this.setState({
+            rows: rows
+        });
+    }
+
     handleGridRowsUpdated = (
         { fromRow, toRow, updated }: { fromRow: number, toRow: number, updated: any }
     ) => {
