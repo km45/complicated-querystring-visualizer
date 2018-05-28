@@ -7,5 +7,5 @@ ReactDOM.render(
     <div>
         <Binder />
     </div>,
-    document.getElementById("example")
+    document.getElementById("content")
 );
