@@ -1,17 +1,12 @@
 import * as React from "react";
 
-export interface FormProps {
-    compiler: string;
-    framework: string;
-}
-
 class FormState {
     text: string;
 }
 
-export class Form extends React.Component<FormProps, FormState> {
-    constructor(props: FormProps) {
-        super(props);
+export class Form extends React.Component<{}, FormState> {
+    constructor(props: any, context: FormState) {
+        super(props, context);
         this.state = {
             text: 'sample text'
         };

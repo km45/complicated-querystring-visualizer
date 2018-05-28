@@ -2,8 +2,6 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
-export interface GridProps { compiler: string; framework: string; }
-
 class Row {
     key: string;
     value: string;
@@ -13,10 +11,10 @@ class GridState {
     rows: Row[];
 }
 
-export class Grid extends React.Component<GridProps, GridState> {
+export class Grid extends React.Component<{}, GridState> {
     _columns: ReactDataGrid.Column[];
 
-    constructor(props: GridProps, context: GridState) {
+    constructor(props: any, context: GridState) {
         super(props, context);
         this.state = ({
             rows: this.createRows()

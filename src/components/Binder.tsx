@@ -44,10 +44,7 @@ export class Binder extends React.Component<BinderProps, {}> {
     render() {
         return (
             <div>
-                <Form
-                    compiler="TypeScript"
-                    framework="React"
-                    ref={this.ref.form} />
+                <Form ref={this.ref.form} />
                 <form>
                     <input type="button"
                         value="form2grid"
@@ -56,9 +53,7 @@ export class Binder extends React.Component<BinderProps, {}> {
                         value="grid2from"
                         onClick={(event) => this.onClickGridToForm(event)} />
                 </form>
-                <Grid
-                    compiler="TypeScript"
-                    framework="React" />
+                <Grid ref={this.ref.grid} />
             </div>
         );
     }
