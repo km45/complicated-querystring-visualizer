@@ -8,7 +8,7 @@ export class Form extends React.Component<{}, FormState> {
     constructor(props: any, context: FormState) {
         super(props, context);
         this.state = {
-            text: 'sample text'
+            text: 'a=1&b=2&c=3'
         };
     }
 

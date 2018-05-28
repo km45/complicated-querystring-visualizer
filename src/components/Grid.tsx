@@ -28,8 +28,8 @@ export class Grid extends React.Component<{}, GridState> {
         let rows = [];
         for (let i = 0; i < 10; i++) {
             rows.push({
-                key: 'Sample Key ' + i,
-                value: 'Sample Value ' + i
+                key: 'key' + i,
+                value: 'value' + i
             });
         }
 
