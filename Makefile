@@ -1,3 +1,6 @@
+# CONFIG = develop | production
+CONFIG = develop
+
 .PHONY: up
 up:
 	docker-compose up -d --build
@@ -16,7 +19,7 @@ install:
 
 .PHONY: build
 build:
-	npm run build
+	npm run build:$(CONFIG)
 
 .PHONY: watch
 watch:
