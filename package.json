@@ -2,7 +2,8 @@
   "name": "react-studies",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
-    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch"
+    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch",
+    "test": "./node_modules/jest/node_modules/.bin/jest --coverage"
   },
   "author": "km45",
   "license": "MIT",
@@ -16,10 +17,30 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.3",
     "awesome-typescript-loader": "^5.0.0",
+    "jest": "^23.0.1",
     "source-map-loader": "^0.2.3",
+    "ts-jest": "^22.4.6",
     "typescript": "^2.8.3",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.4"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ]
   }
 }

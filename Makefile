@@ -25,3 +25,7 @@ watch:
 .PHONY: clean
 clean:
 	rm -fr dist node_modules
+
+.PHONY: test
+test:
+	npm run test
