@@ -2,19 +2,21 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
-class Row {
+export interface Props { }
+
+interface Row {
     key: string;
     value: string;
 }
 
-class GridState {
+interface State {
     rows: Row[];
 }
 
-export class Grid extends React.Component<{}, GridState> {
-    _columns: ReactDataGrid.Column[];
+export class Grid extends React.Component<Props, State> {
+    private _columns: ReactDataGrid.Column[];
 
-    constructor(props: any, context: GridState) {
+    public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
             rows: this.createRows()
@@ -24,7 +26,7 @@ export class Grid extends React.Component<{}, GridState> {
             { key: 'value', name: 'Value', editable: true },];
     }
 
-    createRows = () => {
+    private createRows = () => {
         let rows = [];
         for (let i = 0; i < 10; i++) {
             rows.push({
@@ -36,21 +38,23 @@ export class Grid extends React.Component<{}, GridState> {
         return rows;
     }
 
-    rowGetter = (i: number) => {
+    private rowGetter = (i: number) => {
         return this.state.rows[i];
     }
 
+    // TODO: Use same type Row as logic implementation
     public getRows(): Row[] {
         return this.state.rows;
     }
 
+    // TODO: Use same type Row as logic implementation
     public setRows(rows: Row[]): void {
         this.setState({
             rows: rows
         });
     }
 
-    handleGridRowsUpdated = (
+    private handleGridRowsUpdated = (
         { fromRow, toRow, updated }: { fromRow: number, toRow: number, updated: any }
     ) => {
         let rows = this.state.rows.slice();
@@ -64,7 +68,7 @@ export class Grid extends React.Component<{}, GridState> {
         this.setState({ rows });
     };
 
-    render() {
+    public render() {
         return <ReactDataGrid
             columns={this._columns}
             enableCellSelect={true}

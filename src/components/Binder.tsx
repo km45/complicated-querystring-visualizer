@@ -1,12 +1,12 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
 import { generateQuery, parseQuery } from "../logic/converter";
 
-export interface BinderProps {}
+export interface Props { }
+interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
@@ -14,14 +14,14 @@ class BinderImplRef {
     grid: React.RefObject<Grid> = React.createRef();
 }
 
-export class Binder extends React.Component<BinderProps, {}> {
+export class Binder extends React.Component<Props, State> {
     private ref = new BinderImplRef();
 
-    constructor(props: BinderProps, context: any) {
+    public constructor(props: Props, context: State) {
         super(props, context);
     }
 
-    onFormToGrid(text: string): void {
+    private onFormToGrid(text: string): void {
         console.log('onFormToGrid')
         let data = { id: "1", title: "Title1", count: "Count" };
         this.setState({
@@ -30,7 +30,7 @@ export class Binder extends React.Component<BinderProps, {}> {
         });
     };
 
-    onClickFormToGrid(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickFormToGrid(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
@@ -40,7 +40,7 @@ export class Binder extends React.Component<BinderProps, {}> {
         this.ref.grid.current.setRows(parsed_result);
     }
 
-    onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
 
@@ -50,7 +50,7 @@ export class Binder extends React.Component<BinderProps, {}> {
         this.ref.form.current.setText(query);
     }
 
-    render() {
+    public render() {
         return (
             <div>
                 <Form ref={this.ref.form} />

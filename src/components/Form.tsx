@@ -1,39 +1,41 @@
 import * as React from "react";
 
-class FormState {
+export interface Props { }
+
+interface State {
     text: string;
 }
 
-export class Form extends React.Component<{}, FormState> {
-    constructor(props: any, context: FormState) {
+export class Form extends React.Component<Props, State> {
+    public constructor(props: Props, context: State) {
         super(props, context);
         this.state = {
             text: 'a=1&b=2&c=3'
         };
     }
 
-    onClick(event: React.MouseEvent<HTMLInputElement>) {
+    private onClick(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log(this.state);
     }
 
-    onTextAreaChange(event: React.ChangeEvent<HTMLInputElement>) {
+    private onTextAreaChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
             text: event.target.value
         });
     }
 
-    getText(): string {
+    public getText(): string {
         return this.state.text;
     }
 
-    setText(text: string): void {
+    public setText(text: string): void {
         this.setState({
             text: text
         })
     }
 
-    render() {
+    public render() {
         return (
             <form>
                 <input type="text"
