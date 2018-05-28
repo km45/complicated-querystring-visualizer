@@ -1,4 +1,4 @@
-import { generateQuery, parseQuery } from "../../src/logic/converter";
+import { generateQuery, parseQuery } from "./converter";
 
 describe('LogicConverterTest', () => {
     it('GenerateQuery', () => {
