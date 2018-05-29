@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const common = require('./webpack.common.js');
 
@@ -12,5 +13,12 @@ module.exports = merge(common, {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
-    }
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/html/develop.html',
+            title: 'react-studies(development)'
+        })
+    ]
 });

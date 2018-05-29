@@ -1,5 +1,4 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -28,6 +27,5 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin([__dirname + "/dist"])
-        // new HtmlWebpackPlugin()
-    ],
+    ]
 }
