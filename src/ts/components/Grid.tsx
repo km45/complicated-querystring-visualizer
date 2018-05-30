@@ -63,21 +63,19 @@ export class Grid extends React.Component<Props, State> {
         });
     }
 
-    private handleGridRowsUpdated = (
-        { fromRow, toRow, updated }: { fromRow: number, toRow: number, updated: any }
-    ) => {
+    private handleGridRowsUpdated(e: ReactDataGrid.GridRowsUpdatedEvent): void {
         let table = this.state.table.slice();
 
-        for (let i = fromRow; i <= toRow; i++) {
+        for (let i = e.fromRow; i <= e.toRow; i++) {
             let rowToUpdate = table[i];
-            let updatedRow = update(rowToUpdate, { $merge: updated });
+            let updatedRow = update(rowToUpdate, { $merge: e.updated });
             table[i] = updatedRow;
         }
 
         this.setState({
             table: table
         });
-    };
+    }
 
     public render() {
         return <ReactDataGrid
