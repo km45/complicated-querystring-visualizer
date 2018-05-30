@@ -3,7 +3,7 @@ import * as React from "react";
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
-import { generateQuery, parseQuery } from "../logic/converter";
+import { generateQuery, parseQuery, arrayTableToObjectTable, objectTableToArrayTable } from "../logic/converter";
 
 export interface Props { }
 interface State { }
@@ -36,8 +36,10 @@ export class Binder extends React.Component<Props, State> {
 
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
+        let converted_result = arrayTableToObjectTable(
+            ['key', 'value'], parsed_result);
 
-        this.ref.grid.current.setRows(parsed_result);
+        this.ref.grid.current.setRows(converted_result);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
@@ -45,7 +47,9 @@ export class Binder extends React.Component<Props, State> {
         console.log('onClickGridToForm');
 
         const rows = this.ref.grid.current.getRows();
-        const query = generateQuery(rows);
+        const converted = objectTableToArrayTable(
+            ['key', 'value'], rows);
+        const query = generateQuery(converted);
 
         this.ref.form.current.setText(query);
     }

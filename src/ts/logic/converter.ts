@@ -1,29 +1,20 @@
-interface BasicParameter {
-    key: string;
-    value: string;
-}
+export type ArrayRow = string[];
+export type ArrayTable = ArrayRow[];
 
-type ArrayRow = string[];
-type ArrayTable = ArrayRow[];
+export type ObjectRow = { [key: string]: string };
+export type ObjectTable = ObjectRow[];
 
-type ObjectRow = { [key: string]: string };
-type ObjectTable = ObjectRow[];
-
-export function parseQuery(query: string): BasicParameter[] {
+export function parseQuery(query: string): ArrayTable {
     return query.split('&').map(
-        (element: string): BasicParameter => {
-            let v = element.split('=');
-            return {
-                key: v[0],
-                value: v[1]
-            };
-        })
+        (element: string): ArrayRow => {
+            return element.split('=');
+        });
 }
 
-export function generateQuery(parameters: BasicParameter[]): string {
+export function generateQuery(parameters: ArrayTable): string {
     return parameters.map(
-        (v: BasicParameter): string => {
-            return v.key + '=' + v.value;
+        (v: ArrayRow): string => {
+            return v.join('=');
         }).join('&');
 }
 

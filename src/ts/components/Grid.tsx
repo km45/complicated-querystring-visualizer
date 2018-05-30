@@ -2,32 +2,30 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
+import { ObjectRow, ObjectTable } from '../logic/converter';
+
 export interface Props { }
 
-interface Row {
-    key: string;
-    value: string;
-}
-
 interface State {
-    rows: Row[];
+    table: ObjectTable;
 }
 
 export class Grid extends React.Component<Props, State> {
+    // TODO: Use same type as logic implementation
     private _columns: ReactDataGrid.Column[];
 
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
-            rows: this.createRows()
+            table: this.createRows()
         });
         this._columns = [
             { key: 'key', name: 'Key', editable: true },
             { key: 'value', name: 'Value', editable: true },];
     }
 
-    private createRows = () => {
-        let rows = [];
+    private createRows = (): ObjectTable => {
+        let rows: ObjectTable = [];
         for (let i = 0; i < 10; i++) {
             rows.push({
                 key: 'key' + i,
@@ -39,33 +37,33 @@ export class Grid extends React.Component<Props, State> {
     }
 
     private rowGetter = (i: number) => {
-        return this.state.rows[i];
+        return this.state.table[i];
     }
 
-    // TODO: Use same type Row as logic implementation
-    public getRows(): Row[] {
-        return this.state.rows;
+    public getRows(): ObjectTable {
+        return this.state.table;
     }
 
-    // TODO: Use same type Row as logic implementation
-    public setRows(rows: Row[]): void {
+    public setRows(table: ObjectTable): void {
         this.setState({
-            rows: rows
+            table: table
         });
     }
 
     private handleGridRowsUpdated = (
         { fromRow, toRow, updated }: { fromRow: number, toRow: number, updated: any }
     ) => {
-        let rows = this.state.rows.slice();
+        let table = this.state.table.slice();
 
         for (let i = fromRow; i <= toRow; i++) {
-            let rowToUpdate = rows[i];
+            let rowToUpdate = table[i];
             let updatedRow = update(rowToUpdate, { $merge: updated });
-            rows[i] = updatedRow;
+            table[i] = updatedRow;
         }
 
-        this.setState({ rows });
+        this.setState({
+            table: table
+        });
     };
 
     public render() {
@@ -75,7 +73,7 @@ export class Grid extends React.Component<Props, State> {
             minHeight={500}
             onGridRowsUpdated={this.handleGridRowsUpdated}
             rowGetter={this.rowGetter}
-            rowsCount={this.state.rows.length}
+            rowsCount={this.state.table.length}
         />;
     }
 }
