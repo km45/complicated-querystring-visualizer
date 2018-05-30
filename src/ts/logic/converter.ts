@@ -1,6 +1,6 @@
 import {
     ArrayRow, ArrayTable, Columns, ObjectRow, ObjectTable
-} from './table-data-type'
+} from './data-type-interface'
 
 export function parseQuery(query: string): ArrayTable {
     return query.split('&').map(

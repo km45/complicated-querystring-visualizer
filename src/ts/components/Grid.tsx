@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 
 import {
     Columns, ObjectRow, ObjectTable
-} from '../logic/table-data-type'
+} from '../logic/data-type-interface'
 
 export interface Props {
     columns: Columns;

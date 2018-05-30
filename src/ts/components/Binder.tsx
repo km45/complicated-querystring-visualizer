@@ -3,7 +3,7 @@ import * as React from "react";
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
-import { Columns } from '../logic/table-data-type'
+import { Columns } from '../logic/data-type-interface'
 import {
     arrayTableToObjectTable,
     generateQuery,
