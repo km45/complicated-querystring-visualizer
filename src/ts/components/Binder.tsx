@@ -20,18 +20,33 @@ interface State { }
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
     form: React.RefObject<Form> = React.createRef();
-    grid: React.RefObject<Grid> = React.createRef();
+    basic_grid: React.RefObject<Grid> = React.createRef();
+    coord_grid: React.RefObject<Grid> = React.createRef();
 }
 
 export class Binder extends React.Component<Props, State> {
     private ref = new BinderImplRef();
-    private columns: Columns = [
+    private basic_columns: Columns = [
         {
             key: 'key',
             name: 'Key'
         }, {
             key: 'value',
             name: 'Value'
+        }];
+    private coord_columns: Columns = [
+        {
+            key: 'key',
+            name: 'Key'
+        }, {
+            key: 'x',
+            name: 'x'
+        }, {
+            key: 'y',
+            name: 'y'
+        }, {
+            key: 'z',
+            name: 'z'
         }];
 
     public constructor(props: Props, context: State) {
@@ -44,20 +59,24 @@ export class Binder extends React.Component<Props, State> {
 
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
-        let converted_result = arrayTableToObjectTable(
-            this.columns, parsed_result.basic);
 
-        this.ref.grid.current.setRows(converted_result);
+        this.ref.basic_grid.current.setRows(arrayTableToObjectTable(
+            this.basic_columns, parsed_result.basic));
+        this.ref.coord_grid.current.setRows(arrayTableToObjectTable(
+            this.coord_columns, parsed_result.coord));
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
 
-        const rows = this.ref.grid.current.getRows();
-        const converted = objectTableToArrayTable(this.columns, rows);
         const query = generateQuery({
-            basic: converted
+            basic: objectTableToArrayTable(
+                this.basic_columns,
+                this.ref.basic_grid.current.getRows()),
+            coord: objectTableToArrayTable(
+                this.coord_columns,
+                this.ref.coord_grid.current.getRows())
         });
 
         this.ref.form.current.setText(query);
@@ -76,8 +95,11 @@ export class Binder extends React.Component<Props, State> {
                         onClick={(event) => this.onClickGridToForm(event)} />
                 </form>
                 <Grid
-                    columns={this.columns}
-                    ref={this.ref.grid} />
+                    columns={this.basic_columns}
+                    ref={this.ref.basic_grid} />
+                <Grid
+                    columns={this.coord_columns}
+                    ref={this.ref.coord_grid} />
             </div>
         );
     }

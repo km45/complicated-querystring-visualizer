@@ -3,7 +3,8 @@ import {
 } from './table-data'
 
 interface QueryBinder {
-    basic: ArrayTable;
+    basic?: ArrayTable;
+    coord?: ArrayTable;
 }
 
 export function parseQuery(query: string): QueryBinder {
@@ -12,14 +13,36 @@ export function parseQuery(query: string): QueryBinder {
             return element.split('=');
         });
 
+    let basic: ArrayTable = [];
+    let coord: ArrayTable = [];
+
+    table.forEach((v: ArrayRow) => {
+        if (v[0].match(/^coord[0-9]+$/)) {
+            coord.push([v[0]].concat(v[1].split(',')));
+        } else {
+            basic.push(v);
+        }
+    });
+
     return {
-        basic: table
+        basic: basic,
+        coord: coord
     };
 }
 
 export function generateQuery(binder: QueryBinder): string {
-    return binder.basic.map(
-        (v: ArrayRow): string => {
-            return v.join('=');
-        }).join('&');
+    let params: string[] = [];
+    if (binder.basic != null) {
+        params = params.concat(binder.basic.map(
+            (v: ArrayRow): string => {
+                return v.join('=');
+            }));
+    }
+    if (binder.coord != null) {
+        params = params.concat(binder.coord.map(
+            (v: ArrayRow): string => {
+                return [v[0], v.slice(1).join(',')].join('=');
+            }));
+    }
+    return params.join('&');
 }

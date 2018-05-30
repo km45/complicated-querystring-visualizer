@@ -10,7 +10,7 @@ export class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = {
-            text: 'a=1&b=2&c=3'
+            text: 'a=1&b=2&c=3&coord1=x1,y1,z1&coord2=x2,y2,z2'
         };
     }
 
