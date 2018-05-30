@@ -29,15 +29,6 @@ export class Binder extends React.Component<Props, State> {
         super(props, context);
     }
 
-    private onFormToGrid(text: string): void {
-        console.log('onFormToGrid')
-        let data = { id: "1", title: "Title1", count: "Count" };
-        this.setState({
-            form_text: text,
-            grid_data: data
-        });
-    };
-
     private onClickFormToGrid(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log('onClickFormToGrid');
