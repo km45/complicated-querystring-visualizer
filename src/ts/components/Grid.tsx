@@ -2,7 +2,9 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
-import { Columns, ObjectRow, ObjectTable } from '../logic/converter';
+import {
+    Columns, ObjectRow, ObjectTable
+} from '../logic/table-data-type'
 
 export interface Props {
     columns: Columns;

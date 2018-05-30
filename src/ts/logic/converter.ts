@@ -1,14 +1,6 @@
-export type ArrayRow = string[];
-export type ArrayTable = ArrayRow[];
-
-export type ObjectRow = { [key: string]: string };
-export type ObjectTable = ObjectRow[];
-
-export interface Column {
-    key: string;
-    name?: string;
-}
-export type Columns = Column[];
+import {
+    ArrayRow, ArrayTable, Columns, ObjectRow, ObjectTable
+} from './table-data-type'
 
 export function parseQuery(query: string): ArrayTable {
     return query.split('&').map(

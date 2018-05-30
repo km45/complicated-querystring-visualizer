@@ -3,7 +3,13 @@ import * as React from "react";
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
-import { Columns, generateQuery, parseQuery, arrayTableToObjectTable, objectTableToArrayTable } from "../logic/converter";
+import { Columns } from '../logic/table-data-type'
+import {
+    arrayTableToObjectTable,
+    generateQuery,
+    objectTableToArrayTable,
+    parseQuery
+} from "../logic/converter";
 
 export interface Props { }
 interface State { }
