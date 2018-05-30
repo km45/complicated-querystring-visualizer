@@ -26,15 +26,15 @@ export class Grid extends React.Component<Props, State> {
     }
 
     private createColumns(columns: Columns): ReactDataGrid.Column[] {
-        let v: ReactDataGrid.Column[] = [];
-        for (const column of columns) {
-            v.push({
-                key: column.key,
-                name: column.name,
-                editable: true
-            });
-        }
-        return v;
+        return columns.map(
+            (column): ReactDataGrid.Column => {
+                return {
+                    key: column.key,
+                    name: column.name,
+                    editable: true
+                };
+            }
+        );
     }
 
     private createRows = (): ObjectTable => {
