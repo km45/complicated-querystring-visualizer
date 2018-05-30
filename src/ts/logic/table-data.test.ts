@@ -3,7 +3,7 @@ import {
     objectRowToArrayRow, objectTableToArrayTable
 } from "./table-data";
 
-describe('LogicConverterTest', () => {
+describe('table-data test', () => {
     it('arrayRowToObjectRow', () => {
         const columns = [
             { key: 'k1' },
