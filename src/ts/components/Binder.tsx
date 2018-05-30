@@ -45,7 +45,7 @@ export class Binder extends React.Component<Props, State> {
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
         let converted_result = arrayTableToObjectTable(
-            this.columns, parsed_result);
+            this.columns, parsed_result.basic);
 
         this.ref.grid.current.setRows(converted_result);
     }
@@ -56,7 +56,9 @@ export class Binder extends React.Component<Props, State> {
 
         const rows = this.ref.grid.current.getRows();
         const converted = objectTableToArrayTable(this.columns, rows);
-        const query = generateQuery(converted);
+        const query = generateQuery({
+            basic: converted
+        });
 
         this.ref.form.current.setText(query);
     }

@@ -12,18 +12,22 @@ describe('LogicConverterTest', () => {
 
         const expected = 'a=1&b=2&c=3';
 
-        const actual = generateQuery(input);
+        const actual = generateQuery({
+            basic: input
+        });
 
         expect(actual).toEqual(expected);
     });
     it('ParseQuery', () => {
         const input = 'a=1&b=2&c=3';
 
-        const expected = [
-            ['a', '1'],
-            ['b', '2'],
-            ['c', '3']
-        ];
+        const expected = {
+            basic: [
+                ['a', '1'],
+                ['b', '2'],
+                ['c', '3']
+            ]
+        };
 
         const actual = parseQuery(input);
 
