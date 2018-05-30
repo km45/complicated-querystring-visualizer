@@ -20,7 +20,7 @@ export class Grid extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
-            table: this.createRows()
+            table: []
         });
         this.columns = this.createColumns(props.columns);
     }
@@ -35,18 +35,6 @@ export class Grid extends React.Component<Props, State> {
                 };
             }
         );
-    }
-
-    private createRows = (): ObjectTable => {
-        let rows: ObjectTable = [];
-        for (let i = 0; i < 10; i++) {
-            rows.push({
-                key: 'key' + i,
-                value: 'value' + i
-            });
-        }
-
-        return rows;
     }
 
     private rowGetter = (i: number) => {
