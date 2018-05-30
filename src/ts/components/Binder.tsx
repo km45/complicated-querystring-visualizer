@@ -12,7 +12,7 @@ import {
 import {
     generateQuery,
     parseQuery
-} from "../logic/converter";
+} from "../logic/query-binder";
 
 export interface Props { }
 interface State { }

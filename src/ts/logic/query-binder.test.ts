@@ -1,8 +1,8 @@
 import {
     generateQuery, parseQuery
-} from "./converter";
+} from "./query-binder";
 
-describe('LogicConverterTest', () => {
+describe('query-binder test', () => {
     it('GenerateQuery', () => {
         const input = [
             ['a', '1'],
