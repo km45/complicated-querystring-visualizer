@@ -3,11 +3,14 @@ import * as React from "react";
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
-import { Columns } from '../logic/data-type-interface'
 import {
+    Columns,
     arrayTableToObjectTable,
+    objectTableToArrayTable
+} from '../logic/table-data'
+
+import {
     generateQuery,
-    objectTableToArrayTable,
     parseQuery
 } from "../logic/converter";
 
