@@ -2,26 +2,37 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
-import { ObjectRow, ObjectTable } from '../logic/converter';
+import { Columns, ObjectRow, ObjectTable } from '../logic/converter';
 
-export interface Props { }
+export interface Props {
+    columns: Columns;
+}
 
 interface State {
     table: ObjectTable;
 }
 
 export class Grid extends React.Component<Props, State> {
-    // TODO: Use same type as logic implementation
-    private _columns: ReactDataGrid.Column[];
+    private columns: ReactDataGrid.Column[];
 
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
             table: this.createRows()
         });
-        this._columns = [
-            { key: 'key', name: 'Key', editable: true },
-            { key: 'value', name: 'Value', editable: true },];
+        this.columns = this.createColumns(props.columns);
+    }
+
+    private createColumns(columns: Columns): ReactDataGrid.Column[] {
+        let v: ReactDataGrid.Column[] = [];
+        for (const column of columns) {
+            v.push({
+                key: column.key,
+                name: column.name,
+                editable: true
+            });
+        }
+        return v;
     }
 
     private createRows = (): ObjectTable => {
@@ -68,7 +79,7 @@ export class Grid extends React.Component<Props, State> {
 
     public render() {
         return <ReactDataGrid
-            columns={this._columns}
+            columns={this.columns}
             enableCellSelect={true}
             minHeight={500}
             onGridRowsUpdated={this.handleGridRowsUpdated}

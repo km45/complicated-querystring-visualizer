@@ -3,7 +3,7 @@ import * as React from "react";
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
-import { generateQuery, parseQuery, arrayTableToObjectTable, objectTableToArrayTable } from "../logic/converter";
+import { Columns, generateQuery, parseQuery, arrayTableToObjectTable, objectTableToArrayTable } from "../logic/converter";
 
 export interface Props { }
 interface State { }
@@ -16,6 +16,14 @@ class BinderImplRef {
 
 export class Binder extends React.Component<Props, State> {
     private ref = new BinderImplRef();
+    private columns: Columns = [
+        {
+            key: 'key',
+            name: 'Key'
+        }, {
+            key: 'value',
+            name: 'Value'
+        }];
 
     public constructor(props: Props, context: State) {
         super(props, context);
@@ -37,7 +45,7 @@ export class Binder extends React.Component<Props, State> {
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
         let converted_result = arrayTableToObjectTable(
-            ['key', 'value'], parsed_result);
+            this.columns, parsed_result);
 
         this.ref.grid.current.setRows(converted_result);
     }
@@ -47,8 +55,7 @@ export class Binder extends React.Component<Props, State> {
         console.log('onClickGridToForm');
 
         const rows = this.ref.grid.current.getRows();
-        const converted = objectTableToArrayTable(
-            ['key', 'value'], rows);
+        const converted = objectTableToArrayTable(this.columns, rows);
         const query = generateQuery(converted);
 
         this.ref.form.current.setText(query);
@@ -66,7 +73,9 @@ export class Binder extends React.Component<Props, State> {
                         value="grid2from"
                         onClick={(event) => this.onClickGridToForm(event)} />
                 </form>
-                <Grid ref={this.ref.grid} />
+                <Grid
+                    columns={this.columns}
+                    ref={this.ref.grid} />
             </div>
         );
     }

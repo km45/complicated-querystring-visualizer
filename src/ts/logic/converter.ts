@@ -4,6 +4,12 @@ export type ArrayTable = ArrayRow[];
 export type ObjectRow = { [key: string]: string };
 export type ObjectTable = ObjectRow[];
 
+export interface Column {
+    key: string;
+    name?: string;
+}
+export type Columns = Column[];
+
 export function parseQuery(query: string): ArrayTable {
     return query.split('&').map(
         (element: string): ArrayRow => {
@@ -18,34 +24,34 @@ export function generateQuery(parameters: ArrayTable): string {
         }).join('&');
 }
 
-export function arrayRowToObjectRow(keys: string[], row: ArrayRow): ObjectRow {
+export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow {
     let v: ObjectRow = {};
-    for (let i = 0; i < keys.length; ++i) {
-        v[keys[i]] = row[i];
+    for (let i = 0; i < columns.length; ++i) {
+        v[columns[i].key] = row[i];
     }
     return v;
 }
 
-export function arrayTableToObjectTable(column_keys: string[], table: ArrayTable): ObjectTable {
+export function arrayTableToObjectTable(columns: Columns, table: ArrayTable): ObjectTable {
     let v: ObjectTable = [];
     for (let i = 0; i < table.length; ++i) {
-        v.push(arrayRowToObjectRow(column_keys, table[i]));
+        v.push(arrayRowToObjectRow(columns, table[i]));
     }
     return v;
 }
 
-export function objectRowToArrayRow(keys: string[], obj: ObjectRow): ArrayRow {
+export function objectRowToArrayRow(columns: Columns, obj: ObjectRow): ArrayRow {
     let v: ArrayRow = [];
-    for (let i = 0; i < keys.length; ++i) {
-        v.push(obj[keys[i]]);
+    for (let i = 0; i < columns.length; ++i) {
+        v.push(obj[columns[i].key]);
     }
     return v;
 }
 
-export function objectTableToArrayTable(column_keys: string[], obj: ObjectTable): ArrayTable {
+export function objectTableToArrayTable(columns: Columns, obj: ObjectTable): ArrayTable {
     let v: ArrayTable = [];
     for (let i = 0; i < obj.length; ++i) {
-        v.push(objectRowToArrayRow(column_keys, obj[i]));
+        v.push(objectRowToArrayRow(columns, obj[i]));
     }
     return v;
 }
