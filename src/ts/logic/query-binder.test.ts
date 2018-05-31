@@ -1,5 +1,5 @@
 import {
-    generateQuery, parseQuery
+    generateQuery, parseQuery, QueryBinder
 } from "./query-binder";
 
 describe('query-binder GenerateQuery test', () => {
@@ -19,7 +19,7 @@ describe('query-binder GenerateQuery test', () => {
         expect(actual).toEqual(expected);
     });
     it('coord only', () => {
-        const input = {
+        const input: QueryBinder = {
             coord: [
                 ['coord1', 'x1', 'y1', 'z1'],
                 ['coord2', 'x2', 'y2', 'z2']
@@ -33,7 +33,7 @@ describe('query-binder GenerateQuery test', () => {
         expect(actual).toEqual(expected);
     });
     it('all', () => {
-        const input = {
+        const input: QueryBinder = {
             basic: [
                 ['a', '1'],
                 ['b', '2'],
@@ -57,7 +57,7 @@ describe('query-binder ParseQuery test', () => {
     it('basic only', () => {
         const input = 'a=1&b=2&c=3';
 
-        const expected = {
+        const expected: QueryBinder = {
             basic: [
                 ['a', '1'],
                 ['b', '2'],
@@ -73,7 +73,7 @@ describe('query-binder ParseQuery test', () => {
     it('coord only', () => {
         const input = 'coord1=x1,y1,z1&coord2=x2,y2,z2';
 
-        const expected = {
+        const expected: QueryBinder = {
             basic: [],
             coord: [
                 ['coord1', 'x1', 'y1', 'z1'],

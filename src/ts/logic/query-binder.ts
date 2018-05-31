@@ -2,7 +2,7 @@ import {
     ArrayRow, ArrayTable, Columns, ObjectRow, ObjectTable
 } from './table-data'
 
-interface QueryBinder {
+export interface QueryBinder {
     basic?: ArrayTable;
     coord?: ArrayTable;
 }
