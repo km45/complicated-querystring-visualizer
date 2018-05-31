@@ -70,8 +70,8 @@ export class Grid extends React.Component<Props, State> {
             columns={this.columns}
             enableCellSelect={true}
             minHeight={500}
-            onGridRowsUpdated={this.handleGridRowsUpdated}
-            rowGetter={this.rowGetter}
+            onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
+            rowGetter={(i) => this.rowGetter(i)}
             rowsCount={this.state.table.length}
         />;
     }
