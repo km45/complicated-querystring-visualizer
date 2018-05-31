@@ -38,6 +38,7 @@ export class Binder extends React.Component<Props, State> {
 
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
+        console.log(parsed_result);
 
         this.ref.basic_grid.current.setRows(arrayTableToObjectTable(
             ColumnsDefinition.basic, parsed_result.basic));
@@ -57,6 +58,7 @@ export class Binder extends React.Component<Props, State> {
                 ColumnsDefinition.coord,
                 this.ref.coord_grid.current.getRows())
         });
+        console.log(query);
 
         this.ref.form.current.setText(query);
     }
