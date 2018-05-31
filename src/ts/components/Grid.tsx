@@ -34,7 +34,8 @@ export class Grid extends React.Component<Props, State> {
                 return {
                     key: column.key,
                     name: column.name,
-                    editable: true
+                    editable: true,
+                    resizable: true
                 };
             }
         );
