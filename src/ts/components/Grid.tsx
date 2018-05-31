@@ -8,6 +8,7 @@ import {
 
 export interface Props {
     columns: Columns;
+    title: string;
 }
 
 interface State {
@@ -70,15 +71,18 @@ export class Grid extends React.Component<Props, State> {
     }
 
     public render() {
-        return <ReactDataGrid
-            columns={this.columns}
-            enableCellSelect={true}
-            headerRowHeight={this.headerRowHeight}
-            rowHeight={this.rowHeight}
-            minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
-            onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
-            rowGetter={(i) => this.rowGetter(i)}
-            rowsCount={this.state.table.length}
-        />;
+        return (
+            <div>
+                <h2>{this.props.title}</h2>
+                <ReactDataGrid
+                    columns={this.columns}
+                    enableCellSelect={true}
+                    headerRowHeight={this.headerRowHeight}
+                    rowHeight={this.rowHeight}
+                    minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
+                    onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
+                    rowGetter={(i) => this.rowGetter(i)}
+                    rowsCount={this.state.table.length} />
+            </div>);
     }
 }

@@ -96,9 +96,11 @@ export class Binder extends React.Component<Props, State> {
                 </form>
                 <Grid
                     columns={this.basic_columns}
+                    title='Basic'
                     ref={this.ref.basic_grid} />
                 <Grid
                     columns={this.coord_columns}
+                    title='Coord'
                     ref={this.ref.coord_grid} />
             </div>
         );
