@@ -4,12 +4,13 @@ import {
 
 describe('query-binder GenerateQuery test', () => {
     it('basic only', () => {
-        const input = {
+        const input: QueryBinder = {
             basic: [
                 ['a', '1'],
                 ['b', '2'],
                 ['c', '3']
-            ]
+            ],
+            coord: []
         };
 
         const expected = 'a=1&b=2&c=3';
@@ -20,6 +21,7 @@ describe('query-binder GenerateQuery test', () => {
     });
     it('coord only', () => {
         const input: QueryBinder = {
+            basic: [],
             coord: [
                 ['coord1', 'x1', 'y1', 'z1'],
                 ['coord2', 'x2', 'y2', 'z2']

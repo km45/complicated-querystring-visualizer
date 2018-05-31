@@ -2,9 +2,34 @@ import {
     ArrayRow, ArrayTable, Columns, ObjectRow, ObjectTable
 } from './table-data'
 
+export class ColumnsDefinition {
+    static readonly basic: Columns = [
+        {
+            key: 'key',
+            name: 'Key'
+        }, {
+            key: 'value',
+            name: 'Value'
+        }];
+    static readonly coord: Columns = [
+        {
+            key: 'key',
+            name: 'Key'
+        }, {
+            key: 'x',
+            name: 'x'
+        }, {
+            key: 'y',
+            name: 'y'
+        }, {
+            key: 'z',
+            name: 'z'
+        }];
+}
+
 export interface QueryBinder {
-    basic?: ArrayTable;
-    coord?: ArrayTable;
+    basic: ArrayTable;
+    coord: ArrayTable;
 }
 
 export function parseQuery(query: string): QueryBinder {

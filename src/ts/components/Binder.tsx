@@ -11,7 +11,8 @@ import {
 
 import {
     generateQuery,
-    parseQuery
+    parseQuery,
+    ColumnsDefinition
 } from "../logic/query-binder";
 
 export interface Props { }
@@ -26,28 +27,6 @@ class BinderImplRef {
 
 export class Binder extends React.Component<Props, State> {
     private ref = new BinderImplRef();
-    private basic_columns: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'value',
-            name: 'Value'
-        }];
-    private coord_columns: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'x',
-            name: 'x'
-        }, {
-            key: 'y',
-            name: 'y'
-        }, {
-            key: 'z',
-            name: 'z'
-        }];
 
     public constructor(props: Props, context: State) {
         super(props, context);
@@ -61,9 +40,9 @@ export class Binder extends React.Component<Props, State> {
         let parsed_result = parseQuery(query);
 
         this.ref.basic_grid.current.setRows(arrayTableToObjectTable(
-            this.basic_columns, parsed_result.basic));
+            ColumnsDefinition.basic, parsed_result.basic));
         this.ref.coord_grid.current.setRows(arrayTableToObjectTable(
-            this.coord_columns, parsed_result.coord));
+            ColumnsDefinition.coord, parsed_result.coord));
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
@@ -72,10 +51,10 @@ export class Binder extends React.Component<Props, State> {
 
         const query = generateQuery({
             basic: objectTableToArrayTable(
-                this.basic_columns,
+                ColumnsDefinition.basic,
                 this.ref.basic_grid.current.getRows()),
             coord: objectTableToArrayTable(
-                this.coord_columns,
+                ColumnsDefinition.coord,
                 this.ref.coord_grid.current.getRows())
         });
 
@@ -95,11 +74,11 @@ export class Binder extends React.Component<Props, State> {
                         onClick={(event) => this.onClickGridToForm(event)} />
                 </form>
                 <Grid
-                    columns={this.basic_columns}
+                    columns={ColumnsDefinition.basic}
                     title='Basic'
                     ref={this.ref.basic_grid} />
                 <Grid
-                    columns={this.coord_columns}
+                    columns={ColumnsDefinition.coord}
                     title='Coord'
                     ref={this.ref.coord_grid} />
             </div>
