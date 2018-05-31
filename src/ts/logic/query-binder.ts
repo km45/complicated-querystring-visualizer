@@ -44,7 +44,7 @@ export function parseQuery(query: string): QueryBinder {
     table.forEach((v: ArrayRow) => {
         if (v[0].match(/^coord[0-9]+$/)) {
             coord.push([v[0]].concat(v[1].split(',')));
-        } else {
+        } else if (v[0]) {  // ignore empty key
             basic.push(v);
         }
     });
