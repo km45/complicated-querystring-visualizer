@@ -17,6 +17,9 @@ interface State {
 export class Grid extends React.Component<Props, State> {
     private columns: ReactDataGrid.Column[];
 
+    private rowHeight: number = 35;
+    private headerRowHeight: number = this.rowHeight;
+
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
@@ -69,7 +72,9 @@ export class Grid extends React.Component<Props, State> {
         return <ReactDataGrid
             columns={this.columns}
             enableCellSelect={true}
-            minHeight={500}
+            headerRowHeight={this.headerRowHeight}
+            rowHeight={this.rowHeight}
+            minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
             onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
             rowGetter={(i) => this.rowGetter(i)}
             rowsCount={this.state.table.length}
