@@ -14,9 +14,11 @@ export class Form extends React.Component<Props, State> {
         };
     }
 
-    private onClick(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickClear(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
-        console.log(this.state);
+        this.setState({
+            text: ''
+        });
     }
 
     private onTextAreaChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -42,8 +44,8 @@ export class Form extends React.Component<Props, State> {
                     value={this.state.text}
                     onChange={(event) => this.onTextAreaChange(event)} />
                 <input type="button"
-                    value="OK"
-                    onClick={(event) => this.onClick(event)} />
+                    value="Clear"
+                    onClick={(event) => this.onClickClear(event)} />
             </form>
         );
     }
