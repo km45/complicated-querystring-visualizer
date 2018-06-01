@@ -4,4 +4,7 @@ services: docker
 
 script:
   - make up
+  - docker-compose exec --user `id -u`:`id -g` develop make install
+  - docker-compose exec --user `id -u`:`id -g` develop make build
+  - docker-compose exec --user `id -u`:`id -g` develop make test
   - make down
