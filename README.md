@@ -11,5 +11,6 @@
 $ make up
 $ make shell
 $ make
+$ exit
 $ make down
 ```
