@@ -20,15 +20,15 @@ all: fetch build test
 
 .PHONY: fetch
 fetch:
-	npm install
+	yarn install
 
 .PHONY: build
 build:
-	npm run build:$(CONFIG)
+	yarn run webpack --config webpack.$(CONFIG).js
 
 .PHONY: watch-build
 watch-build:
-	npm run build:$(CONFIG) -- --watch
+	yarn run webpack --config webpack.$(CONFIG).js --watch
 
 .PHONY: clean
 clean:
@@ -36,8 +36,8 @@ clean:
 
 .PHONY: test
 test:
-	npm run test
+	yarn run jest --coverage
 
 .PHONY: watch-test
 watch-test:
-	npm run test -- --watchAll
+	yarn run jest --coverage --watchAll

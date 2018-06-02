@@ -1,10 +1,5 @@
 {
   "name": "react-studies",
-  "scripts": {
-    "build:develop": "./node_modules/.bin/webpack --config webpack.develop.js",
-    "build:production": "./node_modules/.bin/webpack --config webpack.production.js",
-    "test": "./node_modules/jest/node_modules/.bin/jest --coverage"
-  },
   "author": "km45",
   "license": "MIT",
   "dependencies": {
