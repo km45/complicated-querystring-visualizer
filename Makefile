@@ -13,8 +13,8 @@ down:
 shell:
 	docker-compose exec --user `id -u`:`id -g` develop /bin/sh
 
-.PHONY: install
-install:
+.PHONY: fetch
+fetch:
 	npm install
 
 .PHONY: build
