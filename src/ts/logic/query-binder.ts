@@ -28,8 +28,8 @@ export class ColumnsDefinition {
 }
 
 export interface QueryBinder {
-    basic: ArrayTable;
-    coord: ArrayTable;
+    basic?: ArrayTable;
+    coord?: ArrayTable;
 }
 
 export function parseQuery(query: string): QueryBinder {
