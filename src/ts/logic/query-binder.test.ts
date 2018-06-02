@@ -53,6 +53,15 @@ describe('query-binder GenerateQuery test', () => {
 
         expect(actual).toEqual(expected);
     });
+    it('none', () => {
+        const input: QueryBinder = {};
+
+        const expected = '';
+
+        const actual = generateQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
 });
 
 describe('query-binder ParseQuery test', () => {
@@ -100,6 +109,18 @@ describe('query-binder ParseQuery test', () => {
                 ['coord1', 'x1', 'y1', 'z1'],
                 ['coord2', 'x2', 'y2', 'z2']
             ]
+        };
+
+        const actual = parseQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
+    it('none', () => {
+        const input = '';
+
+        const expected: QueryBinder = {
+            basic: [],
+            coord: []
         };
 
         const actual = parseQuery(input);
