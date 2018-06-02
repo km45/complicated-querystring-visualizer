@@ -1,6 +1,8 @@
 # CONFIG = develop | production
 CONFIG = develop
 
+default: all
+
 .PHONY: up
 up:
 	docker-compose up -d --build
@@ -12,6 +14,9 @@ down:
 .PHONY: shell
 shell:
 	docker-compose exec --user `id -u`:`id -g` develop /bin/sh
+
+.PHONY: all
+all: fetch build test
 
 .PHONY: fetch
 fetch:

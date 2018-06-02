@@ -2,7 +2,5 @@ services: docker
 
 script:
   - make up
-  - docker-compose exec develop make fetch
-  - docker-compose exec develop make build
-  - docker-compose exec develop make test
+  - docker-compose exec develop make
   - make down
