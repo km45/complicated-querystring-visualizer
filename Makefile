@@ -21,9 +21,9 @@ fetch:
 build:
 	npm run build:$(CONFIG)
 
-.PHONY: watch
-watch:
-	npm run watch
+.PHONY: watch-build
+watch-build:
+	npm run build:$(CONFIG) -- --watch
 
 .PHONY: clean
 clean:
@@ -32,3 +32,7 @@ clean:
 .PHONY: test
 test:
 	npm run test
+
+.PHONY: watch-test
+watch-test:
+	npm run test -- --watchAll
