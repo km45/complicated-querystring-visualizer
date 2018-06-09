@@ -2,6 +2,9 @@ import * as React from "react";
 import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
+import * as AgGrid from "ag-grid";
+import { AgGridReact } from 'ag-grid-react';
+
 import {
     Columns, ObjectRow, ObjectTable
 } from '../logic/table-data'
@@ -18,6 +21,9 @@ interface State {
 export class Grid extends React.Component<Props, State> {
     private columns: ReactDataGrid.Column[];
 
+    private ag_columns: AgGrid.ColDef[];
+    private ag_defaultColDef: AgGrid.ColDef;
+
     private rowHeight: number = 35;
     private headerRowHeight: number = this.rowHeight;
 
@@ -27,6 +33,18 @@ export class Grid extends React.Component<Props, State> {
             table: []
         });
         this.columns = this.createColumns(props.columns);
+
+        this.ag_columns = props.columns.map((from) => {
+            const column: AgGrid.ColDef = {
+                field: from.key,
+                headerName: from.name
+            };
+            return column;
+        });
+        this.ag_defaultColDef = {
+            editable: true,
+            suppressMovable: true
+        };
     }
 
     private createColumns(columns: Columns): ReactDataGrid.Column[] {
@@ -70,6 +88,17 @@ export class Grid extends React.Component<Props, State> {
         });
     }
 
+    private resize(api: AgGrid.ColumnApi): void {
+        const allColumnIds = api.getAllColumns().map((column: AgGrid.Column) => {
+            return column.getColId();
+        });
+        api.autoSizeColumns(allColumnIds);
+    }
+
+    private onModelUpdated(params: AgGrid.ModelUpdatedEvent) {
+        this.resize(params.columnApi);
+    }
+
     public render() {
         return (
             <div>
@@ -83,6 +112,17 @@ export class Grid extends React.Component<Props, State> {
                     onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
                     rowGetter={(i) => this.rowGetter(i)}
                     rowsCount={this.state.table.length} />
+                <div className="ag-theme-balham">
+                    <AgGridReact
+                        columnDefs={this.ag_columns}
+                        domLayout="autoHeight"
+                        defaultColDef={this.ag_defaultColDef}
+                        enableColResize={true}
+                        enableFilter={true}
+                        enableSorting={true}
+                        onModelUpdated={(event) => this.onModelUpdated(event)}
+                        rowData={this.state.table} />
+                </div>
             </div>);
     }
 }
