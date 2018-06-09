@@ -72,7 +72,7 @@ export class Grid extends React.Component<Props, State> {
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
-                        onModelUpdated={(event) => this.onModelUpdated(event)}
+                        onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.state.table} />
                 </div>
             </div>);
