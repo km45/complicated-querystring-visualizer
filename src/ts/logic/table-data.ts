@@ -25,14 +25,14 @@ export function arrayTableToObjectTable(columns: Columns, table: ArrayTable): Ob
     });
 }
 
-export function objectRowToArrayRow(columns: Columns, obj: ObjectRow): ArrayRow {
+export function objectRowToArrayRow(columns: Columns, row: ObjectRow): ArrayRow {
     return columns.map((column: Column) => {
-        return obj[column.key];
+        return row[column.key];
     });
 }
 
-export function objectTableToArrayTable(columns: Columns, obj: ObjectTable): ArrayTable {
-    return obj.map((row: ObjectRow) => {
+export function objectTableToArrayTable(columns: Columns, table: ObjectTable): ArrayTable {
+    return table.map((row: ObjectRow) => {
         return objectRowToArrayRow(columns, row);
     });
 }
