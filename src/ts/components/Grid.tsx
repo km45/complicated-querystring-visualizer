@@ -1,12 +1,10 @@
 import * as React from "react";
-import * as ReactDataGrid from "react-data-grid";
-import update from 'immutability-helper';
 
 import * as AgGrid from "ag-grid";
 import { AgGridReact } from 'ag-grid-react';
 
 import {
-    Columns, ObjectRow, ObjectTable
+    Columns, ObjectTable
 } from '../logic/table-data'
 
 export interface Props {
@@ -19,20 +17,14 @@ interface State {
 }
 
 export class Grid extends React.Component<Props, State> {
-    private columns: ReactDataGrid.Column[];
-
     private ag_columns: AgGrid.ColDef[];
     private ag_defaultColDef: AgGrid.ColDef;
-
-    private rowHeight: number = 35;
-    private headerRowHeight: number = this.rowHeight;
 
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
             table: []
         });
-        this.columns = this.createColumns(props.columns);
 
         this.ag_columns = props.columns.map((from) => {
             const column: AgGrid.ColDef = {
@@ -47,42 +39,11 @@ export class Grid extends React.Component<Props, State> {
         };
     }
 
-    private createColumns(columns: Columns): ReactDataGrid.Column[] {
-        return columns.map(
-            (column): ReactDataGrid.Column => {
-                return {
-                    key: column.key,
-                    name: column.name,
-                    editable: true,
-                    resizable: true
-                };
-            }
-        );
-    }
-
-    private rowGetter = (i: number) => {
-        return this.state.table[i];
-    }
-
     public getRows(): ObjectTable {
         return this.state.table;
     }
 
     public setRows(table: ObjectTable): void {
-        this.setState({
-            table: table
-        });
-    }
-
-    private handleGridRowsUpdated(e: ReactDataGrid.GridRowsUpdatedEvent): void {
-        let table = this.state.table.slice();
-
-        for (let i = e.fromRow; i <= e.toRow; i++) {
-            let rowToUpdate = table[i];
-            let updatedRow = update(rowToUpdate, { $merge: e.updated });
-            table[i] = updatedRow;
-        }
-
         this.setState({
             table: table
         });
@@ -103,15 +64,6 @@ export class Grid extends React.Component<Props, State> {
         return (
             <div>
                 <h2>{this.props.title}</h2>
-                <ReactDataGrid
-                    columns={this.columns}
-                    enableCellSelect={true}
-                    headerRowHeight={this.headerRowHeight}
-                    rowHeight={this.rowHeight}
-                    minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
-                    onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
-                    rowGetter={(i) => this.rowGetter(i)}
-                    rowsCount={this.state.table.length} />
                 <div className="ag-theme-balham">
                     <AgGridReact
                         columnDefs={this.ag_columns}
