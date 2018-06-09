@@ -1,6 +1,7 @@
 import * as React from "react";
-import * as ReactDataGrid from "react-data-grid";
-import update from 'immutability-helper';
+
+import * as AgGrid from "ag-grid";
+import { AgGridReact } from 'ag-grid-react';
 
 import {
     Columns, ObjectTable
@@ -16,36 +17,27 @@ interface State {
 }
 
 export class Grid extends React.Component<Props, State> {
-    private columns: ReactDataGrid.Column[];
-
-    private rowHeight: number = 35;
-    private headerRowHeight: number = this.rowHeight;
+    private columnDefs: AgGrid.ColDef[];
+    private defaultColDef: AgGrid.ColDef;
 
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
             table: []
         });
-        this.columns = this.createColumns(props.columns);
-    }
 
-    private createColumns(columns: Columns): ReactDataGrid.Column[] {
-        return columns.map(
-            (column): ReactDataGrid.Column => {
-                const key = column.key;
-                const name = column.name ? column.name : column.key;
-                return {
-                    key: key,
-                    name: name,
-                    editable: true,
-                    resizable: true
-                };
-            }
-        );
-    }
+        this.columnDefs = props.columns.map((from) => {
+            const column: AgGrid.ColDef = {
+                field: from.key,
+                headerName: from.name
+            };
+            return column;
+        });
 
-    private rowGetter = (i: number) => {
-        return this.state.table[i];
+        this.defaultColDef = {
+            editable: true,
+            suppressMovable: true
+        };
     }
 
     public getRows(): ObjectTable {
@@ -58,33 +50,33 @@ export class Grid extends React.Component<Props, State> {
         });
     }
 
-    private handleGridRowsUpdated(e: ReactDataGrid.GridRowsUpdatedEvent): void {
-        let table = this.state.table.slice();
+    private resize(api: AgGrid.ColumnApi): void {
+        const allColumnIds = api.getAllColumns().map(
+            (column: AgGrid.Column) => {
+                return column.getColId();
+            });
+        api.autoSizeColumns(allColumnIds);
+    }
 
-        for (let i = e.fromRow; i <= e.toRow; i++) {
-            let rowToUpdate = table[i];
-            let updatedRow = update(rowToUpdate, { $merge: e.updated });
-            table[i] = updatedRow;
-        }
-
-        this.setState({
-            table: table
-        });
+    private onModelUpdated(params: AgGrid.ModelUpdatedEvent) {
+        this.resize(params.columnApi);
     }
 
     public render() {
         return (
             <div>
                 <h2>{this.props.title}</h2>
-                <ReactDataGrid
-                    columns={this.columns}
-                    enableCellSelect={true}
-                    headerRowHeight={this.headerRowHeight}
-                    rowHeight={this.rowHeight}
-                    minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
-                    onGridRowsUpdated={this.handleGridRowsUpdated.bind(this)}
-                    rowGetter={this.rowGetter.bind(this)}
-                    rowsCount={this.state.table.length} />
+                <div className="ag-theme-balham">
+                    <AgGridReact
+                        columnDefs={this.columnDefs}
+                        domLayout="autoHeight"
+                        defaultColDef={this.defaultColDef}
+                        enableColResize={true}
+                        enableFilter={true}
+                        enableSorting={true}
+                        onModelUpdated={this.onModelUpdated.bind(this)}
+                        rowData={this.state.table} />
+                </div>
             </div>);
     }
 }

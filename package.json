@@ -3,16 +3,16 @@
   "author": "km45",
   "license": "MIT",
   "dependencies": {
-    "immutability-helper": "^2.7.0",
+    "ag-grid": "^17.1.1",
+    "ag-grid-react": "^17.1.0",
     "pythonic": "^1.0.1",
     "react": "^16.3.2",
-    "react-data-grid": "^4.0.7",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-dom-factories": "^1.0.2"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/react": "^16.3.14",
-    "@types/react-data-grid": "^2.0.11",
     "@types/react-dom": "^16.0.5",
     "awesome-typescript-loader": "^5.0.0",
     "clean-webpack-plugin": "^0.1.19",
