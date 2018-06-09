@@ -4,32 +4,18 @@ import {
 
 export class ColumnsDefinition {
     static readonly basic: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'value',
-            name: 'Value'
-        }];
+        { key: 'key', name: 'Key' },
+        { key: 'value', name: 'Value' }];
     static readonly coord: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'x',
-            name: 'x'
-        }, {
-            key: 'y',
-            name: 'y'
-        }, {
-            key: 'z',
-            name: 'z'
-        }];
+        { key: 'key', name: 'Key' },
+        { key: 'x', name: 'x' },
+        { key: 'y', name: 'y' },
+        { key: 'z', name: 'z' }];
 }
 
 export interface QueryBinder {
-    basic?: ArrayTable;
-    coord?: ArrayTable;
+    basic: ArrayTable;
+    coord: ArrayTable;
 }
 
 export function parseQuery(query: string): QueryBinder {
@@ -57,17 +43,13 @@ export function parseQuery(query: string): QueryBinder {
 
 export function generateQuery(binder: QueryBinder): string {
     let params: string[] = [];
-    if (binder.basic != null) {
-        params = params.concat(binder.basic.map(
-            (v: ArrayRow): string => {
-                return v.join('=');
-            }));
-    }
-    if (binder.coord != null) {
-        params = params.concat(binder.coord.map(
-            (v: ArrayRow): string => {
-                return [v[0], v.slice(1).join(',')].join('=');
-            }));
-    }
+    params = params.concat(binder.basic.map(
+        (v: ArrayRow): string => {
+            return v.join('=');
+        }));
+    params = params.concat(binder.coord.map(
+        (v: ArrayRow): string => {
+            return [v[0], v.slice(1).join(',')].join('=');
+        }));
     return params.join('&');
 }
