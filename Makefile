@@ -1,5 +1,7 @@
 # CONFIG = develop | production
 CONFIG = develop
+# WATCH = true | false
+WATCH = false
 
 default: all
 
@@ -24,11 +26,10 @@ fetch:
 
 .PHONY: build
 build:
-	yarn run webpack --config webpack.$(CONFIG).js
-
-.PHONY: watch-build
-watch-build:
+ifeq ($(WATCH),true)
 	yarn run webpack --config webpack.$(CONFIG).js --watch
+endif
+	yarn run webpack --config webpack.$(CONFIG).js
 
 .PHONY: clean
 clean:
@@ -36,8 +37,8 @@ clean:
 
 .PHONY: test
 test:
-	yarn run jest --coverage
-
-.PHONY: watch-test
-watch-test:
+ifeq ($(WATCH),true)
 	yarn run jest --coverage --watchAll
+else
+	yarn run jest --coverage
+endif
