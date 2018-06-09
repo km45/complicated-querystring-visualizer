@@ -3,9 +3,6 @@
   "author": "km45",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "^16.3.14",
-    "@types/react-data-grid": "^2.0.11",
-    "@types/react-dom": "^16.0.5",
     "immutability-helper": "^2.7.0",
     "react": "^16.3.2",
     "react-data-grid": "^4.0.7",
@@ -13,6 +10,9 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
+    "@types/react": "^16.3.14",
+    "@types/react-data-grid": "^2.0.11",
+    "@types/react-dom": "^16.0.5",
     "awesome-typescript-loader": "^5.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "html-webpack-plugin": "^3.2.0",
