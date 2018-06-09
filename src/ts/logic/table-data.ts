@@ -11,6 +11,7 @@ export interface Column {
 export type Columns = Column[];
 
 export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow {
+    // TODO: refactor
     let v: ObjectRow = {};
     for (let i = 0; i < columns.length; ++i) {
         v[columns[i].key] = row[i];
@@ -19,25 +20,19 @@ export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow 
 }
 
 export function arrayTableToObjectTable(columns: Columns, table: ArrayTable): ObjectTable {
-    let v: ObjectTable = [];
-    for (let i = 0; i < table.length; ++i) {
-        v.push(arrayRowToObjectRow(columns, table[i]));
-    }
-    return v;
+    return table.map((row: ArrayRow) => {
+        return arrayRowToObjectRow(columns, row);
+    });
 }
 
 export function objectRowToArrayRow(columns: Columns, obj: ObjectRow): ArrayRow {
-    let v: ArrayRow = [];
-    for (let i = 0; i < columns.length; ++i) {
-        v.push(obj[columns[i].key]);
-    }
-    return v;
+    return columns.map((column: Column) => {
+        return obj[column.key];
+    });
 }
 
 export function objectTableToArrayTable(columns: Columns, obj: ObjectTable): ArrayTable {
-    let v: ArrayTable = [];
-    for (let i = 0; i < obj.length; ++i) {
-        v.push(objectRowToArrayRow(columns, obj[i]));
-    }
-    return v;
+    return obj.map((row: ObjectRow) => {
+        return objectRowToArrayRow(columns, row);
+    });
 }
