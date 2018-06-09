@@ -1,3 +1,5 @@
+import * as Pythonic from 'pythonic';
+
 export type ArrayRow = string[];
 export type ArrayTable = ArrayRow[];
 
@@ -12,32 +14,27 @@ export type Columns = Column[];
 
 export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow {
     let v: ObjectRow = {};
-    for (let i = 0; i < columns.length; ++i) {
-        v[columns[i].key] = row[i];
+    for (const [column, cell] of Pythonic.zip(columns, row)) {
+        v[column.key] = cell;
     }
+
     return v;
 }
 
 export function arrayTableToObjectTable(columns: Columns, table: ArrayTable): ObjectTable {
-    let v: ObjectTable = [];
-    for (let i = 0; i < table.length; ++i) {
-        v.push(arrayRowToObjectRow(columns, table[i]));
-    }
-    return v;
+    return table.map((row: ArrayRow) => {
+        return arrayRowToObjectRow(columns, row);
+    });
 }
 
-export function objectRowToArrayRow(columns: Columns, obj: ObjectRow): ArrayRow {
-    let v: ArrayRow = [];
-    for (let i = 0; i < columns.length; ++i) {
-        v.push(obj[columns[i].key]);
-    }
-    return v;
+export function objectRowToArrayRow(columns: Columns, row: ObjectRow): ArrayRow {
+    return columns.map((column: Column) => {
+        return row[column.key];
+    });
 }
 
-export function objectTableToArrayTable(columns: Columns, obj: ObjectTable): ArrayTable {
-    let v: ArrayTable = [];
-    for (let i = 0; i < obj.length; ++i) {
-        v.push(objectRowToArrayRow(columns, obj[i]));
-    }
-    return v;
+export function objectTableToArrayTable(columns: Columns, table: ObjectTable): ArrayTable {
+    return table.map((row: ObjectRow) => {
+        return objectRowToArrayRow(columns, row);
+    });
 }
