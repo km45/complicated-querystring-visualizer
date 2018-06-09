@@ -17,8 +17,8 @@ interface State {
 }
 
 export class Grid extends React.Component<Props, State> {
-    private ag_columns: AgGrid.ColDef[];
-    private ag_defaultColDef: AgGrid.ColDef;
+    private columnDefs: AgGrid.ColDef[];
+    private defaultColDef: AgGrid.ColDef;
 
     public constructor(props: Props, context: State) {
         super(props, context);
@@ -26,14 +26,15 @@ export class Grid extends React.Component<Props, State> {
             table: []
         });
 
-        this.ag_columns = props.columns.map((from) => {
+        this.columnDefs = props.columns.map((from) => {
             const column: AgGrid.ColDef = {
                 field: from.key,
                 headerName: from.name
             };
             return column;
         });
-        this.ag_defaultColDef = {
+
+        this.defaultColDef = {
             editable: true,
             suppressMovable: true
         };
@@ -66,9 +67,9 @@ export class Grid extends React.Component<Props, State> {
                 <h2>{this.props.title}</h2>
                 <div className="ag-theme-balham">
                     <AgGridReact
-                        columnDefs={this.ag_columns}
+                        columnDefs={this.columnDefs}
                         domLayout="autoHeight"
-                        defaultColDef={this.ag_defaultColDef}
+                        defaultColDef={this.defaultColDef}
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
