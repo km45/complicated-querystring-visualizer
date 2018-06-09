@@ -36,12 +36,15 @@ export class Binder extends React.Component<Props, State> {
         console.log('onClickFormToGrid');
 
         if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
             return;
         }
         if (this.ref.basic_grid.current === null) {
+            console.error('Unexpected null object');
             return;
         }
         if (this.ref.coord_grid.current === null) {
+            console.error('Unexpected null object');
             return;
         }
 
@@ -60,12 +63,15 @@ export class Binder extends React.Component<Props, State> {
         console.log('onClickGridToForm');
 
         if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
             return;
         }
         if (this.ref.basic_grid.current === null) {
+            console.error('Unexpected null object');
             return;
         }
         if (this.ref.coord_grid.current === null) {
+            console.error('Unexpected null object');
             return;
         }
 
