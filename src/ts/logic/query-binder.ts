@@ -4,27 +4,13 @@ import {
 
 export class ColumnsDefinition {
     static readonly basic: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'value',
-            name: 'Value'
-        }];
+        { key: 'key', name: 'Key' },
+        { key: 'value', name: 'Value' }];
     static readonly coord: Columns = [
-        {
-            key: 'key',
-            name: 'Key'
-        }, {
-            key: 'x',
-            name: 'x'
-        }, {
-            key: 'y',
-            name: 'y'
-        }, {
-            key: 'z',
-            name: 'z'
-        }];
+        { key: 'key', name: 'Key' },
+        { key: 'x', name: 'x' },
+        { key: 'y', name: 'y' },
+        { key: 'z', name: 'z' }];
 }
 
 export interface QueryBinder {
