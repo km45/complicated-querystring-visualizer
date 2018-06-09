@@ -28,8 +28,8 @@ export class ColumnsDefinition {
 }
 
 export interface QueryBinder {
-    basic?: ArrayTable;
-    coord?: ArrayTable;
+    basic: ArrayTable;
+    coord: ArrayTable;
 }
 
 export function parseQuery(query: string): QueryBinder {
@@ -57,17 +57,13 @@ export function parseQuery(query: string): QueryBinder {
 
 export function generateQuery(binder: QueryBinder): string {
     let params: string[] = [];
-    if (binder.basic != null) {
-        params = params.concat(binder.basic.map(
-            (v: ArrayRow): string => {
-                return v.join('=');
-            }));
-    }
-    if (binder.coord != null) {
-        params = params.concat(binder.coord.map(
-            (v: ArrayRow): string => {
-                return [v[0], v.slice(1).join(',')].join('=');
-            }));
-    }
+    params = params.concat(binder.basic.map(
+        (v: ArrayRow): string => {
+            return v.join('=');
+        }));
+    params = params.concat(binder.coord.map(
+        (v: ArrayRow): string => {
+            return [v[0], v.slice(1).join(',')].join('=');
+        }));
     return params.join('&');
 }

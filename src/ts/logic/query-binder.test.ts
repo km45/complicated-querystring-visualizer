@@ -54,7 +54,10 @@ describe('query-binder GenerateQuery test', () => {
         expect(actual).toEqual(expected);
     });
     it('none', () => {
-        const input: QueryBinder = {};
+        const input: QueryBinder = {
+            basic: [],
+            coord: []
+        };
 
         const expected = '';
 

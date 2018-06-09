@@ -35,6 +35,16 @@ export class Binder extends React.Component<Props, State> {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
+        if (this.ref.form.current === null) {
+            return;
+        }
+        if (this.ref.basic_grid.current === null) {
+            return;
+        }
+        if (this.ref.coord_grid.current === null) {
+            return;
+        }
+
         let query = this.ref.form.current.getText();
         let parsed_result = parseQuery(query);
         console.log(parsed_result);
@@ -48,6 +58,16 @@ export class Binder extends React.Component<Props, State> {
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
+
+        if (this.ref.form.current === null) {
+            return;
+        }
+        if (this.ref.basic_grid.current === null) {
+            return;
+        }
+        if (this.ref.coord_grid.current === null) {
+            return;
+        }
 
         const query = generateQuery({
             basic: objectTableToArrayTable(

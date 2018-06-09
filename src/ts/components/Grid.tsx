@@ -32,9 +32,11 @@ export class Grid extends React.Component<Props, State> {
     private createColumns(columns: Columns): ReactDataGrid.Column[] {
         return columns.map(
             (column): ReactDataGrid.Column => {
+                const key = column.key;
+                const name = column.name ? column.name : column.key;
                 return {
-                    key: column.key,
-                    name: column.name,
+                    key: key,
+                    name: name,
                     editable: true,
                     resizable: true
                 };
@@ -80,8 +82,8 @@ export class Grid extends React.Component<Props, State> {
                     headerRowHeight={this.headerRowHeight}
                     rowHeight={this.rowHeight}
                     minHeight={this.rowHeight * this.state.table.length + this.headerRowHeight}
-                    onGridRowsUpdated={(event) => this.handleGridRowsUpdated(event)}
-                    rowGetter={(i) => this.rowGetter(i)}
+                    onGridRowsUpdated={this.handleGridRowsUpdated.bind(this)}
+                    rowGetter={this.rowGetter.bind(this)}
                     rowsCount={this.state.table.length} />
             </div>);
     }
