@@ -12,7 +12,7 @@ declare module 'pythonic' {
     // function rangeSimple(stop)
 
     // function rangeOverload(start, stop, step = 1)
-    
+
     // function range(...args)
 
     // function enumerate(iterable)
