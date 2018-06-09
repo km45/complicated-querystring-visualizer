@@ -1,5 +1,5 @@
 import {
-    ArrayRow, ArrayTable, Columns, ObjectRow, ObjectTable
+    ArrayRow, ArrayTable, Columns
 } from './table-data'
 
 export class ColumnsDefinition {

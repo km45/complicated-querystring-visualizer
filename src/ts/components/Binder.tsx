@@ -4,7 +4,6 @@ import { Form } from "./Form";
 import { Grid } from "./Grid";
 
 import {
-    Columns,
     arrayTableToObjectTable,
     objectTableToArrayTable
 } from '../logic/table-data'

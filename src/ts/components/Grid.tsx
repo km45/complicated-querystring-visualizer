@@ -3,7 +3,7 @@ import * as ReactDataGrid from "react-data-grid";
 import update from 'immutability-helper';
 
 import {
-    Columns, ObjectRow, ObjectTable
+    Columns, ObjectTable
 } from '../logic/table-data'
 
 export interface Props {
