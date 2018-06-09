@@ -51,9 +51,10 @@ export class Grid extends React.Component<Props, State> {
     }
 
     private resize(api: AgGrid.ColumnApi): void {
-        const allColumnIds = api.getAllColumns().map((column: AgGrid.Column) => {
-            return column.getColId();
-        });
+        const allColumnIds = api.getAllColumns().map(
+            (column: AgGrid.Column) => {
+                return column.getColId();
+            });
         api.autoSizeColumns(allColumnIds);
     }
 
