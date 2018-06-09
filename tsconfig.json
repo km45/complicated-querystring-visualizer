@@ -1,9 +1,14 @@
 {
     "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "module": "commonjs",
+        "newLine": "LF",
+        "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
+        "noImplicitReturns": true,
         "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "outDir": "./dist/",
         "sourceMap": true,
         "target": "es6",
