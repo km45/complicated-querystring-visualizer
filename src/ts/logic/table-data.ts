@@ -1,3 +1,5 @@
+import * as Pythonic from 'pythonic';
+
 export type ArrayRow = string[];
 export type ArrayTable = ArrayRow[];
 
@@ -11,11 +13,11 @@ export interface Column {
 export type Columns = Column[];
 
 export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow {
-    // TODO: refactor
     let v: ObjectRow = {};
-    for (let i = 0; i < columns.length; ++i) {
-        v[columns[i].key] = row[i];
+    for (const [column, cell] of Pythonic.zip(columns, row)) {
+        v[column.key] = cell;
     }
+
     return v;
 }
 

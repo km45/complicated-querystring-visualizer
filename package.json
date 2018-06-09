@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "immutability-helper": "^2.7.0",
+    "pythonic": "^1.0.1",
     "react": "^16.3.2",
     "react-data-grid": "^4.0.7",
     "react-dom": "^16.3.2"
