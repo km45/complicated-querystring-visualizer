@@ -9,8 +9,6 @@ import {
 } from '../logic/table-data'
 
 import {
-    generateQuery,
-    parseQuery,
     ColumnsDefinition
 } from "../logic/query-binder";
 
