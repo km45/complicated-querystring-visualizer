@@ -3,7 +3,8 @@ import * as TableData from './table-data';
 
 export class ColumnsDefinition {
     static readonly host: TableData.Columns = [
-        { key: 'host', name: 'Host' }
+        { key: 'key', name: 'Key' },
+        { key: 'value', name: 'Value' }
     ];
     static readonly query: QueryBinder.ColumnsDefinition;
 }
