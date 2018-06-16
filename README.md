@@ -1,8 +1,17 @@
 # react-studies
 
-[![build status image][]][ci_url]
+## Branch status
 
-[build status image]:https://travis-ci.org/km45/react-studies.svg?
+### master
+
+[![build status for master][]][ci_url]
+
+### develop
+
+[![build status for develop][]][ci_url]
+
+[build status for master]: https://travis-ci.org/km45/react-studies.svg?branch=master
+[build status for develop]: https://travis-ci.org/km45/react-studies.svg?branch=develop
 [ci_url]: https://travis-ci.org/km45/react-studies
 
 ## How to build
