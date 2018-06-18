@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as SemanticUiReact from "semantic-ui-react";
+
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
@@ -72,7 +74,7 @@ export class Binder extends React.Component<Props, State> {
         super(props, context);
     }
 
-    private onClickFormToGrid(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickFormToGrid(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
@@ -101,7 +103,7 @@ export class Binder extends React.Component<Props, State> {
         this.ref.hostGrid.current.setTable(tables.host);
     }
 
-    private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickGridToForm(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
 
@@ -132,7 +134,7 @@ export class Binder extends React.Component<Props, State> {
         this.ref.form.current.setText(url);
     }
 
-    private onClickClear(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
         if (this.ref.form.current === null) {
@@ -159,17 +161,17 @@ export class Binder extends React.Component<Props, State> {
                 <Form
                     text={query}
                     ref={this.ref.form} />
-                <form>
-                    <input type="button"
-                        value="form2grid"
+                <SemanticUiReact.Form>
+                    <SemanticUiReact.Button
+                        content='form2grid'
                         onClick={(event) => this.onClickFormToGrid(event)} />
-                    <input type="button"
-                        value="grid2from"
+                    <SemanticUiReact.Button
+                        content='grid2form'
                         onClick={(event) => this.onClickGridToForm(event)} />
-                    <input type="button"
-                        value="Clear"
+                    <SemanticUiReact.Button
+                        content='Clear'
                         onClick={(event) => this.onClickClear(event)} />
-                </form>
+                </SemanticUiReact.Form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
                     table={tables.host}
