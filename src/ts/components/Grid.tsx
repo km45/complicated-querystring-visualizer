@@ -69,11 +69,11 @@ export class Grid extends React.Component<Props, State> {
                 <div className="ag-theme-balham">
                     <AgGridReact
                         columnDefs={this.columnDefs}
-                        domLayout="autoHeight"
                         defaultColDef={this.defaultColDef}
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
+                        gridAutoHeight={true}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.state.table} />
                 </div>
