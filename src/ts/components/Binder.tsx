@@ -146,21 +146,9 @@ export class Binder extends React.Component<Props, State> {
     }
 
     public render() {
-        const query = ((query: string): string => {
-            if (!query) {
-                return '';
-            }
-
-            return query.substring('?'.length);
-        })(this.props.query);
-
-        const tables = parseUrl(query);
-
         return (
             <div>
-                <Form
-                    text={query}
-                    ref={this.ref.form} />
+                <Form ref={this.ref.form} />
                 <SemanticUiReact.Form>
                     <SemanticUiReact.Button
                         content='form2grid'
@@ -174,20 +162,52 @@ export class Binder extends React.Component<Props, State> {
                 </SemanticUiReact.Form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
-                    table={tables.host}
                     title='Host'
                     ref={this.ref.hostGrid} />
                 <Grid
                     columns={ColumnsDefinition.basic}
-                    table={tables.basic}
                     title='Basic'
                     ref={this.ref.basicGrid} />
                 <Grid
                     columns={ColumnsDefinition.coord}
-                    table={tables.coord}
                     title='Coord'
                     ref={this.ref.coordGrid} />
             </div>
         );
+    }
+
+    public componentDidMount(): void {
+        if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.basicGrid.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.coordGrid.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.hostGrid.current == null) {
+            console.error('Unexpected null object');
+            return;
+        }
+
+        const query = ((query: string): string => {
+            if (!query) {
+                return '';
+            }
+
+            return query.substring('?'.length);
+        })(this.props.query);
+
+        const tables = parseUrl(query);
+
+        this.ref.form.current.setText(query);
+
+        this.ref.basicGrid.current.setTable(tables.basic);
+        this.ref.coordGrid.current.setTable(tables.coord);
+        this.ref.hostGrid.current.setTable(tables.host);
     }
 }
