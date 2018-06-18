@@ -152,12 +152,18 @@ export class Binder extends React.Component<Props, State> {
                 <SemanticUiReact.Form>
                     <SemanticUiReact.Button
                         content='parse'
-                        onClick={(event) => this.onClickFormToGrid(event)} />
+                        icon='arrow alternate circle down'
+                        onClick={(event) => this.onClickFormToGrid(event)}
+                        primary={true} />
                     <SemanticUiReact.Button
                         content='generate'
-                        onClick={(event) => this.onClickGridToForm(event)} />
+                        icon='arrow alternate circle up'
+                        onClick={(event) => this.onClickGridToForm(event)}
+                        secondary={true} />
                     <SemanticUiReact.Button
                         content='clear'
+                        icon='trash'
+                        negative={true}
                         onClick={(event) => this.onClickClear(event)} />
                 </SemanticUiReact.Form>
                 <Grid
