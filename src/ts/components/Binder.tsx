@@ -96,9 +96,9 @@ export class Binder extends React.Component<Props, State> {
         const url = this.ref.form.current.getText();
         const tables = parseUrl(url);
 
-        this.ref.basic_grid.current.setRows(tables.basic);
-        this.ref.coord_grid.current.setRows(tables.coord);
-        this.ref.host_grid.current.setRows(tables.host);
+        this.ref.basic_grid.current.setTable(tables.basic);
+        this.ref.coord_grid.current.setTable(tables.coord);
+        this.ref.host_grid.current.setTable(tables.host);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
@@ -123,9 +123,9 @@ export class Binder extends React.Component<Props, State> {
         }
 
         const url = generateUrl({
-            basic: this.ref.basic_grid.current.getRows(),
-            coord: this.ref.coord_grid.current.getRows(),
-            host: this.ref.host_grid.current.getRows()
+            basic: this.ref.basic_grid.current.getTable(),
+            coord: this.ref.coord_grid.current.getTable(),
+            host: this.ref.host_grid.current.getTable()
         });
         console.log(url);
 
