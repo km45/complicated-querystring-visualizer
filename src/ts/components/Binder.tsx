@@ -133,6 +133,8 @@ export class Binder extends React.Component<Props, State> {
             return query.substring('?'.length);
         })(this.props.query);
 
+        const tables = urlToObjectTables(query);
+
         return (
             <div>
                 <Form
@@ -148,14 +150,17 @@ export class Binder extends React.Component<Props, State> {
                 </form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
+                    table={tables.host}
                     title='Host'
                     ref={this.ref.host_grid} />
                 <Grid
                     columns={ColumnsDefinition.basic}
+                    table={tables.basic}
                     title='Basic'
                     ref={this.ref.basic_grid} />
                 <Grid
                     columns={ColumnsDefinition.coord}
+                    table={tables.coord}
                     title='Coord'
                     ref={this.ref.coord_grid} />
             </div>
