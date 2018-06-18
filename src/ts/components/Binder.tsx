@@ -5,7 +5,8 @@ import { Grid } from "./Grid";
 
 import {
     arrayTableToObjectTable,
-    objectTableToArrayTable
+    objectTableToArrayTable,
+    ObjectTable
 } from '../logic/table-data'
 
 import {
@@ -14,7 +15,10 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-export interface Props { }
+export interface Props {
+    query: string;
+}
+
 interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
@@ -23,6 +27,42 @@ class BinderImplRef {
     basic_grid: React.RefObject<Grid> = React.createRef();
     coord_grid: React.RefObject<Grid> = React.createRef();
     host_grid: React.RefObject<Grid> = React.createRef();
+}
+
+interface BinderImplTables {
+    basic: ObjectTable;
+    coord: ObjectTable;
+    host: ObjectTable;
+}
+
+function parseUrl(url: string): BinderImplTables {
+    const parsed = UrlBinder.parseUrl(url);
+    console.log(parsed);
+
+    return {
+        basic: arrayTableToObjectTable(
+            ColumnsDefinition.basic, parsed.query.basic),
+        coord: arrayTableToObjectTable(
+            ColumnsDefinition.coord, parsed.query.coord),
+        host: arrayTableToObjectTable(
+            UrlBinder.ColumnsDefinition.host, parsed.host)
+    };
+}
+
+function generateUrl(tables: BinderImplTables): string {
+    return UrlBinder.generateUrl({
+        host: objectTableToArrayTable(
+            UrlBinder.ColumnsDefinition.host,
+            tables.host),
+        query: {
+            basic: objectTableToArrayTable(
+                ColumnsDefinition.basic,
+                tables.basic),
+            coord: objectTableToArrayTable(
+                ColumnsDefinition.coord,
+                tables.coord)
+        }
+    });
 }
 
 export class Binder extends React.Component<Props, State> {
@@ -54,15 +94,11 @@ export class Binder extends React.Component<Props, State> {
         }
 
         const url = this.ref.form.current.getText();
-        const parsed_result = UrlBinder.parseUrl(url);
-        console.log(parsed_result);
+        const tables = parseUrl(url);
 
-        this.ref.basic_grid.current.setRows(arrayTableToObjectTable(
-            ColumnsDefinition.basic, parsed_result.query.basic));
-        this.ref.coord_grid.current.setRows(arrayTableToObjectTable(
-            ColumnsDefinition.coord, parsed_result.query.coord));
-        this.ref.host_grid.current.setRows(arrayTableToObjectTable(
-            UrlBinder.ColumnsDefinition.host, parsed_result.host));
+        this.ref.basic_grid.current.setRows(tables.basic);
+        this.ref.coord_grid.current.setRows(tables.coord);
+        this.ref.host_grid.current.setRows(tables.host);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
@@ -86,18 +122,10 @@ export class Binder extends React.Component<Props, State> {
             return;
         }
 
-        const url = UrlBinder.generateUrl({
-            host: objectTableToArrayTable(
-                UrlBinder.ColumnsDefinition.host,
-                this.ref.host_grid.current.getRows()),
-            query: {
-                basic: objectTableToArrayTable(
-                    ColumnsDefinition.basic,
-                    this.ref.basic_grid.current.getRows()),
-                coord: objectTableToArrayTable(
-                    ColumnsDefinition.coord,
-                    this.ref.coord_grid.current.getRows())
-            }
+        const url = generateUrl({
+            basic: this.ref.basic_grid.current.getRows(),
+            coord: this.ref.coord_grid.current.getRows(),
+            host: this.ref.host_grid.current.getRows()
         });
         console.log(url);
 
@@ -105,9 +133,21 @@ export class Binder extends React.Component<Props, State> {
     }
 
     public render() {
+        const query = ((query: string): string => {
+            if (!query) {
+                return '';
+            }
+
+            return query.substring('?'.length);
+        })(this.props.query);
+
+        const tables = parseUrl(query);
+
         return (
             <div>
-                <Form ref={this.ref.form} />
+                <Form
+                    text={query}
+                    ref={this.ref.form} />
                 <form>
                     <input type="button"
                         value="form2grid"
@@ -118,14 +158,17 @@ export class Binder extends React.Component<Props, State> {
                 </form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
+                    table={tables.host}
                     title='Host'
                     ref={this.ref.host_grid} />
                 <Grid
                     columns={ColumnsDefinition.basic}
+                    table={tables.basic}
                     title='Basic'
                     ref={this.ref.basic_grid} />
                 <Grid
                     columns={ColumnsDefinition.coord}
+                    table={tables.coord}
                     title='Coord'
                     ref={this.ref.coord_grid} />
             </div>
