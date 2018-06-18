@@ -151,13 +151,13 @@ export class Binder extends React.Component<Props, State> {
                 <Form ref={this.ref.form} />
                 <SemanticUiReact.Form>
                     <SemanticUiReact.Button
-                        content='form2grid'
+                        content='parse'
                         onClick={(event) => this.onClickFormToGrid(event)} />
                     <SemanticUiReact.Button
-                        content='grid2form'
+                        content='generate'
                         onClick={(event) => this.onClickGridToForm(event)} />
                     <SemanticUiReact.Button
-                        content='Clear'
+                        content='clear'
                         onClick={(event) => this.onClickClear(event)} />
                 </SemanticUiReact.Form>
                 <Grid
