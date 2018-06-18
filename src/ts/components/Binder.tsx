@@ -49,6 +49,22 @@ function parseUrl(url: string): BinderImplTables {
     };
 }
 
+function generateUrl(tables: BinderImplTables): string {
+    return UrlBinder.generateUrl({
+        host: objectTableToArrayTable(
+            UrlBinder.ColumnsDefinition.host,
+            tables.host),
+        query: {
+            basic: objectTableToArrayTable(
+                ColumnsDefinition.basic,
+                tables.basic),
+            coord: objectTableToArrayTable(
+                ColumnsDefinition.coord,
+                tables.coord)
+        }
+    });
+}
+
 export class Binder extends React.Component<Props, State> {
     private ref = new BinderImplRef();
 
@@ -106,18 +122,10 @@ export class Binder extends React.Component<Props, State> {
             return;
         }
 
-        const url = UrlBinder.generateUrl({
-            host: objectTableToArrayTable(
-                UrlBinder.ColumnsDefinition.host,
-                this.ref.host_grid.current.getRows()),
-            query: {
-                basic: objectTableToArrayTable(
-                    ColumnsDefinition.basic,
-                    this.ref.basic_grid.current.getRows()),
-                coord: objectTableToArrayTable(
-                    ColumnsDefinition.coord,
-                    this.ref.coord_grid.current.getRows())
-            }
+        const url = generateUrl({
+            basic: this.ref.basic_grid.current.getRows(),
+            coord: this.ref.coord_grid.current.getRows(),
+            host: this.ref.host_grid.current.getRows()
         });
         console.log(url);
 
