@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as SemanticUiReact from "semantic-ui-react";
+
 export interface Props { }
 
 interface State {
@@ -14,16 +16,9 @@ export class Form extends React.Component<Props, State> {
         };
     }
 
-    private onClickClear(event: React.MouseEvent<HTMLInputElement>) {
-        event.preventDefault();
+    private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({
-            text: ''
-        });
-    }
-
-    private onTextAreaChange(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({
-            text: event.target.value
+            text: event.currentTarget.value
         });
     }
 
@@ -39,14 +34,12 @@ export class Form extends React.Component<Props, State> {
 
     public render() {
         return (
-            <form>
-                <input type="text"
-                    value={this.state.text}
-                    onChange={(event) => this.onTextAreaChange(event)} />
-                <input type="button"
-                    value="Clear"
-                    onClick={(event) => this.onClickClear(event)} />
-            </form>
+            <SemanticUiReact.Form>
+                <SemanticUiReact.TextArea
+                    autoHeight={true}
+                    onChange={(event) => this.onTextAreaChange(event)}
+                    value={this.state.text} />
+            </SemanticUiReact.Form>
         );
     }
 }

@@ -8,7 +8,8 @@
     "pythonic": "^1.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-dom-factories": "^1.0.2"
+    "react-dom-factories": "^1.0.2",
+    "semantic-ui-react": "^0.81.1"
   },
   "devDependencies": {
     "@types/jest": "^23.0.2",

@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as SemanticUiReact from "semantic-ui-react";
+
 import { Form } from "./Form";
 import { Grid } from "./Grid";
 
@@ -72,7 +74,7 @@ export class Binder extends React.Component<Props, State> {
         super(props, context);
     }
 
-    private onClickFormToGrid(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickFormToGrid(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
@@ -101,7 +103,7 @@ export class Binder extends React.Component<Props, State> {
         this.ref.hostGrid.current.setTable(tables.host);
     }
 
-    private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
+    private onClickGridToForm(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
 
@@ -132,18 +134,38 @@ export class Binder extends React.Component<Props, State> {
         this.ref.form.current.setText(url);
     }
 
+    private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
+
+        if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+
+        this.ref.form.current.setText('');
+    }
+
     public render() {
         return (
             <div>
                 <Form ref={this.ref.form} />
-                <form>
-                    <input type="button"
-                        value="form2grid"
-                        onClick={(event) => this.onClickFormToGrid(event)} />
-                    <input type="button"
-                        value="grid2from"
-                        onClick={(event) => this.onClickGridToForm(event)} />
-                </form>
+                <SemanticUiReact.Form>
+                    <SemanticUiReact.Button
+                        content='parse'
+                        icon='arrow alternate circle down'
+                        onClick={(event) => this.onClickFormToGrid(event)}
+                        primary={true} />
+                    <SemanticUiReact.Button
+                        content='generate'
+                        icon='arrow alternate circle up'
+                        onClick={(event) => this.onClickGridToForm(event)}
+                        secondary={true} />
+                    <SemanticUiReact.Button
+                        content='clear'
+                        icon='trash'
+                        negative={true}
+                        onClick={(event) => this.onClickClear(event)} />
+                </SemanticUiReact.Form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
                     title='Host'
