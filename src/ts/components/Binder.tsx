@@ -14,7 +14,10 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-export interface Props { }
+export interface Props {
+    query: string;
+}
+
 interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
@@ -105,9 +108,19 @@ export class Binder extends React.Component<Props, State> {
     }
 
     public render() {
+        const query = ((query: string): string => {
+            if (!query) {
+                return '';
+            }
+
+            return query.substring('?'.length);
+        })(this.props.query);
+
         return (
             <div>
-                <Form ref={this.ref.form} />
+                <Form
+                    text={query}
+                    ref={this.ref.form} />
                 <form>
                     <input type="button"
                         value="form2grid"

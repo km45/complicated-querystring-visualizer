@@ -5,7 +5,7 @@ import { Binder } from "./components/Binder";
 
 ReactDOM.render(
     <div>
-        <Binder />
+        <Binder query={window.location.search} />
     </div>,
     document.getElementById("content")
 );
