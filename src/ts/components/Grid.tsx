@@ -9,6 +9,7 @@ import {
 
 export interface Props {
     columns: Columns;
+    table: ObjectTable;
     title: string;
 }
 
@@ -23,7 +24,7 @@ export class Grid extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
-            table: []
+            table: props.table
         });
 
         this.columnDefs = props.columns.map((from) => {
@@ -40,11 +41,11 @@ export class Grid extends React.Component<Props, State> {
         };
     }
 
-    public getRows(): ObjectTable {
+    public getTable(): ObjectTable {
         return this.state.table;
     }
 
-    public setRows(table: ObjectTable): void {
+    public setTable(table: ObjectTable): void {
         this.setState({
             table: table
         });
@@ -69,11 +70,11 @@ export class Grid extends React.Component<Props, State> {
                 <div className="ag-theme-balham">
                     <AgGridReact
                         columnDefs={this.columnDefs}
-                        domLayout="autoHeight"
                         defaultColDef={this.defaultColDef}
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
+                        gridAutoHeight={true}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.state.table} />
                 </div>
