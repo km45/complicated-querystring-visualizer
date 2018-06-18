@@ -132,6 +132,17 @@ export class Binder extends React.Component<Props, State> {
         this.ref.form.current.setText(url);
     }
 
+    private onClickClear(event: React.MouseEvent<HTMLInputElement>) {
+        event.preventDefault();
+
+        if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+
+        this.ref.form.current.setText('');
+    }
+
     public render() {
         const query = ((query: string): string => {
             if (!query) {
@@ -155,6 +166,9 @@ export class Binder extends React.Component<Props, State> {
                     <input type="button"
                         value="grid2from"
                         onClick={(event) => this.onClickGridToForm(event)} />
+                    <input type="button"
+                        value="Clear"
+                        onClick={(event) => this.onClickClear(event)} />
                 </form>
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
