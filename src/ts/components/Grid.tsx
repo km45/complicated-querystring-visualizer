@@ -9,7 +9,6 @@ import {
 
 export interface Props {
     columns: Columns;
-    table: ObjectTable;
     title: string;
 }
 
@@ -24,7 +23,7 @@ export class Grid extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = ({
-            table: props.table
+            table: []
         });
 
         this.columnDefs = props.columns.map((from) => {

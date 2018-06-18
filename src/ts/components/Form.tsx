@@ -1,8 +1,6 @@
 import * as React from "react";
 
-export interface Props {
-    text: string;
-}
+export interface Props { }
 
 interface State {
     text: string;
@@ -12,7 +10,7 @@ export class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
         this.state = {
-            text: props.text
+            text: ''
         };
     }
 
