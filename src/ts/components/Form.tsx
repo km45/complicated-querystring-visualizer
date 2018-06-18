@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as SemanticUiReact from "semantic-ui-react";
+
 export interface Props {
     text: string;
 }
@@ -16,9 +18,9 @@ export class Form extends React.Component<Props, State> {
         };
     }
 
-    private onTextAreaChange(event: React.ChangeEvent<HTMLInputElement>) {
+    private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({
-            text: event.target.value
+            text: event.currentTarget.value
         });
     }
 
@@ -34,11 +36,12 @@ export class Form extends React.Component<Props, State> {
 
     public render() {
         return (
-            <form>
-                <input type="text"
-                    value={this.state.text}
-                    onChange={(event) => this.onTextAreaChange(event)} />
-            </form>
+            <SemanticUiReact.Form>
+                <SemanticUiReact.TextArea
+                    autoHeight={true}
+                    onChange={(event) => this.onTextAreaChange(event)}
+                    value={this.state.text} />
+            </SemanticUiReact.Form>
         );
     }
 }
