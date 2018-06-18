@@ -29,13 +29,13 @@ class BinderImplRef {
     host_grid: React.RefObject<Grid> = React.createRef();
 }
 
-interface ObjectTables {
+interface BinderImplTables {
     basic: ObjectTable;
     coord: ObjectTable;
     host: ObjectTable;
 }
 
-function urlToObjectTables(url: string): ObjectTables {
+function urlToObjectTables(url: string): BinderImplTables {
     const parsed = UrlBinder.parseUrl(url);
     console.log(parsed);
 
