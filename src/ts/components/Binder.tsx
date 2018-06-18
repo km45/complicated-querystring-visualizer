@@ -5,7 +5,8 @@ import { Grid } from "./Grid";
 
 import {
     arrayTableToObjectTable,
-    objectTableToArrayTable
+    objectTableToArrayTable,
+    ObjectTable
 } from '../logic/table-data'
 
 import {
@@ -26,6 +27,26 @@ class BinderImplRef {
     basic_grid: React.RefObject<Grid> = React.createRef();
     coord_grid: React.RefObject<Grid> = React.createRef();
     host_grid: React.RefObject<Grid> = React.createRef();
+}
+
+interface ObjectTables {
+    basic: ObjectTable;
+    coord: ObjectTable;
+    host: ObjectTable;
+}
+
+function urlToObjectTables(url: string): ObjectTables {
+    const parsed = UrlBinder.parseUrl(url);
+    console.log(parsed);
+
+    return {
+        basic: arrayTableToObjectTable(
+            ColumnsDefinition.basic, parsed.query.basic),
+        coord: arrayTableToObjectTable(
+            ColumnsDefinition.coord, parsed.query.coord),
+        host: arrayTableToObjectTable(
+            UrlBinder.ColumnsDefinition.host, parsed.host)
+    };
 }
 
 export class Binder extends React.Component<Props, State> {
@@ -57,15 +78,11 @@ export class Binder extends React.Component<Props, State> {
         }
 
         const url = this.ref.form.current.getText();
-        const parsed_result = UrlBinder.parseUrl(url);
-        console.log(parsed_result);
+        const tables = urlToObjectTables(url);
 
-        this.ref.basic_grid.current.setRows(arrayTableToObjectTable(
-            ColumnsDefinition.basic, parsed_result.query.basic));
-        this.ref.coord_grid.current.setRows(arrayTableToObjectTable(
-            ColumnsDefinition.coord, parsed_result.query.coord));
-        this.ref.host_grid.current.setRows(arrayTableToObjectTable(
-            UrlBinder.ColumnsDefinition.host, parsed_result.host));
+        this.ref.basic_grid.current.setRows(tables.basic);
+        this.ref.coord_grid.current.setRows(tables.coord);
+        this.ref.host_grid.current.setRows(tables.host);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
