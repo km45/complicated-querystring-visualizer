@@ -24,9 +24,9 @@ interface State { }
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
     form: React.RefObject<Form> = React.createRef();
-    basic_grid: React.RefObject<Grid> = React.createRef();
-    coord_grid: React.RefObject<Grid> = React.createRef();
-    host_grid: React.RefObject<Grid> = React.createRef();
+    basicGrid: React.RefObject<Grid> = React.createRef();
+    coordGrid: React.RefObject<Grid> = React.createRef();
+    hostGrid: React.RefObject<Grid> = React.createRef();
 }
 
 interface BinderImplTables {
@@ -80,15 +80,15 @@ export class Binder extends React.Component<Props, State> {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.basic_grid.current === null) {
+        if (this.ref.basicGrid.current === null) {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.coord_grid.current === null) {
+        if (this.ref.coordGrid.current === null) {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.host_grid.current == null) {
+        if (this.ref.hostGrid.current == null) {
             console.error('Unexpected null object');
             return;
         }
@@ -96,9 +96,9 @@ export class Binder extends React.Component<Props, State> {
         const url = this.ref.form.current.getText();
         const tables = parseUrl(url);
 
-        this.ref.basic_grid.current.setRows(tables.basic);
-        this.ref.coord_grid.current.setRows(tables.coord);
-        this.ref.host_grid.current.setRows(tables.host);
+        this.ref.basicGrid.current.setTable(tables.basic);
+        this.ref.coordGrid.current.setTable(tables.coord);
+        this.ref.hostGrid.current.setTable(tables.host);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLInputElement>) {
@@ -109,23 +109,23 @@ export class Binder extends React.Component<Props, State> {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.basic_grid.current === null) {
+        if (this.ref.basicGrid.current === null) {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.coord_grid.current === null) {
+        if (this.ref.coordGrid.current === null) {
             console.error('Unexpected null object');
             return;
         }
-        if (this.ref.host_grid.current == null) {
+        if (this.ref.hostGrid.current == null) {
             console.error('Unexpected null object');
             return;
         }
 
         const url = generateUrl({
-            basic: this.ref.basic_grid.current.getRows(),
-            coord: this.ref.coord_grid.current.getRows(),
-            host: this.ref.host_grid.current.getRows()
+            basic: this.ref.basicGrid.current.getTable(),
+            coord: this.ref.coordGrid.current.getTable(),
+            host: this.ref.hostGrid.current.getTable()
         });
         console.log(url);
 
@@ -160,17 +160,17 @@ export class Binder extends React.Component<Props, State> {
                     columns={UrlBinder.ColumnsDefinition.host}
                     table={tables.host}
                     title='Host'
-                    ref={this.ref.host_grid} />
+                    ref={this.ref.hostGrid} />
                 <Grid
                     columns={ColumnsDefinition.basic}
                     table={tables.basic}
                     title='Basic'
-                    ref={this.ref.basic_grid} />
+                    ref={this.ref.basicGrid} />
                 <Grid
                     columns={ColumnsDefinition.coord}
                     table={tables.coord}
                     title='Coord'
-                    ref={this.ref.coord_grid} />
+                    ref={this.ref.coordGrid} />
             </div>
         );
     }

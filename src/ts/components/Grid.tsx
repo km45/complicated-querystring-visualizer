@@ -41,11 +41,11 @@ export class Grid extends React.Component<Props, State> {
         };
     }
 
-    public getRows(): ObjectTable {
+    public getTable(): ObjectTable {
         return this.state.table;
     }
 
-    public setRows(table: ObjectTable): void {
+    public setTable(table: ObjectTable): void {
         this.setState({
             table: table
         });
