@@ -35,7 +35,7 @@ interface BinderImplTables {
     host: ObjectTable;
 }
 
-function urlToObjectTables(url: string): BinderImplTables {
+function parseUrl(url: string): BinderImplTables {
     const parsed = UrlBinder.parseUrl(url);
     console.log(parsed);
 
@@ -78,7 +78,7 @@ export class Binder extends React.Component<Props, State> {
         }
 
         const url = this.ref.form.current.getText();
-        const tables = urlToObjectTables(url);
+        const tables = parseUrl(url);
 
         this.ref.basic_grid.current.setRows(tables.basic);
         this.ref.coord_grid.current.setRows(tables.coord);
@@ -133,7 +133,7 @@ export class Binder extends React.Component<Props, State> {
             return query.substring('?'.length);
         })(this.props.query);
 
-        const tables = urlToObjectTables(query);
+        const tables = parseUrl(query);
 
         return (
             <div>
