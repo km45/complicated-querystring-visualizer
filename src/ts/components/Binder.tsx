@@ -98,9 +98,9 @@ export class Binder extends React.Component<Props, State> {
         const url = this.ref.form.current.getText();
         const tables = parseUrl(url);
 
-        this.ref.basicGrid.current.setTable(tables.basic);
-        this.ref.coordGrid.current.setTable(tables.coord);
-        this.ref.hostGrid.current.setTable(tables.host);
+        this.ref.basicGrid.current.setTable(tables.basic, false);
+        this.ref.coordGrid.current.setTable(tables.coord, false);
+        this.ref.hostGrid.current.setTable(tables.host, false);
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLButtonElement>) {
@@ -212,8 +212,8 @@ export class Binder extends React.Component<Props, State> {
 
         this.ref.form.current.setText(query);
 
-        this.ref.basicGrid.current.setTable(tables.basic);
-        this.ref.coordGrid.current.setTable(tables.coord);
-        this.ref.hostGrid.current.setTable(tables.host);
+        this.ref.basicGrid.current.setTable(tables.basic, true);
+        this.ref.coordGrid.current.setTable(tables.coord, true);
+        this.ref.hostGrid.current.setTable(tables.host, true);
     }
 }
