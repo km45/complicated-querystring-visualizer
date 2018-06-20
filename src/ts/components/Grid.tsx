@@ -17,6 +17,8 @@ interface State {
 }
 
 export class Grid extends React.Component<Props, State> {
+    private agGridApi: AgGrid.GridApi | null = null;
+
     private columnDefs: AgGrid.ColDef[];
     private defaultColDef: AgGrid.ColDef;
 
@@ -44,10 +46,35 @@ export class Grid extends React.Component<Props, State> {
         return this.state.table;
     }
 
-    public setTable(table: ObjectTable): void {
+    public setTable(table: ObjectTable, onInit: boolean): void {
         this.setState({
             table: table
         });
+
+        if (onInit) {
+            return;
+        }
+
+        // Change reference for data even if contents are same,
+        // otherwise following problem happens.
+        //
+        // 1. Parse url "a=b" for the first time.
+        //   1.1. Allocate memory for parsed data. Call it "Data1".
+        //   1.2. This class refers "Data1".
+        //   1.3. AgGrid refers "Data1".
+        // 2. Parse url "localhost/?a=b" for the second time.
+        //   2.1. Allocate memory for parsed data. Call it "Data2".
+        //   2.2. This class changes to refer "Data2"
+        //        because setState() is called explicitly. (above)
+        //   2.3. AgGrid remains referring "Data1"
+        //        because contents are not changed.
+        // 3. Edit grid data "Data2"
+        // 4. Generate url from "Data1" and not used grid data.
+        if (this.agGridApi === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        this.agGridApi.setRowData(table);
     }
 
     private resize(api: AgGrid.ColumnApi): void {
@@ -56,6 +83,10 @@ export class Grid extends React.Component<Props, State> {
                 return column.getColId();
             });
         api.autoSizeColumns(allColumnIds);
+    }
+
+    private onGridReady(event: AgGrid.GridReadyEvent) {
+        this.agGridApi = event.api;
     }
 
     private onModelUpdated(params: AgGrid.ModelUpdatedEvent) {
@@ -74,6 +105,7 @@ export class Grid extends React.Component<Props, State> {
                         enableFilter={true}
                         enableSorting={true}
                         gridAutoHeight={true}
+                        onGridReady={this.onGridReady.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.state.table} />
                 </div>
