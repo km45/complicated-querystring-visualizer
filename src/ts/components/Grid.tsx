@@ -89,8 +89,8 @@ export class Grid extends React.Component<Props, State> {
         this.agGridApi = event.api;
     }
 
-    private onModelUpdated(params: AgGrid.ModelUpdatedEvent) {
-        this.resize(params.columnApi);
+    private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
+        this.resize(event.columnApi);
     }
 
     public render() {
