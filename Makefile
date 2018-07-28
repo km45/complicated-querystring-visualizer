@@ -1,5 +1,5 @@
-# CONFIG = develop | production
-CONFIG = develop
+# CONFIG = development | production
+CONFIG = development
 # WATCH = true | false
 WATCH = false
 
