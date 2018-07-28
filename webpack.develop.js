@@ -8,7 +8,7 @@ module.exports = merge(common, {
     mode: 'development',
 
     output: {
-        path: __dirname + "/dist"
+        path: __dirname + "/dist/development"
     },
 
     // When importing a module whose path matches one of the following, just
@@ -21,7 +21,7 @@ module.exports = merge(common, {
     },
 
     plugins: [
-        new CleanWebpackPlugin([__dirname + "/dist"]),
+        new CleanWebpackPlugin([__dirname + "/dist/development"]),
         new HtmlWebpackPlugin({
             template: __dirname + '/src/html/develop.html',
             title: 'react-studies(development)'

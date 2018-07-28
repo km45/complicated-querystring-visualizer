@@ -9,7 +9,7 @@ module.exports = merge(common, {
     mode: 'production',
 
     output: {
-        path: __dirname + "/dist"
+        path: __dirname + "/dist/production"
     },
 
     performance: {
@@ -17,7 +17,7 @@ module.exports = merge(common, {
     },
 
     plugins: [
-        new CleanWebpackPlugin([__dirname + "/dist"]),
+        new CleanWebpackPlugin([__dirname + "/dist/production"]),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
