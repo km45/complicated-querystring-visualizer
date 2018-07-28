@@ -41,6 +41,7 @@
     ],
     "roots": [
       "<rootDir>/src"
-    ]
+    ],
+    "testURL": "http://localhost/"
   }
 }
