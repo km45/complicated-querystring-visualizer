@@ -1,10 +1,15 @@
 const merge = require('webpack-merge');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     mode: 'development',
+
+    output: {
+        path: __dirname + "/dist/development"
+    },
 
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
@@ -16,8 +21,9 @@ module.exports = merge(common, {
     },
 
     plugins: [
+        new CleanWebpackPlugin([__dirname + "/dist/development"]),
         new HtmlWebpackPlugin({
-            template: __dirname + '/src/html/develop.html',
+            template: __dirname + '/src/html/development.html',
             title: 'react-studies(development)'
         })
     ]
