@@ -1,10 +1,7 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
 module.exports = {
     entry: "./src/ts/index.tsx",
     output: {
         filename: "bundle.js",
-        path: __dirname + "/dist"
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -23,9 +20,5 @@ module.exports = {
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
-    },
-
-    plugins: [
-        new CleanWebpackPlugin([__dirname + "/dist"])
-    ]
+    }
 }

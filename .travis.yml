@@ -2,5 +2,6 @@ services: docker
 
 script:
   - make up
-  - docker-compose exec develop make
+  - docker-compose exec develop make CONFIG=development
+  - docker-compose exec develop make CONFIG=production
   - make down
