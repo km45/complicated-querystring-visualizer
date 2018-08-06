@@ -134,6 +134,20 @@ export class Binder extends React.Component<Props, State> {
         this.ref.form.current.setText(url);
     }
 
+    private onClickOpen(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
+
+        if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+
+        const url = this.ref.form.current.getText();
+        console.log('Open link: ' + url);
+
+        window.open(url, '_blank');
+    }
+
     private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
@@ -160,6 +174,11 @@ export class Binder extends React.Component<Props, State> {
                         icon='arrow alternate circle up'
                         onClick={(event) => this.onClickGridToForm(event)}
                         secondary={true} />
+                    <SemanticUiReact.Button
+                        content='open'
+                        icon='external'
+                        positive={true}
+                        onClick={(event) => this.onClickOpen(event)} />
                     <SemanticUiReact.Button
                         content='clear'
                         icon='trash'
