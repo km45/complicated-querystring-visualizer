@@ -15,6 +15,9 @@
         "no-console": [
             false
         ],
+        "no-empty-interface": [
+            false
+        ],
         "quotemark": [
             true,
             "single"
