@@ -3,7 +3,9 @@ import * as Pythonic from 'pythonic';
 export type ArrayRow = string[];
 export type ArrayTable = ArrayRow[];
 
-export type ObjectRow = { [key: string]: string };
+export interface ObjectRow {
+    [key: string]: string;
+}
 export type ObjectTable = ObjectRow[];
 
 export interface Column {
@@ -13,7 +15,7 @@ export interface Column {
 export type Columns = Column[];
 
 export function arrayRowToObjectRow(columns: Columns, row: ArrayRow): ObjectRow {
-    let v: ObjectRow = {};
+    const v: ObjectRow = {};
     for (const [column, cell] of Pythonic.zip(columns, row)) {
         v[column.key] = cell;
     }

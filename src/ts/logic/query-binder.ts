@@ -1,12 +1,12 @@
 import {
     ArrayRow, ArrayTable, Columns
-} from './table-data'
+} from './table-data';
 
 export class ColumnsDefinition {
-    static readonly basic: Columns = [
+    public static readonly basic: Columns = [
         { key: 'key', name: 'Key' },
         { key: 'value', name: 'Value' }];
-    static readonly coord: Columns = [
+    public static readonly coord: Columns = [
         { key: 'key', name: 'Key' },
         { key: 'x', name: 'x' },
         { key: 'y', name: 'y' },
@@ -19,13 +19,13 @@ export interface QueryBinder {
 }
 
 export function parseQuery(query: string): QueryBinder {
-    let table = query.split('&').map(
+    const table = query.split('&').map(
         (element: string): ArrayRow => {
             return element.split('=');
         });
 
-    let basic: ArrayTable = [];
-    let coord: ArrayTable = [];
+    const basic: ArrayTable = [];
+    const coord: ArrayTable = [];
 
     table.forEach((v: ArrayRow) => {
         if (v[0].match(/^coord[0-9]+$/)) {
@@ -36,8 +36,8 @@ export function parseQuery(query: string): QueryBinder {
     });
 
     return {
-        basic: basic,
-        coord: coord
+        basic,
+        coord
     };
 }
 

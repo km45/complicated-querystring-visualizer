@@ -1,19 +1,19 @@
-import * as React from "react";
+import * as React from 'react';
 
-import * as SemanticUiReact from "semantic-ui-react";
+import * as SemanticUiReact from 'semantic-ui-react';
 
-import { Form } from "./Form";
-import { Grid } from "./Grid";
+import { Form } from './Form';
+import { Grid } from './Grid';
 
 import {
     arrayTableToObjectTable,
-    objectTableToArrayTable,
-    ObjectTable
-} from '../logic/table-data'
+    ObjectTable,
+    objectTableToArrayTable
+} from '../logic/table-data';
 
 import {
     ColumnsDefinition
-} from "../logic/query-binder";
+} from '../logic/query-binder';
 
 import * as UrlBinder from '../logic/url-binder';
 
@@ -25,10 +25,10 @@ interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
-    form: React.RefObject<Form> = React.createRef();
-    basicGrid: React.RefObject<Grid> = React.createRef();
-    coordGrid: React.RefObject<Grid> = React.createRef();
-    hostGrid: React.RefObject<Grid> = React.createRef();
+    public form: React.RefObject<Form> = React.createRef();
+    public basicGrid: React.RefObject<Grid> = React.createRef();
+    public coordGrid: React.RefObject<Grid> = React.createRef();
+    public hostGrid: React.RefObject<Grid> = React.createRef();
 }
 
 interface BinderImplTables {
@@ -72,6 +72,83 @@ export class Binder extends React.Component<Props, State> {
 
     public constructor(props: Props, context: State) {
         super(props, context);
+    }
+
+    public render() {
+        return (
+            <div>
+                <Form ref={this.ref.form} />
+                <SemanticUiReact.Form>
+                    <SemanticUiReact.Button
+                        content='parse'
+                        icon='arrow alternate circle down'
+                        onClick={(event) => this.onClickFormToGrid(event)}
+                        primary={true} />
+                    <SemanticUiReact.Button
+                        content='generate'
+                        icon='arrow alternate circle up'
+                        onClick={(event) => this.onClickGridToForm(event)}
+                        secondary={true} />
+                    <SemanticUiReact.Button
+                        content='open'
+                        icon='external'
+                        positive={true}
+                        onClick={(event) => this.onClickOpen(event)} />
+                    <SemanticUiReact.Button
+                        content='clear'
+                        icon='trash'
+                        negative={true}
+                        onClick={(event) => this.onClickClear(event)} />
+                </SemanticUiReact.Form>
+                <Grid
+                    columns={UrlBinder.ColumnsDefinition.host}
+                    title='Host'
+                    ref={this.ref.hostGrid} />
+                <Grid
+                    columns={ColumnsDefinition.basic}
+                    title='Basic'
+                    ref={this.ref.basicGrid} />
+                <Grid
+                    columns={ColumnsDefinition.coord}
+                    title='Coord'
+                    ref={this.ref.coordGrid} />
+            </div>
+        );
+    }
+
+    public componentDidMount(): void {
+        if (this.ref.form.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.basicGrid.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.coordGrid.current === null) {
+            console.error('Unexpected null object');
+            return;
+        }
+        if (this.ref.hostGrid.current == null) {
+            console.error('Unexpected null object');
+            return;
+        }
+
+        const query = ((q: string): string => {
+            if (!q) {
+                return '';
+            }
+
+            return q.substring('?'.length);
+        })(this.props.query);
+
+        const tables = parseUrl(query);
+
+        this.ref.form.current.setText(query);
+
+        this.ref.basicGrid.current.setTable(tables.basic, true);
+        this.ref.coordGrid.current.setTable(tables.coord, true);
+        this.ref.hostGrid.current.setTable(tables.host, true);
     }
 
     private onClickFormToGrid(event: React.MouseEvent<HTMLButtonElement>) {
@@ -157,82 +234,5 @@ export class Binder extends React.Component<Props, State> {
         }
 
         this.ref.form.current.setText('');
-    }
-
-    public render() {
-        return (
-            <div>
-                <Form ref={this.ref.form} />
-                <SemanticUiReact.Form>
-                    <SemanticUiReact.Button
-                        content='parse'
-                        icon='arrow alternate circle down'
-                        onClick={(event) => this.onClickFormToGrid(event)}
-                        primary={true} />
-                    <SemanticUiReact.Button
-                        content='generate'
-                        icon='arrow alternate circle up'
-                        onClick={(event) => this.onClickGridToForm(event)}
-                        secondary={true} />
-                    <SemanticUiReact.Button
-                        content='open'
-                        icon='external'
-                        positive={true}
-                        onClick={(event) => this.onClickOpen(event)} />
-                    <SemanticUiReact.Button
-                        content='clear'
-                        icon='trash'
-                        negative={true}
-                        onClick={(event) => this.onClickClear(event)} />
-                </SemanticUiReact.Form>
-                <Grid
-                    columns={UrlBinder.ColumnsDefinition.host}
-                    title='Host'
-                    ref={this.ref.hostGrid} />
-                <Grid
-                    columns={ColumnsDefinition.basic}
-                    title='Basic'
-                    ref={this.ref.basicGrid} />
-                <Grid
-                    columns={ColumnsDefinition.coord}
-                    title='Coord'
-                    ref={this.ref.coordGrid} />
-            </div>
-        );
-    }
-
-    public componentDidMount(): void {
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-        if (this.ref.basicGrid.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-        if (this.ref.coordGrid.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-        if (this.ref.hostGrid.current == null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
-        const query = ((query: string): string => {
-            if (!query) {
-                return '';
-            }
-
-            return query.substring('?'.length);
-        })(this.props.query);
-
-        const tables = parseUrl(query);
-
-        this.ref.form.current.setText(query);
-
-        this.ref.basicGrid.current.setTable(tables.basic, true);
-        this.ref.coordGrid.current.setTable(tables.coord, true);
-        this.ref.hostGrid.current.setTable(tables.host, true);
     }
 }
