@@ -18,7 +18,7 @@ shell:
 	docker-compose exec --user `id -u`:`id -g` develop /bin/sh
 
 .PHONY: all
-all: fetch tslint build test
+all: fetch lint build test
 
 .PHONY: fetch
 fetch:
@@ -43,6 +43,6 @@ else
 	yarn run jest --coverage
 endif
 
-.PHONY: tslint
-tslint:
+.PHONY: lint
+lint:
 	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx
