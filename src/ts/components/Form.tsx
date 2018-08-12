@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import * as SemanticUiReact from "semantic-ui-react";
+import * as SemanticUiReact from 'semantic-ui-react';
 
 export interface Props { }
 
@@ -16,20 +16,14 @@ export class Form extends React.Component<Props, State> {
         };
     }
 
-    private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.setState({
-            text: event.currentTarget.value
-        });
-    }
-
     public getText(): string {
         return this.state.text;
     }
 
     public setText(text: string): void {
         this.setState({
-            text: text
-        })
+            text
+        });
     }
 
     public render() {
@@ -41,5 +35,11 @@ export class Form extends React.Component<Props, State> {
                     value={this.state.text} />
             </SemanticUiReact.Form>
         );
+    }
+
+    private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
+        this.setState({
+            text: event.currentTarget.value
+        });
     }
 }

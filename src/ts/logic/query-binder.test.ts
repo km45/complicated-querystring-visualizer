@@ -1,6 +1,6 @@
 import {
     generateQuery, parseQuery, QueryBinder
-} from "./query-binder";
+} from './query-binder';
 
 describe('query-binder GenerateQuery test', () => {
     it('basic only', () => {

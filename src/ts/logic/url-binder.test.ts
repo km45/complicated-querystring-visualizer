@@ -1,17 +1,17 @@
-import { parseUrl, UrlBinder, generateUrl } from "./url-binder";
+import { generateUrl, parseUrl, UrlBinder } from './url-binder';
 
 describe('url-binder GenerateUrl test', () => {
     it('both host and query', () => {
         const input: UrlBinder = {
+            host: [
+                ['host', 'http://example.com:80/hoge']
+            ],
             query: {
                 basic: [
                     ['piyo', 'fuga']
                 ],
                 coord: []
-            },
-            host: [
-                ['host', 'http://example.com:80/hoge']
-            ]
+            }
         };
 
         const expected: string = 'http://example.com:80/hoge?piyo=fuga';
@@ -22,15 +22,15 @@ describe('url-binder GenerateUrl test', () => {
     });
     it('only query', () => {
         const input: UrlBinder = {
+            host: [
+                ['host', '']
+            ],
             query: {
                 basic: [
                     ['piyo', 'fuga']
                 ],
                 coord: []
-            },
-            host: [
-                ['host', '']
-            ]
+            }
         };
 
         const expected: string = 'piyo=fuga';
@@ -46,15 +46,15 @@ describe('url-binder ParseUrl test', () => {
         const input = 'http://example.com:80/hoge?piyo=fuga';
 
         const expected: UrlBinder = {
+            host: [
+                ['host', 'http://example.com:80/hoge']
+            ],
             query: {
                 basic: [
                     ['piyo', 'fuga']
                 ],
                 coord: []
-            },
-            host: [
-                ['host', 'http://example.com:80/hoge']
-            ]
+            }
         };
 
         const actual = parseUrl(input);
@@ -65,15 +65,15 @@ describe('url-binder ParseUrl test', () => {
         const input = 'piyo=fuga';
 
         const expected: UrlBinder = {
+            host: [
+                ['host', '']
+            ],
             query: {
                 basic: [
                     ['piyo', 'fuga']
                 ],
                 coord: []
-            },
-            host: [
-                ['host', '']
-            ]
+            }
         };
 
         const actual = parseUrl(input);

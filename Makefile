@@ -18,7 +18,7 @@ shell:
 	docker-compose exec --user `id -u`:`id -g` develop /bin/sh
 
 .PHONY: all
-all: fetch build test
+all: fetch lint build test
 
 .PHONY: fetch
 fetch:
@@ -42,3 +42,7 @@ ifeq ($(WATCH),true)
 else
 	yarn run jest --coverage
 endif
+
+.PHONY: lint
+lint:
+	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx

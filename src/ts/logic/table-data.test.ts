@@ -1,7 +1,7 @@
 import {
     arrayRowToObjectRow, arrayTableToObjectTable,
     objectRowToArrayRow, objectTableToArrayTable
-} from "./table-data";
+} from './table-data';
 
 describe('table-data test', () => {
     it('arrayRowToObjectRow', () => {
@@ -71,7 +71,7 @@ describe('table-data test', () => {
         const expected = [
             ['a1', 'a2'],
             ['b1', 'b2'],
-            ['c1', 'c2'],
+            ['c1', 'c2']
         ];
 
         const actual = objectTableToArrayTable(columns, object);
