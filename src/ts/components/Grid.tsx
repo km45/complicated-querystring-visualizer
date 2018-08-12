@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-import * as AgGrid from "ag-grid";
+import * as AgGrid from 'ag-grid';
 import { AgGridReact } from 'ag-grid-react';
 
 import {
     Columns, ObjectTable
-} from '../logic/table-data'
+} from '../logic/table-data';
 
 export interface Props {
     columns: Columns;
@@ -48,7 +48,7 @@ export class Grid extends React.Component<Props, State> {
 
     public setTable(table: ObjectTable, onInit: boolean): void {
         this.setState({
-            table: table
+            table
         });
 
         if (onInit) {
@@ -77,6 +77,25 @@ export class Grid extends React.Component<Props, State> {
         this.agGridApi.setRowData(table);
     }
 
+    public render() {
+        return (
+            <div>
+                <h2>{this.props.title}</h2>
+                <div className='ag-theme-balham'>
+                    <AgGridReact
+                        columnDefs={this.columnDefs}
+                        defaultColDef={this.defaultColDef}
+                        enableColResize={true}
+                        enableFilter={true}
+                        enableSorting={true}
+                        gridAutoHeight={true}
+                        onGridReady={this.onGridReady.bind(this)}
+                        onModelUpdated={this.onModelUpdated.bind(this)}
+                        rowData={this.state.table} />
+                </div>
+            </div>);
+    }
+
     private resize(api: AgGrid.ColumnApi): void {
         const allColumnIds = api.getAllColumns().map(
             (column: AgGrid.Column) => {
@@ -91,24 +110,5 @@ export class Grid extends React.Component<Props, State> {
 
     private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
         this.resize(event.columnApi);
-    }
-
-    public render() {
-        return (
-            <div>
-                <h2>{this.props.title}</h2>
-                <div className="ag-theme-balham">
-                    <AgGridReact
-                        columnDefs={this.columnDefs}
-                        defaultColDef={this.defaultColDef}
-                        enableColResize={true}
-                        enableFilter={true}
-                        enableSorting={true}
-                        gridAutoHeight={true}
-                        onGridReady={this.onGridReady.bind(this)}
-                        onModelUpdated={this.onModelUpdated.bind(this)}
-                        rowData={this.state.table} />
-                </div>
-            </div>);
     }
 }
