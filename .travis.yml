@@ -1,4 +1,7 @@
-services: docker
+sudo: required
+
+services:
+  - docker
 
 script:
   - make up
