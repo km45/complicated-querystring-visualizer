@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as AgGrid from 'ag-grid';
+import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 
 import {
@@ -85,10 +85,10 @@ export class Grid extends React.Component<Props, State> {
                     <AgGridReact
                         columnDefs={this.columnDefs}
                         defaultColDef={this.defaultColDef}
+                        domLayout={'autoHeight'}
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
-                        gridAutoHeight={true}
                         onGridReady={this.onGridReady.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.state.table} />
