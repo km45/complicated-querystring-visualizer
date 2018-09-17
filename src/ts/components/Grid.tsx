@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as AgGrid from 'ag-grid';
+import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 
 import {
