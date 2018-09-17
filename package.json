@@ -3,8 +3,8 @@
   "author": "km45",
   "license": "MIT",
   "dependencies": {
-    "ag-grid": "^18.0.1",
-    "ag-grid-react": "^18.0.0",
+    "ag-grid-community": "^19.0.0",
+    "ag-grid-react": "^19.0.0",
     "pythonic": "^1.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
