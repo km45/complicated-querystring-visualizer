@@ -22,7 +22,7 @@ module.exports = merge(common, {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new HtmlWebpackPlugin({
-            template: __dirname + '/src/html/production.html',
+            template: __dirname + '/src/html/index.html',
             title: 'react-studies(production)'
         })
     ]

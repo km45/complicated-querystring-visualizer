@@ -23,7 +23,7 @@ module.exports = merge(common, {
     plugins: [
         new CleanWebpackPlugin([__dirname + "/dist/development"]),
         new HtmlWebpackPlugin({
-            template: __dirname + '/src/html/development.html',
+            template: __dirname + '/src/html/index.html',
             title: 'react-studies(development)'
         })
     ]
