@@ -27,9 +27,9 @@ fetch:
 .PHONY: build
 build:
 ifeq ($(WATCH),true)
-	yarn run webpack --config webpack.$(CONFIG).js --watch
+	yarn run webpack --mode=$(CONFIG) --watch
 endif
-	yarn run webpack --config webpack.$(CONFIG).js
+	yarn run webpack --mode=$(CONFIG)
 
 .PHONY: clean
 clean:
@@ -45,4 +45,5 @@ endif
 
 .PHONY: lint
 lint:
+	yarn run eslint .eslintrc.js webpack.config.js
 	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx
