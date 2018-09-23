@@ -1,7 +1,13 @@
-module.exports = {
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = (env, argv) => {
+    const mode = argv.mode;
+return {
     entry: "./src/ts/index.tsx",
     output: {
         filename: "bundle.js",
+        path: __dirname + "/dist/" + mode
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -30,5 +36,28 @@ module.exports = {
         "react-dom": "ReactDOM",
         "react-dom-factories": false,
         "semantic-ui-react": "semanticUIReact"
-    }
+    },
+
+    plugins: [
+        new CleanWebpackPlugin([__dirname + "/dist/" + mode]),
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/html/index.html',
+            title: 'react-studies('+ mode +')'
+        })
+    ]
+
+    // Disabled following settings defined in webpack.production.js
+    // because it is maybe needless:
+    // ```
+    // performance: {
+    //     hints: false
+    // },
+    //
+    // plugins: [
+    //     new webpack.DefinePlugin({
+    //         'process.env.NODE_ENV': JSON.stringify('production')
+    //     })
+    // ]
+    // ```
+}
 }
