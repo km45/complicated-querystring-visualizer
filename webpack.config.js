@@ -6,31 +6,24 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env, argv) => {
   const mode = argv.mode;
 
-  const outputPath = path.resolve(__dirname, 'dist', mode);
   const outputJs = 'bundle.js';
+  const outputPath = path.resolve(__dirname, 'dist', mode);
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
   return {
-    entry: srcTsIndex,
-    output: {
-      filename: outputJs,
-      path: outputPath,
-    },
-
     // Enable sourcemaps for debugging webpack's output.
     devtool: 'source-map',
-
-    resolve: {
-      // Add '.ts' and '.tsx' as resolvable extensions.
-      extensions: [
-        '.js',
-        '.json',
-        '.ts',
-        '.tsx',
-      ],
+    entry: srcTsIndex,
+    externals: {
+      'ag-grid-community': 'agGrid',
+      'ag-grid-react': false,
+      'pythonic': false,
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-dom-factories': false,
+      'semantic-ui-react': 'semanticUIReact',
     },
-
     module: {
       rules: [
         // All files with a '.ts' or '.tsx' extension will be handled by
@@ -44,22 +37,15 @@ module.exports = (env, argv) => {
         // by 'source-map-loader'.
         {
           enforce: 'pre',
-          test: /\.js$/,
           loader: 'source-map-loader',
+          test: /\.js$/,
         },
       ],
     },
-
-    externals: {
-      'ag-grid-community': 'agGrid',
-      'ag-grid-react': false,
-      'pythonic': false,
-      'react': 'React',
-      'react-dom': 'ReactDOM',
-      'react-dom-factories': false,
-      'semantic-ui-react': 'semanticUIReact',
+    output: {
+      filename: outputJs,
+      path: outputPath,
     },
-
     plugins: [
       new CleanWebpackPlugin([
         outputPath,
@@ -69,7 +55,14 @@ module.exports = (env, argv) => {
         title: 'react-studies(' + mode + ')',
       }),
     ],
-
+    resolve: {
+      extensions: [
+        '.js',
+        '.json',
+        '.ts',
+        '.tsx',
+      ],
+    },
     // Disabled following settings defined in webpack.production.js
     // because it is maybe needless:
     // ```
