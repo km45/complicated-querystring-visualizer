@@ -27,9 +27,9 @@ fetch:
 .PHONY: build
 build:
 ifeq ($(WATCH),true)
-	yarn run webpack --config webpack.common.js --mode=$(CONFIG) --watch
+	yarn run webpack --mode=$(CONFIG) --watch
 endif
-	yarn run webpack --config webpack.common.js --mode=$(CONFIG)
+	yarn run webpack --mode=$(CONFIG)
 
 .PHONY: clean
 clean:
