@@ -1,13 +1,21 @@
+const path = require('path');
+
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const mode = argv.mode;
+
+  const outputPath = path.resolve(__dirname, 'dist', mode);
+  const outputJs = 'bundle.js';
+  const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
+  const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
+
   return {
-    entry: './src/ts/index.tsx',
+    entry: srcTsIndex,
     output: {
-      filename: 'bundle.js',
-      path: __dirname + '/dist/' + mode,
+      filename: outputJs,
+      path: outputPath,
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -48,9 +56,11 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
-      new CleanWebpackPlugin([__dirname + '/dist/' + mode]),
+      new CleanWebpackPlugin([
+        outputPath,
+      ]),
       new HtmlWebpackPlugin({
-        template: __dirname + '/src/html/index.html',
+        template: srcHtmlIndex,
         title: 'react-studies(' + mode + ')',
       }),
     ],
