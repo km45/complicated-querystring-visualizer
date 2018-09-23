@@ -45,4 +45,5 @@ endif
 
 .PHONY: lint
 lint:
+	yarn run eslint .eslintrc.js webpack.config.js
 	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx
