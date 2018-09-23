@@ -12,7 +12,6 @@ module.exports = (env, argv) => {
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
   return {
-    // Enable sourcemaps for debugging webpack's output.
     devtool: 'source-map',
     entry: srcTsIndex,
     externals: {
@@ -26,19 +25,13 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
-        // All files with a '.ts' or '.tsx' extension will be handled by
-        // 'awesome-typescript-loader'.
         {
-          test: /\.tsx?$/,
+          test: /\.tsx?$/, // '.ts' or '.tsx' extension
           loader: 'awesome-typescript-loader',
-        },
-
-        // All output '.js' files will have any sourcemaps re-processed
-        // by 'source-map-loader'.
-        {
+        }, {
           enforce: 'pre',
           loader: 'source-map-loader',
-          test: /\.js$/,
+          test: /\.js$/, // '.js' extension
         },
       ],
     },
