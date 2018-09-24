@@ -19,7 +19,7 @@ import * as UrlBinder from '../logic/url-binder';
 import { BinderState } from '../reducer';
 
 import { setFormText } from '../actions';
-import FormContainer from '../FormContainer';
+import FormContainer from '../containers/Form';
 
 export interface Props extends BinderState {
     dispatch: Redux.Dispatch<any>;

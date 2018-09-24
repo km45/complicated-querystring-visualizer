@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import * as ReactRedux from 'react-redux';
 
 import { buildFormStore } from './store';
-import BinderContainer from "./BinderContainer";
+import BinderContainer from "./containers/Binder";
 
 ReactDOM.render(
     <div>
