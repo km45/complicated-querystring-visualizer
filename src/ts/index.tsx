@@ -1,11 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as ReactRedux from 'react-redux';
 
-import { Binder } from "./components/Binder";
+import { buildFormStore } from './store';
+import BinderContainer from "./BinderContainer";
 
 ReactDOM.render(
     <div>
-        <Binder query={window.location.search} />
+        <ReactRedux.Provider store={buildFormStore()}>
+            <BinderContainer />
+        </ReactRedux.Provider>
     </div>,
     document.getElementById("content")
 );

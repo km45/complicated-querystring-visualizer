@@ -1,8 +1,7 @@
 import * as React from 'react';
-
+import * as Redux from 'redux';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { Form } from './Form';
 import { Grid } from './Grid';
 
 import {
@@ -17,15 +16,19 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-export interface Props {
-    query: string;
+import { BinderState } from '../reducer';
+
+import { setFormText } from '../actions';
+import FormContainer from '../FormContainer';
+
+export interface Props extends BinderState {
+    dispatch: Redux.Dispatch<any>;
 }
 
 interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
-    public form: React.RefObject<Form> = React.createRef();
     public basicGrid: React.RefObject<Grid> = React.createRef();
     public coordGrid: React.RefObject<Grid> = React.createRef();
     public hostGrid: React.RefObject<Grid> = React.createRef();
@@ -77,7 +80,7 @@ export class Binder extends React.Component<Props, State> {
     public render() {
         return (
             <div>
-                <Form ref={this.ref.form} />
+                <FormContainer />
                 <SemanticUiReact.Form>
                     <SemanticUiReact.Button
                         content='parse'
@@ -117,10 +120,6 @@ export class Binder extends React.Component<Props, State> {
     }
 
     public componentDidMount(): void {
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.basicGrid.current === null) {
             console.error('Unexpected null object');
             return;
@@ -140,11 +139,11 @@ export class Binder extends React.Component<Props, State> {
             }
 
             return q.substring('?'.length);
-        })(this.props.query);
+        })(window.location.search);
 
         const tables = parseUrl(query);
 
-        this.ref.form.current.setText(query);
+        this.props.dispatch(setFormText(query));
 
         this.ref.basicGrid.current.setTable(tables.basic, true);
         this.ref.coordGrid.current.setTable(tables.coord, true);
@@ -155,10 +154,6 @@ export class Binder extends React.Component<Props, State> {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.basicGrid.current === null) {
             console.error('Unexpected null object');
             return;
@@ -172,7 +167,7 @@ export class Binder extends React.Component<Props, State> {
             return;
         }
 
-        const url = this.ref.form.current.getText();
+        const url = this.props.text;
         const tables = parseUrl(url);
 
         this.ref.basicGrid.current.setTable(tables.basic, false);
@@ -184,10 +179,6 @@ export class Binder extends React.Component<Props, State> {
         event.preventDefault();
         console.log('onClickGridToForm');
 
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.basicGrid.current === null) {
             console.error('Unexpected null object');
             return;
@@ -208,18 +199,13 @@ export class Binder extends React.Component<Props, State> {
         });
         console.log(url);
 
-        this.ref.form.current.setText(url);
+        this.props.dispatch(setFormText(url));
     }
 
     private onClickOpen(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
-        const url = this.ref.form.current.getText();
+        const url = this.props.text;
         console.log('Open link: ' + url);
 
         window.open(url, '_blank');
@@ -228,11 +214,6 @@ export class Binder extends React.Component<Props, State> {
     private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
-        if (this.ref.form.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
-        this.ref.form.current.setText('');
+        this.props.dispatch(setFormText(''));
     }
 }

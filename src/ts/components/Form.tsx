@@ -1,29 +1,27 @@
 import * as React from 'react';
-
+import * as Redux from 'redux';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-export interface Props { }
+import { setFormText } from '../actions';
+import { FormState } from '../reducer';
 
-interface State {
-    text: string;
+export interface Props extends FormState {
+    dispatch: Redux.Dispatch<any>;
 }
+
+interface State { }
 
 export class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
-        this.state = {
-            text: ''
-        };
     }
 
     public getText(): string {
-        return this.state.text;
+        return this.props.text;
     }
 
     public setText(text: string): void {
-        this.setState({
-            text
-        });
+        this.props.dispatch(setFormText(text));
     }
 
     public render() {
@@ -32,14 +30,13 @@ export class Form extends React.Component<Props, State> {
                 <SemanticUiReact.TextArea
                     autoHeight={true}
                     onChange={(event) => this.onTextAreaChange(event)}
-                    value={this.state.text} />
+                    value={this.props.text}
+                />
             </SemanticUiReact.Form>
         );
     }
 
     private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.setState({
-            text: event.currentTarget.value
-        });
+        this.setText(event.currentTarget.value);
     }
 }
