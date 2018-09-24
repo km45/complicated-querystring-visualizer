@@ -19,6 +19,8 @@ $ make down
 
 ## Development rules
 
+- [Ducks File Structure for Redux](DucksFileStructureForRedux)
 - [GitHub Flow](GitHubFlow)
 
-[GitHubFlow]:https://guides.github.com/introduction/flow/
+[DucksFileStructureForRedux]: https://medium.com/@scbarrus/the-ducks-file-structure-for-redux-d63c41b7035c
+[GitHubFlow]: https://guides.github.com/introduction/flow/
