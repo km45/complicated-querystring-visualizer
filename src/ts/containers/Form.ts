@@ -1,7 +1,7 @@
 import * as ReactRedux from 'react-redux';
 
 import {Form} from '../components/Form';
-import {FormState} from '../reducer';
+import {FormState} from '../modules/Form';
 
 const mapStateToProps = (state: FormState) => state;
 

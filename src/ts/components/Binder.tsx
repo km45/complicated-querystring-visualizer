@@ -16,12 +16,12 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-import { BinderState } from '../reducer';
+import { FormState } from '../modules/Form';
 
-import { setFormText } from '../actions';
+import { setFormText } from '../modules/Form';
 import FormContainer from '../containers/Form';
 
-export interface Props extends BinderState {
+export interface Props extends FormState {
     dispatch: Redux.Dispatch<any>;
 }
 

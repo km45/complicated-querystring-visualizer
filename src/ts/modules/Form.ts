@@ -1,13 +1,10 @@
+import * as TypescriptFsa from 'typescript-fsa';
 import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 
-import * as actions from './actions';
+const SET_TEXT = 'react-studies/Form/SET_TEXT'
 
 export interface FormState {
   text: string;
-}
-
-export interface BinderState extends FormState {
-  query: string;
 }
 
 export const initialReduceState: FormState = {
@@ -18,6 +15,10 @@ function handler(state: FormState, payload: string): any {
   return {...state, text: payload};
 }
 
+const actionCreator = TypescriptFsa.actionCreatorFactory();
+
+export const setFormText = actionCreator<string>(SET_TEXT);
+
 export default TypescriptFsaReducers.reducerWithInitialState(initialReduceState)
-    .case(actions.setFormText, handler)
+    .case(setFormText, handler)
     .build();
