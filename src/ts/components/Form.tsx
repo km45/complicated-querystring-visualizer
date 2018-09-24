@@ -16,14 +16,6 @@ export class Form extends React.Component<Props, State> {
         super(props, context);
     }
 
-    public getText(): string {
-        return this.props.text;
-    }
-
-    public setText(text: string): void {
-        this.props.dispatch(setFormText(text));
-    }
-
     public render() {
         return (
             <SemanticUiReact.Form>
@@ -37,6 +29,6 @@ export class Form extends React.Component<Props, State> {
     }
 
     private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.setText(event.currentTarget.value);
+        this.props.dispatch(setFormText(event.currentTarget.value));
     }
 }
