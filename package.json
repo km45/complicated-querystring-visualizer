@@ -11,7 +11,9 @@
     "react-dom-factories": "^1.0.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "semantic-ui-react": "^0.82.5"
+    "semantic-ui-react": "^0.82.5",
+    "typescript-fsa": "^3.0.0-beta-2",
+    "typescript-fsa-reducers": "^0.4.5"
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
