@@ -15,7 +15,6 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-
 import { Props } from '../containers/Binder';
 import { setFormText } from '../modules/Form';
 
