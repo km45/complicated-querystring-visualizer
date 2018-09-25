@@ -16,7 +16,7 @@ export default class Form extends React.Component<Props, State> {
                 <SemanticUiReact.TextArea
                     autoHeight={true}
                     onChange={(event) => this.onTextAreaChange(event)}
-                    value={this.props.text}
+                    value={this.props.values.text}
                 />
             </SemanticUiReact.Form>
         );

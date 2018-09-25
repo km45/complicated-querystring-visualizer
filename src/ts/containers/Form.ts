@@ -26,7 +26,7 @@ interface DispatchProps {
 
 export interface Props {
   actions: Actions;
-  text: string;
+  values: StateProps;
 }
 
 function mapStateToProps(state: State): StateProps {
@@ -39,7 +39,7 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 
 function mergeProps(
     stateProps: StateProps, dispatchProps: DispatchProps, _: any): Props {
-  return {actions: dispatchProps.actions, text: stateProps.text};
+  return {actions: dispatchProps.actions, values: stateProps};
 }
 
 export default ReactRedux.connect(
