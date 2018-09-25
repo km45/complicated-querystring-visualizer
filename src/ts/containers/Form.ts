@@ -2,18 +2,30 @@ import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
 import {Form} from '../components/Form';
-import {FormState} from '../modules/Form';
+import {FormState, setFormText} from '../modules/Form';
+
+class Actions {
+  private dispatch: Redux.Dispatch<any>;
+
+  constructor(dispatch: Redux.Dispatch<any>) {
+    this.dispatch = dispatch;
+  }
+
+  public setFormText(text: string): void {
+    this.dispatch(setFormText(text));
+  }
+}
 
 interface StateProps {
   text: string;
 }
 
 interface DispatchProps {
-  dispatch: Redux.Dispatch<any>;
+  actions: Actions;
 }
 
 export interface Props {
-  dispatch: Redux.Dispatch<any>;
+  actions: Actions;
   text: string;
 }
 
@@ -22,12 +34,12 @@ function mapStateToProps(state: FormState): StateProps {
 }
 
 function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {dispatch};
+  return {actions: new Actions(dispatch)};
 }
 
 function mergeProps(
     stateProps: StateProps, dispatchProps: DispatchProps, _: any): Props {
-  return {dispatch: dispatchProps.dispatch, text: stateProps.text};
+  return {actions: dispatchProps.actions, text: stateProps.text};
 }
 
 export default ReactRedux.connect(

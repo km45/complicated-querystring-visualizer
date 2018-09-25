@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { setFormText } from '../modules/Form';
 import { Props } from '../containers/Form';
 
 interface State { }
@@ -24,6 +23,6 @@ export class Form extends React.Component<Props, State> {
     }
 
     private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.props.dispatch(setFormText(event.currentTarget.value));
+        this.props.actions.setFormText(event.currentTarget.value);
     }
 }
