@@ -1,6 +1,11 @@
 import * as Redux from 'redux';
 
-import reducer from './modules/Form';
+import * as Form from './modules/Form';
+import form from './modules/Form';
+
+export interface RootState {
+  form: Form.State
+}
 
 // singleton
-export default Redux.createStore(reducer);
+export default Redux.createStore(Redux.combineReducers<RootState>({form}));

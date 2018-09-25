@@ -2,7 +2,8 @@ import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
 import Form from '../components/Form';
-import {setFormText, State} from '../modules/Form';
+import {setFormText} from '../modules/Form';
+import {RootState} from '../store';
 
 class Actions {
   private dispatch: Redux.Dispatch<any>;
@@ -29,8 +30,8 @@ export interface Props {
   values: StateProps;
 }
 
-function mapStateToProps(state: State): StateProps {
-  return {text: (state.text ? state.text : '')};
+function mapStateToProps(state: RootState): StateProps {
+  return {text: (state.form.text ? state.form.text : '')};
 }
 
 function mapDispatchToProps(dispatch: any): DispatchProps {

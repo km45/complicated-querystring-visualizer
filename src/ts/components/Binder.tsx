@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Redux from 'redux';
 import * as SemanticUiReact from 'semantic-ui-react';
 
 import { Grid } from './Grid';
@@ -16,14 +15,9 @@ import {
 
 import * as UrlBinder from '../logic/url-binder';
 
-import * as FormModule from '../modules/Form';
 
+import { Props } from '../containers/Binder';
 import { setFormText } from '../modules/Form';
-
-
-export interface Props extends FormModule.State {
-    dispatch: Redux.Dispatch<any>;
-}
 
 interface State { }
 
