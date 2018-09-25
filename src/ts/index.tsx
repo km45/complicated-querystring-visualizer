@@ -4,11 +4,15 @@ import * as ReactRedux from 'react-redux';
 
 import store from './store';
 import BinderContainer from "./containers/Binder";
+import FormContainer from './containers/Form';
 
 ReactDOM.render(
     <div>
         <ReactRedux.Provider store={store}>
-            <BinderContainer />
+            <div>
+                <FormContainer />
+                <BinderContainer />
+            </div>
         </ReactRedux.Provider>
     </div>,
     document.getElementById("content")

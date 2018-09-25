@@ -20,7 +20,6 @@ import * as FormModule from '../modules/Form';
 
 import { setFormText } from '../modules/Form';
 
-import FormContainer from '../containers/Form';
 
 export interface Props extends FormModule.State {
     dispatch: Redux.Dispatch<any>;
@@ -81,7 +80,6 @@ export class Binder extends React.Component<Props, State> {
     public render() {
         return (
             <div>
-                <FormContainer />
                 <SemanticUiReact.Form>
                     <SemanticUiReact.Button
                         content='parse'
