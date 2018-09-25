@@ -22,5 +22,5 @@ $ make down
 - [Ducks File Structure for Redux](DucksFileStructureForRedux)
 - [GitHub Flow](GitHubFlow)
 
-[DucksFileStructureForRedux]: https://medium.com/@scbarrus/the-ducks-file-structure-for-redux-d63c41b7035c
+[DucksFileStructureForRedux]: https://github.com/erikras/ducks-modular-redux
 [GitHubFlow]: https://guides.github.com/introduction/flow/
