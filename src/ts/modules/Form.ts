@@ -16,7 +16,7 @@ function handler(state: FormState, payload: string): any {
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const SET_TEXT = 'react-studies/Form/SET_TEXT'
+const SET_TEXT = 'react-studies/Form/SET_TEXT';
 
 // ----------------------------------------------------------------------------
 // action creators

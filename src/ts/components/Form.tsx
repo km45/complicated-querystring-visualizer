@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Redux from 'redux';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { FormState, setFormText } from '../modules/Form'
+import { FormState, setFormText } from '../modules/Form';
 
 export interface Props extends FormState {
     dispatch: Redux.Dispatch<any>;

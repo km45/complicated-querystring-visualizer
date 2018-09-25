@@ -19,6 +19,7 @@ import * as UrlBinder from '../logic/url-binder';
 import { FormState } from '../modules/Form';
 
 import { setFormText } from '../modules/Form';
+
 import FormContainer from '../containers/Form';
 
 export interface Props extends FormState {
