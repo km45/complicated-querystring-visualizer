@@ -5,7 +5,7 @@ import { Props } from '../containers/Form';
 
 interface State { }
 
-export class Form extends React.Component<Props, State> {
+export default class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
     }

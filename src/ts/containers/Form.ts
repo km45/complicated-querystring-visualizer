@@ -1,7 +1,7 @@
 import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
-import {Form} from '../components/Form';
+import Form from '../components/Form';
 import {State, setFormText} from '../modules/Form';
 
 class Actions {
