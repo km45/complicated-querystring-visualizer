@@ -1,15 +1,15 @@
 import * as TypescriptFsa from 'typescript-fsa';
 import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 
-export interface FormState {
+export interface State {
   text: string;
 }
 
-export const initialReduceState: FormState = {
+const initialReduceState: State = {
   text: ''
 };
 
-function handler(state: FormState, payload: string): any {
+function handler(state: State, payload: string): any {
   return {...state, text: payload};
 }
 

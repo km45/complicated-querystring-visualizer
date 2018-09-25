@@ -1,8 +1,8 @@
 import * as ReactRedux from 'react-redux';
 
 import {Binder} from '../components/Binder';
-import {FormState} from '../modules/Form';
+import {State} from '../modules/Form';
 
-const mapStateToProps = (state: FormState) => state;
+const mapStateToProps = (state: State) => state;
 
 export default ReactRedux.connect(mapStateToProps)(Binder);
