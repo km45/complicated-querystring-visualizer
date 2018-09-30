@@ -47,3 +47,7 @@ endif
 lint:
 	yarn run eslint .eslintrc.js webpack.config.js
 	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx
+
+.PHONY: e2etest
+e2etest:
+	docker-compose exec --user `id -u`:`id -g` python pytest src/python/tests
