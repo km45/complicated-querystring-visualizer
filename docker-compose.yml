@@ -31,6 +31,8 @@ services:
       # vnc port to access like following:
       # $ echo 'secret' | vncviewer -autopass 127.0.0.1:5900
       - 5900:5900
+    volumes:
+      - .:/usr/src/app
   python:
     build:
       context: .
