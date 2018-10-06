@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { Grid } from './Grid';
+import { Grid as OldGrid } from './OldGrid';
 
 import {
     arrayTableToObjectTable,
@@ -22,9 +22,9 @@ interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
-    public basicGrid: React.RefObject<Grid> = React.createRef();
-    public coordGrid: React.RefObject<Grid> = React.createRef();
-    public hostGrid: React.RefObject<Grid> = React.createRef();
+    public basicGrid: React.RefObject<OldGrid> = React.createRef();
+    public coordGrid: React.RefObject<OldGrid> = React.createRef();
+    public hostGrid: React.RefObject<OldGrid> = React.createRef();
 }
 
 interface BinderImplTables {
@@ -95,15 +95,15 @@ export class Binder extends React.Component<Props, State> {
                         negative={true}
                         onClick={(event) => this.onClickClear(event)} />
                 </SemanticUiReact.Form>
-                <Grid
+                <OldGrid
                     columns={UrlBinder.ColumnsDefinition.host}
                     title='Host'
                     ref={this.ref.hostGrid} />
-                <Grid
+                <OldGrid
                     columns={ColumnsDefinition.basic}
                     title='Basic'
                     ref={this.ref.basicGrid} />
-                <Grid
+                <OldGrid
                     columns={ColumnsDefinition.coord}
                     title='Coord'
                     ref={this.ref.coordGrid} />
