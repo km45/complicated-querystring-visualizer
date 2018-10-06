@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 
-_FILEPATH = '/usr/src/app/dist/development/index.html'
-# _FILEPATH = '/usr/src/app/dist/production/index.html'
+# _FILEPATH = '/usr/src/app/dist/development/index.html'
+_FILEPATH = '/usr/src/app/dist/production/index.html'
 
 _BASIC_PARAMETERS_PARSED_GRID_BODY_CELLS_XPATH = '''//h2[contains(text(), 'Basic')]/..//div[contains(@class, 'ag-body')]//div[contains(@class, 'ag-cell')]'''
 
