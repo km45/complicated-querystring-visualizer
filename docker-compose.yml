@@ -11,15 +11,6 @@ services:
     ports:
       # Can watch state on http://localhost:4444/grid/console
       - "4444:4444"
-  # chrome:
-  #   image: selenium/node-chrome-debug:3.14.0-europium
-  #   depends_on:
-  #     - selenium-hub
-  #   environment:
-  #     - HUB_HOST=selenium-hub
-  #     - HUB_PORT=4444
-  #   ports:
-  #     - 5900:5900
   firefox:
     image: selenium/node-firefox-debug:3.14.0-europium
     depends_on:
