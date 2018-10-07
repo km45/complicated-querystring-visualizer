@@ -5,9 +5,8 @@ import * as ReactRedux from 'react-redux';
 import store from './store';
 import BinderContainer from "./containers/Binder";
 import FormContainer from './containers/Form';
-import Grid from './containers/Grid';
 
-import { ColumnsDefinition } from './logic/query-binder';
+import Visualizer from "./containers/Visualizer";
 
 ReactDOM.render(
     <div>
@@ -15,9 +14,7 @@ ReactDOM.render(
             <div>
                 <FormContainer />
                 <BinderContainer />
-                <Grid
-                    columns={ColumnsDefinition.basic}
-                    title='Basic' />
+                <Visualizer />
             </div>
         </ReactRedux.Provider>
     </div>,
