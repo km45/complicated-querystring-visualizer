@@ -1,13 +1,15 @@
 import * as Redux from 'redux';
 
-import * as Form from './modules/Form';
-import * as Table from './modules/Table';
+import * as StringifiedQuery from './modules/StringifiedQuery';
+import * as StructuredQuery from './modules/StructuredQuery';
 
 export interface RootState {
-  form: Form.State
-  table: Table.State
+  stringifiedQuery: StringifiedQuery.State
+  structuredQuery: StructuredQuery.State
 }
 
 // singleton
-export default Redux.createStore(Redux.combineReducers<RootState>(
-    {form: Form.default, table: Table.default}));
+export default Redux.createStore(Redux.combineReducers<RootState>({
+  stringifiedQuery: StringifiedQuery.default,
+  structuredQuery: StructuredQuery.default
+}));

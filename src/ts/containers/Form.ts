@@ -2,7 +2,7 @@ import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
 import Form from '../components/Form';
-import {setFormText} from '../modules/Form';
+import {setText} from '../modules/StringifiedQuery';
 import {RootState} from '../store';
 
 class Actions {
@@ -12,8 +12,8 @@ class Actions {
     this.dispatch = dispatch;
   }
 
-  public setFormText(text: string): void {
-    this.dispatch(setFormText(text));
+  public setText(text: string): void {
+    this.dispatch(setText(text));
   }
 }
 
@@ -31,7 +31,9 @@ export interface Props {
 }
 
 function mapStateToProps(state: RootState): StateProps {
-  return {text: (state.form.text ? state.form.text : '')};
+  return {
+    text: (state.stringifiedQuery.text ? state.stringifiedQuery.text : '')
+  };
 }
 
 function mapDispatchToProps(dispatch: any): DispatchProps {

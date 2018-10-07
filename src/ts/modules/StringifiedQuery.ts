@@ -1,35 +1,33 @@
 import * as TypescriptFsa from 'typescript-fsa';
 import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 
-import {ObjectTable} from '../logic/table-data';
-
 export interface State {
-  table: ObjectTable;
+  text: string;
 }
 
 const initialReduceState: State = {
-  table: []
+  text: ''
 };
 
-function handler(_: State, table: ObjectTable): any {
-  return {table};
+function handler(state: State, payload: string): any {
+  return {...state, text: payload};
 }
 
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const SET_TABLE = 'react-studies/Table/SET_TABLE';
+const SET_TEXT = 'react-studies/StringifiedQuery/SET_TEXT';
 
 // ----------------------------------------------------------------------------
 // action creators
 // ----------------------------------------------------------------------------
 const actionCreator = TypescriptFsa.actionCreatorFactory();
 
-export const setTable = actionCreator<ObjectTable>(SET_TABLE);
+export const setText = actionCreator<string>(SET_TEXT);
 
 // ----------------------------------------------------------------------------
 // reducer
 // ----------------------------------------------------------------------------
 export default TypescriptFsaReducers.reducerWithInitialState(initialReduceState)
-    .case(setTable, handler)
+    .case(setText, handler)
     .build();

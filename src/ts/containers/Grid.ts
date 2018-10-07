@@ -3,7 +3,7 @@ import * as Redux from 'redux';
 
 import Grid from '../components/Grid';
 import {Columns, ObjectTable} from '../logic/table-data';
-import {setTable} from '../modules/Table';
+import {setTable} from '../modules/StructuredQuery';
 import {RootState} from '../store';
 
 class Actions {
@@ -43,7 +43,7 @@ export interface Props {
 }
 
 function mapStateToProps(state: RootState): StateProps {
-  return {table: state.table.table};
+  return {table: state.structuredQuery.table};
 }
 
 function mapDispatchToProps(dispatch: any): DispatchProps {

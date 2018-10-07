@@ -22,8 +22,8 @@ export interface Props {
 
 function mapStateToProps(state: RootState): StateProps {
   return {
-    table: state.table.table,
-    text: state.form.text
+    table: state.structuredQuery.table,
+    text: state.stringifiedQuery.text
   };
 }
 

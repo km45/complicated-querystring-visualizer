@@ -16,9 +16,9 @@ import {
 import * as UrlBinder from '../logic/url-binder';
 
 import { Props } from '../containers/Binder';
-import { setFormText } from '../modules/Form';
+import { setText } from '../modules/StringifiedQuery';
 
-import { setTable } from '../modules/Table';
+import { setTable } from '../modules/StructuredQuery';
 
 interface State { }
 
@@ -128,7 +128,7 @@ export class Binder extends React.Component<Props, State> {
 
         const tables = parseUrl(query);
 
-        this.props.dispatch(setFormText(query));
+        this.props.dispatch(setText(query));
 
         this.props.dispatch(setTable(tables.basic));
         this.ref.coordGrid.current.setTable(tables.coord, true);
@@ -176,7 +176,7 @@ export class Binder extends React.Component<Props, State> {
         });
         console.log(url);
 
-        this.props.dispatch(setFormText(url));
+        this.props.dispatch(setText(url));
     }
 
     private onClickOpen(event: React.MouseEvent<HTMLButtonElement>) {
@@ -191,6 +191,6 @@ export class Binder extends React.Component<Props, State> {
     private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
-        this.props.dispatch(setFormText(''));
+        this.props.dispatch(setText(''));
     }
 }

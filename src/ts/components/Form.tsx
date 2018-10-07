@@ -23,6 +23,6 @@ export default class Form extends React.Component<Props, State> {
     }
 
     private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.props.actions.setFormText(event.currentTarget.value);
+        this.props.actions.setText(event.currentTarget.value);
     }
 }
