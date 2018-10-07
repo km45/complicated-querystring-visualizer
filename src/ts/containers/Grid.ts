@@ -1,12 +1,12 @@
 import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
-import Grid from '../components/Grid';
+import * as Component from '../components/Grid';
 import {Columns, ObjectTable} from '../logic/table-data';
 import {setTable} from '../modules/StructuredQuery';
 import {RootState} from '../store';
 
-class Actions {
+class Actions implements Component.Actions {
   private dispatch: Redux.Dispatch<any>;
 
   constructor(dispatch: Redux.Dispatch<any>) {
@@ -31,17 +31,6 @@ interface OwnProps {
   title: string;
 }
 
-interface Values {
-  columns: Columns;
-  table: ObjectTable;
-  title: string;
-}
-
-export interface Props {
-  actions: Actions;
-  values: Values;
-}
-
 function mapStateToProps(state: RootState): StateProps {
   return {table: state.structuredQuery.table};
 }
@@ -52,7 +41,7 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 
 function mergeProps(
     stateProps: StateProps, dispatchProps: DispatchProps,
-    ownProps: OwnProps): Props {
+    ownProps: OwnProps): Component.Props {
   return {
     actions: dispatchProps.actions,
     values: {
@@ -64,4 +53,4 @@ function mergeProps(
 }
 
 export default ReactRedux.connect(
-    mapStateToProps, mapDispatchToProps, mergeProps)(Grid);
+    mapStateToProps, mapDispatchToProps, mergeProps)(Component.default);

@@ -4,9 +4,7 @@ import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import deepCopy from 'ts-deepcopy';
 
-import { ObjectTable } from '../logic/table-data';
-
-import { Props } from '../containers/Grid';
+import { Columns, ObjectTable } from '../logic/table-data';
 
 interface State {
     // Ag-grid changes table set as rowData,
@@ -18,6 +16,21 @@ interface State {
     // To avoid the above situation,
     // deep copy props table to state and set it as rowData.
     table: ObjectTable;
+}
+
+export interface Actions {
+    setTable(table: ObjectTable): void;
+}
+
+export interface Values {
+    columns: Columns;
+    table: ObjectTable;
+    title: string;
+}
+
+export interface Props {
+    actions: Actions;
+    values: Values;
 }
 
 const defaultColDef: AgGrid.ColDef = {

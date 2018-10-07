@@ -1,11 +1,11 @@
 import * as ReactRedux from 'react-redux';
 import * as Redux from 'redux';
 
-import Form from '../components/Form';
+import * as Component from '../components/Form';
 import {setText} from '../modules/StringifiedQuery';
 import {RootState} from '../store';
 
-class Actions {
+class Actions implements Component.Actions {
   private dispatch: Redux.Dispatch<any>;
 
   constructor(dispatch: Redux.Dispatch<any>) {
@@ -25,11 +25,6 @@ interface DispatchProps {
   actions: Actions;
 }
 
-export interface Props {
-  actions: Actions;
-  values: StateProps;
-}
-
 function mapStateToProps(state: RootState): StateProps {
   return {
     text: (state.stringifiedQuery.text ? state.stringifiedQuery.text : '')
@@ -41,9 +36,10 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 }
 
 function mergeProps(
-    stateProps: StateProps, dispatchProps: DispatchProps, _: any): Props {
+    stateProps: StateProps, dispatchProps: DispatchProps,
+    _: any): Component.Props {
   return {actions: dispatchProps.actions, values: stateProps};
 }
 
 export default ReactRedux.connect(
-    mapStateToProps, mapDispatchToProps, mergeProps)(Form);
+    mapStateToProps, mapDispatchToProps, mergeProps)(Component.default);

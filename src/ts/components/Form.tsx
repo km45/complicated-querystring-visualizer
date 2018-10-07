@@ -1,9 +1,20 @@
 import * as React from 'react';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { Props } from '../containers/Form';
-
 interface State { }
+
+export interface Actions {
+    setText(text: string): void;
+}
+
+export interface Values {
+    text: string;
+}
+
+export interface Props {
+    actions: Actions;
+    values: Values;
+}
 
 export default class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
