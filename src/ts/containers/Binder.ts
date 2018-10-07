@@ -8,6 +8,7 @@ import {RootState} from '../store';
 interface StateProps {
   basicTable: ObjectTable;
   coordTable: ObjectTable;
+  hostTable: ObjectTable;
   text: string;
 }
 
@@ -18,6 +19,7 @@ interface DispatchProps {
 export interface Props {
   basicTable: ObjectTable;
   coordTable: ObjectTable;
+  hostTable: ObjectTable;
   dispatch: Redux.Dispatch<any>;
   text: string;
 }
@@ -26,6 +28,7 @@ function mapStateToProps(state: RootState): StateProps {
   return {
     basicTable: state.structuredQuery.basicTable,
     coordTable: state.structuredQuery.coordTable,
+    hostTable: state.structuredQuery.hostTable,
     text: state.stringifiedQuery.text
   };
 }
@@ -40,6 +43,7 @@ function mergeProps(
     basicTable: stateProps.basicTable,
     coordTable: stateProps.coordTable,
     dispatch: dispatchProps.dispatch,
+    hostTable: stateProps.hostTable,
     text: stateProps.text
   };
 }

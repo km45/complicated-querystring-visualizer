@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as SemanticUiReact from 'semantic-ui-react';
 
-import { Grid as OldGrid } from './OldGrid';
-
 import {
     arrayTableToObjectTable,
     ObjectTable,
@@ -18,14 +16,9 @@ import * as UrlBinder from '../logic/url-binder';
 import { Props } from '../containers/Binder';
 import { setText } from '../modules/StringifiedQuery';
 
-import { setBasicTable, setCoordTable } from '../modules/StructuredQuery';
+import { setBasicTable, setCoordTable, setHostTable } from '../modules/StructuredQuery';
 
 interface State { }
-
-// https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
-class BinderImplRef {
-    public hostGrid: React.RefObject<OldGrid> = React.createRef();
-}
 
 interface BinderImplTables {
     basic: ObjectTable;
@@ -64,8 +57,6 @@ function generateUrl(tables: BinderImplTables): string {
 }
 
 export class Binder extends React.Component<Props, State> {
-    private ref = new BinderImplRef();
-
     public constructor(props: Props, context: State) {
         super(props, context);
     }
@@ -95,20 +86,11 @@ export class Binder extends React.Component<Props, State> {
                         negative={true}
                         onClick={(event) => this.onClickClear(event)} />
                 </SemanticUiReact.Form>
-                <OldGrid
-                    columns={UrlBinder.ColumnsDefinition.host}
-                    title='Host'
-                    ref={this.ref.hostGrid} />
             </div>
         );
     }
 
     public componentDidMount(): void {
-        if (this.ref.hostGrid.current == null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
         const query = ((q: string): string => {
             if (!q) {
                 return '';
@@ -123,39 +105,29 @@ export class Binder extends React.Component<Props, State> {
 
         this.props.dispatch(setBasicTable(tables.basic));
         this.props.dispatch(setCoordTable(tables.coord));
-        this.ref.hostGrid.current.setTable(tables.host, true);
+        this.props.dispatch(setHostTable(tables.host));
     }
 
     private onClickFormToGrid(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
-        if (this.ref.hostGrid.current == null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
         const url = this.props.text;
         const tables = parseUrl(url);
 
         this.props.dispatch(setBasicTable(tables.basic));
         this.props.dispatch(setCoordTable(tables.coord));
-        this.ref.hostGrid.current.setTable(tables.host, false);
+        this.props.dispatch(setHostTable(tables.host));
     }
 
     private onClickGridToForm(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         console.log('onClickGridToForm');
 
-        if (this.ref.hostGrid.current == null) {
-            console.error('Unexpected null object');
-            return;
-        }
-
         const url = generateUrl({
             basic: this.props.basicTable,
             coord: this.props.coordTable,
-            host: this.ref.hostGrid.current.getTable()
+            host: this.props.hostTable
         });
         console.log(url);
 
