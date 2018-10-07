@@ -6,7 +6,8 @@ import {ObjectTable} from '../logic/table-data';
 import {RootState} from '../store';
 
 interface StateProps {
-  table: ObjectTable;
+  basicTable: ObjectTable;
+  coordTable: ObjectTable;
   text: string;
 }
 
@@ -15,14 +16,16 @@ interface DispatchProps {
 }
 
 export interface Props {
+  basicTable: ObjectTable;
+  coordTable: ObjectTable;
   dispatch: Redux.Dispatch<any>;
-  table: ObjectTable;
   text: string;
 }
 
 function mapStateToProps(state: RootState): StateProps {
   return {
-    table: state.structuredQuery.table,
+    basicTable: state.structuredQuery.basicTable,
+    coordTable: state.structuredQuery.coordTable,
     text: state.stringifiedQuery.text
   };
 }
@@ -34,8 +37,9 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 function mergeProps(
     stateProps: StateProps, dispatchProps: DispatchProps, _: any): Props {
   return {
+    basicTable: stateProps.basicTable,
+    coordTable: stateProps.coordTable,
     dispatch: dispatchProps.dispatch,
-    table: stateProps.table,
     text: stateProps.text
   };
 }

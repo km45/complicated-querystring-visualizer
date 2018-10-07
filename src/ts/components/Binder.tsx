@@ -18,13 +18,12 @@ import * as UrlBinder from '../logic/url-binder';
 import { Props } from '../containers/Binder';
 import { setText } from '../modules/StringifiedQuery';
 
-import { setTable } from '../modules/StructuredQuery';
+import { setBasicTable, setCoordTable } from '../modules/StructuredQuery';
 
 interface State { }
 
 // https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 class BinderImplRef {
-    public coordGrid: React.RefObject<OldGrid> = React.createRef();
     public hostGrid: React.RefObject<OldGrid> = React.createRef();
 }
 
@@ -100,19 +99,11 @@ export class Binder extends React.Component<Props, State> {
                     columns={UrlBinder.ColumnsDefinition.host}
                     title='Host'
                     ref={this.ref.hostGrid} />
-                <OldGrid
-                    columns={ColumnsDefinition.coord}
-                    title='Coord'
-                    ref={this.ref.coordGrid} />
             </div>
         );
     }
 
     public componentDidMount(): void {
-        if (this.ref.coordGrid.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.hostGrid.current == null) {
             console.error('Unexpected null object');
             return;
@@ -130,8 +121,8 @@ export class Binder extends React.Component<Props, State> {
 
         this.props.dispatch(setText(query));
 
-        this.props.dispatch(setTable(tables.basic));
-        this.ref.coordGrid.current.setTable(tables.coord, true);
+        this.props.dispatch(setBasicTable(tables.basic));
+        this.props.dispatch(setCoordTable(tables.coord));
         this.ref.hostGrid.current.setTable(tables.host, true);
     }
 
@@ -139,10 +130,6 @@ export class Binder extends React.Component<Props, State> {
         event.preventDefault();
         console.log('onClickFormToGrid');
 
-        if (this.ref.coordGrid.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.hostGrid.current == null) {
             console.error('Unexpected null object');
             return;
@@ -151,8 +138,8 @@ export class Binder extends React.Component<Props, State> {
         const url = this.props.text;
         const tables = parseUrl(url);
 
-        this.props.dispatch(setTable(tables.basic));
-        this.ref.coordGrid.current.setTable(tables.coord, false);
+        this.props.dispatch(setBasicTable(tables.basic));
+        this.props.dispatch(setCoordTable(tables.coord));
         this.ref.hostGrid.current.setTable(tables.host, false);
     }
 
@@ -160,18 +147,14 @@ export class Binder extends React.Component<Props, State> {
         event.preventDefault();
         console.log('onClickGridToForm');
 
-        if (this.ref.coordGrid.current === null) {
-            console.error('Unexpected null object');
-            return;
-        }
         if (this.ref.hostGrid.current == null) {
             console.error('Unexpected null object');
             return;
         }
 
         const url = generateUrl({
-            basic: this.props.table,
-            coord: this.ref.coordGrid.current.getTable(),
+            basic: this.props.basicTable,
+            coord: this.props.coordTable,
             host: this.ref.hostGrid.current.getTable()
         });
         console.log(url);
