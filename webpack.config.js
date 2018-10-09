@@ -21,7 +21,12 @@ module.exports = (env, argv) => {
       'react': 'React',
       'react-dom': 'ReactDOM',
       'react-dom-factories': false,
+      'react-redux': 'ReactRedux',
+      'redux': 'Redux',
       'semantic-ui-react': 'semanticUIReact',
+      'ts-deepcopy': false,
+      'typescript-fsa': false,
+      'typescript-fsa-reducers': false,
     },
     module: {
       rules: [
