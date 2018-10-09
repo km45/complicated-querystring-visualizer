@@ -1,7 +1,6 @@
-import * as React from 'react';
-
 import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
+import * as React from 'react';
 import deepCopy from 'ts-deepcopy';
 
 import { Columns, ObjectTable } from '../logic/table-data';
