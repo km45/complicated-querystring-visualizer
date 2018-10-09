@@ -19,6 +19,4 @@ $ make down
 
 ## Development rules
 
-- [GitHub Flow](GitHubFlow)
-
-[GitHubFlow]:https://guides.github.com/introduction/flow/
+- [GitHub flow](https://guides.github.com/introduction/flow/)
