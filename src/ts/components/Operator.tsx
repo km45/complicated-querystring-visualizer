@@ -55,23 +55,23 @@ export default class Operator extends React.Component<Props, State> {
         this.props.actions.processOwnQuery();
     }
 
-    private onClickClear(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
-        // event.preventDefault();
+    private onClickClear(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.actions.clearFormText();
     }
 
-    private onClickGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
-        // event.preventDefault();
+    private onClickGenerate(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.actions.generateQuery();
     }
 
-    private onClickOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
-        // event.preventDefault();
+    private onClickOpen(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.actions.openQuery();
     }
 
-    private onClickParse(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
-        // event.preventDefault();
+    private onClickParse(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.actions.parseQuery();
     }
 }
