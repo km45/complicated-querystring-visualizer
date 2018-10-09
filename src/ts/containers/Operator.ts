@@ -85,6 +85,24 @@ class Actions implements Component.Actions {
     this.dispatch(setCoordTable(tables.coord));
     this.dispatch(setHostTable(tables.host));
   }
+
+  public processOwnQuery(): void {
+    const query = ((q: string): string => {
+      if (!q) {
+        return '';
+      }
+
+      return q.substring('?'.length);
+    })(window.location.search);
+
+    const tables = parseUrl(query);
+
+    this.dispatch(setText(query));
+
+    this.dispatch(setBasicTable(tables.basic));
+    this.dispatch(setCoordTable(tables.coord));
+    this.dispatch(setHostTable(tables.host));
+  }
 }
 
 type StateProps = RootState;
@@ -103,7 +121,7 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 
 function mergeProps(
     stateProps: StateProps, dispatchProps: DispatchProps,
-    _: any): Component.Props {
+    _ /*ownProps*/: any): Component.Props {
   return {
     actions: new Actions(dispatchProps.dispatch, stateProps),
     values: {stringifiedQuery: stateProps.stringifiedQuery.text}

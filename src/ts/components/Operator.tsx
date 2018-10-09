@@ -8,6 +8,7 @@ export interface Actions {
     generateQuery(): void;
     openQuery(): void;
     parseQuery(): void;
+    processOwnQuery(): void;
 }
 
 export interface Values {
@@ -48,6 +49,10 @@ export default class Operator extends React.Component<Props, State> {
                 </SemanticUiReact.Form>
             </div>
         );
+    }
+
+    public componentDidMount(): void {
+        this.props.actions.processOwnQuery();
     }
 
     private onClickClear(_/*event*/: React.MouseEvent<HTMLButtonElement>) {

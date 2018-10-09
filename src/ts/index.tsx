@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import * as ReactRedux from 'react-redux';
 
 import store from './store';
-import BinderContainer from "./containers/Binder";
 import FormContainer from './containers/Form';
 import Operator from './containers/Operator';
 import Visualizer from "./containers/Visualizer";
@@ -13,7 +12,6 @@ ReactDOM.render(
         <ReactRedux.Provider store={store}>
             <div>
                 <FormContainer />
-                <BinderContainer />
                 <Operator />
                 <Visualizer />
             </div>
