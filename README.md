@@ -2,10 +2,7 @@
 
 ## Status
 
-[![BuildStatus][]][ci_url]
-
-[BuildStatus]: https://travis-ci.org/km45/react-studies.svg?branch=master
-[ci_url]: https://travis-ci.org/km45/react-studies
+[![Build Status](https://travis-ci.org/km45/react-studies.svg?branch=master)](https://travis-ci.org/km45/react-studies)
 
 ## How to build
 
@@ -19,6 +16,4 @@ $ make down
 
 ## Development rules
 
-- [GitHub Flow](GitHubFlow)
-
-[GitHubFlow]:https://guides.github.com/introduction/flow/
+- [GitHub flow](https://guides.github.com/introduction/flow/)
