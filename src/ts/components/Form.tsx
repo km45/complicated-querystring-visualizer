@@ -1,29 +1,24 @@
 import * as React from 'react';
-
 import * as SemanticUiReact from 'semantic-ui-react';
 
-export interface Props { }
+interface State { }
 
-interface State {
+export interface Actions {
+    setText(text: string): void;
+}
+
+export interface Values {
     text: string;
 }
 
-export class Form extends React.Component<Props, State> {
+export interface Props {
+    actions: Actions;
+    values: Values;
+}
+
+export default class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
-        this.state = {
-            text: ''
-        };
-    }
-
-    public getText(): string {
-        return this.state.text;
-    }
-
-    public setText(text: string): void {
-        this.setState({
-            text
-        });
     }
 
     public render() {
@@ -32,14 +27,13 @@ export class Form extends React.Component<Props, State> {
                 <SemanticUiReact.TextArea
                     autoHeight={true}
                     onChange={(event) => this.onTextAreaChange(event)}
-                    value={this.state.text} />
+                    value={this.props.values.text}
+                />
             </SemanticUiReact.Form>
         );
     }
 
     private onTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
-        this.setState({
-            text: event.currentTarget.value
-        });
+        this.props.actions.setText(event.currentTarget.value);
     }
 }

@@ -1,11 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as ReactRedux from 'react-redux';
 
-import { Binder } from "./components/Binder";
+import store from './store';
+import Form from './containers/Form';
+import Operator from './containers/Operator';
+import Visualizer from "./containers/Visualizer";
 
 ReactDOM.render(
     <div>
-        <Binder query={window.location.search} />
+        <ReactRedux.Provider store={store}>
+            <div>
+                <Form />
+                <Operator />
+                <Visualizer />
+            </div>
+        </ReactRedux.Provider>
     </div>,
     document.getElementById("content")
 );

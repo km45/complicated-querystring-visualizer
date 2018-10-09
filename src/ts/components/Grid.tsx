@@ -1,97 +1,90 @@
-import * as React from 'react';
-
 import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
+import * as React from 'react';
+import deepCopy from 'ts-deepcopy';
 
-import {
-    Columns, ObjectTable
-} from '../logic/table-data';
-
-export interface Props {
-    columns: Columns;
-    title: string;
-}
+import { Columns, ObjectTable } from '../logic/table-data';
 
 interface State {
+    // Ag-grid changes table set as rowData,
+    // which is set by constructor props rowData or function SetRowData.
+    //
+    // This behavior causes redux store changes not by redux dispatch
+    // if set props table as ag-gird rowData.
+    //
+    // To avoid the above situation,
+    // deep copy props table to state and set it as rowData.
     table: ObjectTable;
 }
 
-export class Grid extends React.Component<Props, State> {
-    private agGridApi: AgGrid.GridApi | null = null;
+export interface Actions {
+    setTable(table: ObjectTable): void;
+}
 
-    private columnDefs: AgGrid.ColDef[];
-    private defaultColDef: AgGrid.ColDef;
+export interface Values {
+    columns: Columns;
+    table: ObjectTable;
+    title: string;
+}
 
-    public constructor(props: Props, context: State) {
-        super(props, context);
-        this.state = ({
-            table: []
-        });
+export interface Props {
+    actions: Actions;
+    values: Values;
+}
 
-        this.columnDefs = props.columns.map((from) => {
-            const column: AgGrid.ColDef = {
-                field: from.key,
-                headerName: from.name
-            };
-            return column;
-        });
+const defaultColDef: AgGrid.ColDef = {
+    editable: true,
+    suppressMovable: true
+};
 
-        this.defaultColDef = {
-            editable: true,
-            suppressMovable: true
+export default class Grid extends React.Component<Props, State> {
+    public static getDerivedStateFromProps(nextProps: Props, _: State): State {
+        return {
+            table: deepCopy(nextProps.values.table)
         };
     }
 
-    public getTable(): ObjectTable {
-        return this.state.table;
-    }
+    private agGridApi: AgGrid.GridApi | null = null;
 
-    public setTable(table: ObjectTable, onInit: boolean): void {
-        this.setState({
-            table
+    private columnDefs: AgGrid.ColDef[];
+
+    public constructor(props: Props, context: State) {
+        super(props, context);
+
+        this.columnDefs = props.values.columns.map((column): AgGrid.ColDef => {
+            return {
+                field: column.key,
+                headerName: column.name
+            };
         });
-
-        if (onInit) {
-            return;
-        }
-
-        // Change reference for data even if contents are same,
-        // otherwise following problem happens.
-        //
-        // 1. Parse url "a=b" for the first time.
-        //   1.1. Allocate memory for parsed data. Call it "Data1".
-        //   1.2. This class refers "Data1".
-        //   1.3. AgGrid refers "Data1".
-        // 2. Parse url "localhost/?a=b" for the second time.
-        //   2.1. Allocate memory for parsed data. Call it "Data2".
-        //   2.2. This class changes to refer "Data2"
-        //        because setState() is called explicitly. (above)
-        //   2.3. AgGrid remains referring "Data1"
-        //        because contents are not changed.
-        // 3. Edit grid data "Data2"
-        // 4. Generate url from "Data1" and not used grid data.
-        if (this.agGridApi === null) {
-            console.error('Unexpected null object');
-            return;
-        }
-        this.agGridApi.setRowData(table);
     }
 
     public render() {
+        if (this.agGridApi !== null) {
+            // Update rowData even if values are not changed
+            // because its reference is changed.
+            //
+            // Refer issue #6
+            // https://github.com/km45/react-studies/issues/6
+            this.agGridApi.setRowData(this.state.table);
+        }
+
         return (
             <div>
-                <h2>{this.props.title}</h2>
+                <h2>{this.props.values.title}</h2>
                 <div className='ag-theme-balham'>
                     <AgGridReact
                         columnDefs={this.columnDefs}
-                        defaultColDef={this.defaultColDef}
+                        defaultColDef={defaultColDef}
                         domLayout={'autoHeight'}
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
                         onGridReady={this.onGridReady.bind(this)}
+                        onCellValueChanged={this.onCellValueChanged.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
-                        rowData={this.state.table} />
+                        rowData={this.state.table}
+                    />
                 </div>
             </div>);
     }
@@ -102,6 +95,10 @@ export class Grid extends React.Component<Props, State> {
                 return column.getColId();
             });
         api.autoSizeColumns(allColumnIds);
+    }
+
+    private onCellValueChanged(_: AgGrid.CellValueChangedEvent) {
+        this.props.actions.setTable(this.state.table);
     }
 
     private onGridReady(event: AgGrid.GridReadyEvent) {

@@ -9,12 +9,18 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-dom-factories": "^1.0.2",
-    "semantic-ui-react": "^0.82.5"
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "semantic-ui-react": "^0.82.5",
+    "ts-deepcopy": "^0.1.4",
+    "typescript-fsa": "^3.0.0-beta-2",
+    "typescript-fsa-reducers": "^0.4.5"
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
+    "@types/react-redux": "^6.0.9",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",

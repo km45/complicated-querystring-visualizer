@@ -80,7 +80,13 @@ class TestEndToEnd():
         cell.click()
         cell.send_keys('c')
         cell.send_keys(Keys.ENTER)
-        assert cell.text == 'c'
+
+        basic_body_cells = driver.find_elements_by_xpath(
+            _BASIC_PARAMETERS_PARSED_GRID_BODY_CELLS_XPATH)
+        assert textarea.text == 'a=b'
+        assert len(basic_body_cells) == 2
+        assert basic_body_cells[0].text == 'a'
+        assert basic_body_cells[1].text == 'c'
 
         # Click generate button
         generate_button.click()
@@ -184,7 +190,13 @@ class TestEndToEnd():
         cell.click()
         cell.send_keys('c')
         cell.send_keys(Keys.ENTER)
-        assert cell.text == 'c'
+
+        basic_body_cells = driver.find_elements_by_xpath(
+            _BASIC_PARAMETERS_PARSED_GRID_BODY_CELLS_XPATH)
+        assert textarea.text == 'localhost/?a=b'
+        assert len(basic_body_cells) == 2
+        assert basic_body_cells[0].text == 'a'
+        assert basic_body_cells[1].text == 'c'
 
         # ---------------------------------------------------------------------
         # 4. Generate url from "Data1" and not used grid data.
