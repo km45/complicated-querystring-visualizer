@@ -21,5 +21,8 @@ declare module 'pythonic' {
         iterFirst: ArrayLike<T1>,
         iterSecond: ArrayLike<T2>): Generator<T1, T2>;
 
-    // function items(obj)
+    function items<T>(obj: {[key: string]: T}): Generator<string, T>;
+    function items<T>(obj: {[key: number]: T}): Generator<number, T>;
+    function items<T>(map: Map<string, T>): Generator<string, T>;
+    function items<T>(map: Map<number, T>): Generator<number, T>;
 }
