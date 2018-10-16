@@ -1,3 +1,6 @@
+import * as Pythonic from 'pythonic';
+import * as QueryString from 'querystring';
+
 import {
     ArrayRow, ArrayTable, Columns
 } from './table-data';
@@ -19,21 +22,34 @@ export interface QueryBinder {
 }
 
 export function parseQuery(query: string): QueryBinder {
-    const table = query.split('&').map(
-        (element: string): ArrayRow => {
-            return element.split('=');
-        });
+    const table = QueryString.parse(query, '&', '=');
 
     const basic: ArrayTable = [];
     const coord: ArrayTable = [];
 
-    table.forEach((v: ArrayRow) => {
-        if (v[0].match(/^coord[0-9]+$/)) {
-            coord.push([v[0]].concat(v[1].split(',')));
-        } else if (v[0]) {  // ignore empty key
-            basic.push(v);
+    for (const [key, values] of Pythonic.items(table)) {
+      if (values === undefined) {
+        console.log(`Unexpected undefined value for "${key}"`);
+        continue;
+      }
+
+      const value: string = ((values: string|string[]) => {
+        if (Array.isArray(values)) {
+          // type of values is string[]
+          console.log(`"${key}" appears more than once. Use only first value.`);
+          return values[0];
         }
-    });
+
+        // type of values is string
+        return values;
+      })(values);
+
+      if (key.match(/^coord[0-9]+$/)) {
+        coord.push([key].concat(value.split(',')));
+      } else if (key) {  // ignore empty key
+        basic.push([key, value]);
+      }
+    }
 
     return {
         basic,
