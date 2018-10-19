@@ -66,14 +66,19 @@ export function parseQuery(query: string): QueryBinder {
 }
 
 export function generateQuery(binder: QueryBinder): string {
-    let params: string[] = [];
-    params = params.concat(binder.basic.map(
-        (v: ArrayRow): string => {
-            return v.join('=');
-        }));
-    params = params.concat(binder.coord.map(
-        (v: ArrayRow): string => {
-            return [v[0], v.slice(1).join(',')].join('=');
-        }));
-    return params.join('&');
+    const params: { [key: string]: string } = {};
+
+    binder.basic.forEach((v: ArrayRow): void => {
+        const key = v[0];
+        const value = v[1];
+        params[key] = value;
+    });
+
+    binder.coord.forEach((v: ArrayRow): void => {
+        const key = v[0];
+        const values = v.slice(1);
+        params[key] = values.join(',');
+    });
+
+    return QueryString.stringify(params, '&', '=');
 }
