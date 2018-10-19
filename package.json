@@ -2,6 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "km45",
   "license": "MIT",
+  "version": "v3.0.2",
   "dependencies": {
     "ag-grid-community": "^19.0.0",
     "ag-grid-react": "^19.0.0",
