@@ -9,7 +9,7 @@ const initialReduceState: State = {
   text: ''
 };
 
-function handler(state: State, payload: string): any {
+function handler(state: State, payload: string): State {
   return {...state, text: payload};
 }
 

@@ -6,7 +6,7 @@ import {ColumnsDefinition} from '../logic/query-binder';
 import {arrayTableToObjectTable, ObjectTable, objectTableToArrayTable} from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
 import {setText} from '../modules/StringifiedQuery';
-import {setBasicTable, setCoordTable, setHostTable} from '../modules/StructuredQuery';
+import {setTable, TablesIndex} from '../modules/StructuredQuery';
 import {RootState} from '../store';
 
 interface ObjectTables {
@@ -47,9 +47,9 @@ class Actions implements Component.Actions {
   constructor(dispatch: Redux.Dispatch<any>, state: RootState) {
     this.dispatch = dispatch;
 
-    this.basicObjectTable = state.structuredQuery.basicTable;
-    this.coordObjectTable = state.structuredQuery.coordTable;
-    this.hostObjectTable = state.structuredQuery.hostTable;
+    this.basicObjectTable = state.structuredQuery.tables[TablesIndex.Basic];
+    this.coordObjectTable = state.structuredQuery.tables[TablesIndex.Coord];
+    this.hostObjectTable = state.structuredQuery.tables[TablesIndex.Host];
     this.stringifiedQuery = state.stringifiedQuery.text;
   }
 
@@ -81,9 +81,9 @@ class Actions implements Component.Actions {
     const url = this.stringifiedQuery;
     const tables = parseUrl(url);
 
-    this.dispatch(setBasicTable(tables.basic));
-    this.dispatch(setCoordTable(tables.coord));
-    this.dispatch(setHostTable(tables.host));
+    this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
+    this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
+    this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
   }
 
   public processOwnQuery(): void {
@@ -99,9 +99,9 @@ class Actions implements Component.Actions {
 
     this.dispatch(setText(query));
 
-    this.dispatch(setBasicTable(tables.basic));
-    this.dispatch(setCoordTable(tables.coord));
-    this.dispatch(setHostTable(tables.host));
+    this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
+    this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
+    this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
   }
 }
 
