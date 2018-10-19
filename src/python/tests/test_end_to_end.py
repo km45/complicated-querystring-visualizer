@@ -101,7 +101,7 @@ class TestEndToEnd():
 
     def test_grid_data_reference_problem(self):
         # Test for isssue #6
-        # https://github.com/km45/react-studies/issues/6
+        # https://github.com/km45/complicated-querystring-visualizer/issues/6
         #
         #
         # Change reference for data even if contents are same,
