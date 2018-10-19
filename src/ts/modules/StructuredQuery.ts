@@ -4,50 +4,53 @@ import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 import {ObjectTable} from '../logic/table-data';
 
 export interface State {
-  basicTable: ObjectTable;
-  coordTable: ObjectTable;
-  hostTable: ObjectTable;
+  tables: ObjectTable[];
 }
 
 const initialReduceState: State = {
-  basicTable: [],
-  coordTable: [],
-  hostTable: []
+  tables: []
 };
 
-function basicTableHandler(state: State, table: ObjectTable): State {
-  return {...state, basicTable: table};
+export enum TablesIndex {
+  Basic,
+  Coord,
+  Host
 }
 
-function coordTableHandler(state: State, table: ObjectTable): State {
-  return {...state, coordTable: table};
+export interface UpdateTablePayload {
+  index: TablesIndex;
+  table: ObjectTable;
 }
 
-function hostTableHandler(state: State, table: ObjectTable): State {
-  return {...state, hostTable: table};
+function updateTableHandler(state: State, payload: UpdateTablePayload): State {
+  return {
+    ...state,
+    tables: state.tables.map(
+        (table: ObjectTable, index: number):
+            ObjectTable => {
+              if (index != payload.index) {
+                return table;
+              }
+              return payload.table;
+            })
+  };
 }
 
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const SET_BASIC_TABLE = 'react-studies/StructuredQuery/SET_BASIC_TABLE';
-const SET_COORD_TABLE = 'react-studies/StructuredQuery/SET_COORD_TABLE';
-const SET_HOST_TABLE = 'react-studies/StructuredQuery/SET_HOST_TABLE';
+const UPDATE_TABLE = 'react-studies/StructuredQuery/UPDATE_TABLE';
 
 // ----------------------------------------------------------------------------
 // action creators
 // ----------------------------------------------------------------------------
 const actionCreator = TypescriptFsa.actionCreatorFactory();
 
-export const setBasicTable = actionCreator<ObjectTable>(SET_BASIC_TABLE);
-export const setCoordTable = actionCreator<ObjectTable>(SET_COORD_TABLE);
-export const setHostTable = actionCreator<ObjectTable>(SET_HOST_TABLE);
+export const updateTable = actionCreator<UpdateTablePayload>(UPDATE_TABLE);
 
 // ----------------------------------------------------------------------------
 // reducer
 // ----------------------------------------------------------------------------
 export default TypescriptFsaReducers.reducerWithInitialState(initialReduceState)
-    .case(setBasicTable, basicTableHandler)
-    .case(setCoordTable, coordTableHandler)
-    .case(setHostTable, hostTableHandler)
+    .case(updateTable, updateTableHandler)
     .build();

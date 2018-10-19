@@ -6,7 +6,7 @@ import * as GridComponent from '../components/Grid';
 import { ColumnsDefinition } from '../logic/query-binder';
 import { ObjectTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
-import { setBasicTable, setCoordTable, setHostTable } from '../modules/StructuredQuery';
+import { updateTable, TablesIndex } from '../modules/StructuredQuery';
 import { RootState } from '../store';
 
 class BasicGridActions implements GridComponent.Actions {
@@ -17,7 +17,7 @@ class BasicGridActions implements GridComponent.Actions {
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(setBasicTable(table));
+        this.dispatch(updateTable({ index: TablesIndex.Basic, table }));
     }
 }
 
@@ -29,7 +29,7 @@ class CoordGridActions implements GridComponent.Actions {
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(setCoordTable(table));
+        this.dispatch(updateTable({ index: TablesIndex.Coord, table }));
     }
 }
 
@@ -41,7 +41,7 @@ class HostGridActions implements GridComponent.Actions {
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(setHostTable(table));
+        this.dispatch(updateTable({ index: TablesIndex.Host, table }));
     }
 }
 
@@ -99,17 +99,17 @@ function mapStateToProps(state: RootState): StateProps {
     return {
         basicGridValues: {
             columns: ColumnsDefinition.basic,
-            table: state.structuredQuery.basicTable,
+            table: state.structuredQuery.tables[TablesIndex.Basic],
             title: 'Basic'
         },
         coordGridValues: {
             columns: ColumnsDefinition.coord,
-            table: state.structuredQuery.coordTable,
+            table: state.structuredQuery.tables[TablesIndex.Coord],
             title: 'Coord'
         },
         hostGridValues: {
             columns: UrlBinder.ColumnsDefinition.host,
-            table: state.structuredQuery.hostTable,
+            table: state.structuredQuery.tables[TablesIndex.Host],
             title: 'Host'
         }
     };
