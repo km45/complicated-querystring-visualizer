@@ -27,18 +27,9 @@ interface State { }
 
 interface Props {
     children: {
-        basicGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        },
-        coordGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        },
-        hostGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        }
+        basicGrid: GridComponent.Props,
+        coordGrid: GridComponent.Props,
+        hostGrid: GridComponent.Props
     };
 }
 
