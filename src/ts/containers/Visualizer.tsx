@@ -9,39 +9,17 @@ import * as UrlBinder from '../logic/url-binder';
 import { TablesIndex, updateTable } from '../modules/StructuredQuery';
 import { RootState } from '../store';
 
-class BasicGridActions implements GridComponent.Actions {
+class Actions implements GridComponent.Actions {
     private dispatch: Redux.Dispatch<any>;
+    private index: TablesIndex;
 
-    constructor(dispatch: Redux.Dispatch<any>) {
+    constructor(dispatch: Redux.Dispatch<any>, index: TablesIndex) {
         this.dispatch = dispatch;
+        this.index = index;
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(updateTable({ index: TablesIndex.Basic, table }));
-    }
-}
-
-class CoordGridActions implements GridComponent.Actions {
-    private dispatch: Redux.Dispatch<any>;
-
-    constructor(dispatch: Redux.Dispatch<any>) {
-        this.dispatch = dispatch;
-    }
-
-    public setTable(table: ObjectTable): void {
-        this.dispatch(updateTable({ index: TablesIndex.Coord, table }));
-    }
-}
-
-class HostGridActions implements GridComponent.Actions {
-    private dispatch: Redux.Dispatch<any>;
-
-    constructor(dispatch: Redux.Dispatch<any>) {
-        this.dispatch = dispatch;
-    }
-
-    public setTable(table: ObjectTable): void {
-        this.dispatch(updateTable({ index: TablesIndex.Host, table }));
+        this.dispatch(updateTable({ index: this.index, table }));
     }
 }
 
@@ -117,9 +95,9 @@ function mapStateToProps(state: RootState): StateProps {
 
 function mapDispatchToProps(dispatch: any): DispatchProps {
     return {
-        basicGridActions: new BasicGridActions(dispatch),
-        coordGridActions: new CoordGridActions(dispatch),
-        hostGridActions: new HostGridActions(dispatch)
+        basicGridActions: new Actions(dispatch, TablesIndex.Basic),
+        coordGridActions: new Actions(dispatch, TablesIndex.Coord),
+        hostGridActions: new Actions(dispatch, TablesIndex.Host)
     };
 }
 
