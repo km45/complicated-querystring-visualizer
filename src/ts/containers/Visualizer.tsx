@@ -6,42 +6,20 @@ import * as GridComponent from '../components/Grid';
 import { ColumnsDefinition } from '../logic/query-binder';
 import { ObjectTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
-import { setBasicTable, setCoordTable, setHostTable } from '../modules/StructuredQuery';
+import { setTable, TablesIndex } from '../modules/StructuredQuery';
 import { RootState } from '../store';
 
-class BasicGridActions implements GridComponent.Actions {
+class Actions implements GridComponent.Actions {
     private dispatch: Redux.Dispatch<any>;
+    private index: TablesIndex;
 
-    constructor(dispatch: Redux.Dispatch<any>) {
+    constructor(dispatch: Redux.Dispatch<any>, index: TablesIndex) {
         this.dispatch = dispatch;
+        this.index = index;
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(setBasicTable(table));
-    }
-}
-
-class CoordGridActions implements GridComponent.Actions {
-    private dispatch: Redux.Dispatch<any>;
-
-    constructor(dispatch: Redux.Dispatch<any>) {
-        this.dispatch = dispatch;
-    }
-
-    public setTable(table: ObjectTable): void {
-        this.dispatch(setCoordTable(table));
-    }
-}
-
-class HostGridActions implements GridComponent.Actions {
-    private dispatch: Redux.Dispatch<any>;
-
-    constructor(dispatch: Redux.Dispatch<any>) {
-        this.dispatch = dispatch;
-    }
-
-    public setTable(table: ObjectTable): void {
-        this.dispatch(setHostTable(table));
+        this.dispatch(setTable({ index: this.index, table }));
     }
 }
 
@@ -49,18 +27,9 @@ interface State { }
 
 interface Props {
     children: {
-        basicGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        },
-        coordGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        },
-        hostGrid: {
-            actions: GridComponent.Actions;
-            values: GridComponent.Values;
-        }
+        basicGrid: GridComponent.Props,
+        coordGrid: GridComponent.Props,
+        hostGrid: GridComponent.Props
     };
 }
 
@@ -99,17 +68,17 @@ function mapStateToProps(state: RootState): StateProps {
     return {
         basicGridValues: {
             columns: ColumnsDefinition.basic,
-            table: state.structuredQuery.basicTable,
+            table: state.structuredQuery.tables[TablesIndex.Basic],
             title: 'Basic'
         },
         coordGridValues: {
             columns: ColumnsDefinition.coord,
-            table: state.structuredQuery.coordTable,
+            table: state.structuredQuery.tables[TablesIndex.Coord],
             title: 'Coord'
         },
         hostGridValues: {
             columns: UrlBinder.ColumnsDefinition.host,
-            table: state.structuredQuery.hostTable,
+            table: state.structuredQuery.tables[TablesIndex.Host],
             title: 'Host'
         }
     };
@@ -117,9 +86,9 @@ function mapStateToProps(state: RootState): StateProps {
 
 function mapDispatchToProps(dispatch: any): DispatchProps {
     return {
-        basicGridActions: new BasicGridActions(dispatch),
-        coordGridActions: new CoordGridActions(dispatch),
-        hostGridActions: new HostGridActions(dispatch)
+        basicGridActions: new Actions(dispatch, TablesIndex.Basic),
+        coordGridActions: new Actions(dispatch, TablesIndex.Coord),
+        hostGridActions: new Actions(dispatch, TablesIndex.Host)
     };
 }
 
