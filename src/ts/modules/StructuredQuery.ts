@@ -3,7 +3,7 @@ import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 
 import {ObjectTable} from '../logic/table-data';
 
-export enum TablesIndex {
+export const enum TablesIndex {
   Basic,
   Coord,
   Host,
