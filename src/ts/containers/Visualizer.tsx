@@ -6,7 +6,7 @@ import * as GridComponent from '../components/Grid';
 import { ColumnsDefinition } from '../logic/query-binder';
 import { ObjectTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
-import { updateTable, TablesIndex } from '../modules/StructuredQuery';
+import { TablesIndex, updateTable } from '../modules/StructuredQuery';
 import { RootState } from '../store';
 
 class BasicGridActions implements GridComponent.Actions {

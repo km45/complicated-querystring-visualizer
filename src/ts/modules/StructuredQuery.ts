@@ -29,7 +29,7 @@ function updateTableHandler(state: State, payload: UpdateTablePayload): State {
     tables: state.tables.map(
         (table: ObjectTable, index: number):
             ObjectTable => {
-              if (index != payload.index) {
+              if (index !== payload.index) {
                 return table;
               }
               return payload.table;
