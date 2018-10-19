@@ -65,7 +65,7 @@ export default class Grid extends React.Component<Props, State> {
             // because its reference is changed.
             //
             // Refer issue #6
-            // https://github.com/km45/react-studies/issues/6
+            // https://github.com/km45/complicated-querystring-visualizer/issues/6
             this.agGridApi.setRowData(this.state.table);
         }
 

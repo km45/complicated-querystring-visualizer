@@ -1,8 +1,8 @@
-# react-studies
+# complicated-querystring-visualizer
 
 ## Status
 
-[![Build Status](https://travis-ci.org/km45/react-studies.svg?branch=master)](https://travis-ci.org/km45/react-studies)
+[![Build Status](https://travis-ci.org/km45/complicated-querystring-visualizer.svg?branch=master)](https://travis-ci.org/km45/complicated-querystring-visualizer)
 
 ## How to build
 

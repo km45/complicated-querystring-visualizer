@@ -50,7 +50,7 @@ module.exports = (env, argv) => {
       ]),
       new HtmlWebpackPlugin({
         template: srcHtmlIndex,
-        title: 'react-studies(' + mode + ')',
+        title: 'complicated-querystring-visualizer(' + mode + ')',
       }),
     ],
     resolve: {
