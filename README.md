@@ -1,4 +1,4 @@
-# react-studies
+# complicated-querystring-visualizer
 
 ## Status
 
