@@ -3,19 +3,20 @@ import * as TypescriptFsaReducers from 'typescript-fsa-reducers';
 
 import {ObjectTable} from '../logic/table-data';
 
+export enum TablesIndex {
+  Basic,
+  Coord,
+  Host,
+  Size
+}
+
 export interface State {
   tables: ObjectTable[];
 }
 
 const initialReduceState: State = {
-  tables: []
+  tables: Array(TablesIndex.Size).fill([])
 };
-
-export enum TablesIndex {
-  Basic,
-  Coord,
-  Host
-}
 
 export interface UpdateTablePayload {
   index: TablesIndex;
