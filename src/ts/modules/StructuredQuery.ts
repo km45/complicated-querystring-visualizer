@@ -7,7 +7,7 @@ export const enum TablesIndex {
   Basic,
   Coord,
   Host,
-  Size
+  Size  // HACK: not use last value as size
 }
 
 export interface State {
