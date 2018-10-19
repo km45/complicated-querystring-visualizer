@@ -15,15 +15,15 @@ const initialReduceState: State = {
   hostTable: []
 };
 
-function basicTableHandler(state: State, table: ObjectTable): any {
+function basicTableHandler(state: State, table: ObjectTable): State {
   return {...state, basicTable: table};
 }
 
-function coordTableHandler(state: State, table: ObjectTable): any {
+function coordTableHandler(state: State, table: ObjectTable): State {
   return {...state, coordTable: table};
 }
 
-function hostTableHandler(state: State, table: ObjectTable): any {
+function hostTableHandler(state: State, table: ObjectTable): State {
   return {...state, hostTable: table};
 }
 
