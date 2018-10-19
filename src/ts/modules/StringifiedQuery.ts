@@ -16,7 +16,7 @@ function handler(state: State, payload: string): State {
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const SET_TEXT = 'react-studies/StringifiedQuery/SET_TEXT';
+const SET_TEXT = 'complicated-querystring-visualizer/StringifiedQuery/SET_TEXT';
 
 // ----------------------------------------------------------------------------
 // action creators

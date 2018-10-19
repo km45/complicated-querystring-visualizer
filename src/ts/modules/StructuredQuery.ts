@@ -40,7 +40,7 @@ function setTableHandler(state: State, payload: SetTablePayload): State {
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const SET_TABLE = 'react-studies/StructuredQuery/SET_TABLE';
+const SET_TABLE = 'complicated-querystring-visualizer/StructuredQuery/SET_TABLE';
 
 // ----------------------------------------------------------------------------
 // action creators
