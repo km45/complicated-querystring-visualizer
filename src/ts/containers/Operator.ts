@@ -6,7 +6,7 @@ import {ColumnsDefinition} from '../logic/query-binder';
 import {arrayTableToObjectTable, ObjectTable, objectTableToArrayTable} from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
 import {setText} from '../modules/StringifiedQuery';
-import {TablesIndex, updateTable} from '../modules/StructuredQuery';
+import {setTable, TablesIndex} from '../modules/StructuredQuery';
 import {RootState} from '../store';
 
 interface ObjectTables {
@@ -81,11 +81,9 @@ class Actions implements Component.Actions {
     const url = this.stringifiedQuery;
     const tables = parseUrl(url);
 
-    this.dispatch(
-        updateTable({index: TablesIndex.Basic, table: tables.basic}));
-    this.dispatch(
-        updateTable({index: TablesIndex.Coord, table: tables.coord}));
-    this.dispatch(updateTable({index: TablesIndex.Host, table: tables.host}));
+    this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
+    this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
+    this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
   }
 
   public processOwnQuery(): void {
@@ -101,11 +99,9 @@ class Actions implements Component.Actions {
 
     this.dispatch(setText(query));
 
-    this.dispatch(
-        updateTable({index: TablesIndex.Basic, table: tables.basic}));
-    this.dispatch(
-        updateTable({index: TablesIndex.Coord, table: tables.coord}));
-    this.dispatch(updateTable({index: TablesIndex.Host, table: tables.host}));
+    this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
+    this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
+    this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
   }
 }
 

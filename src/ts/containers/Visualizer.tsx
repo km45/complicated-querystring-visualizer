@@ -6,7 +6,7 @@ import * as GridComponent from '../components/Grid';
 import { ColumnsDefinition } from '../logic/query-binder';
 import { ObjectTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
-import { TablesIndex, updateTable } from '../modules/StructuredQuery';
+import { setTable, TablesIndex } from '../modules/StructuredQuery';
 import { RootState } from '../store';
 
 class Actions implements GridComponent.Actions {
@@ -19,7 +19,7 @@ class Actions implements GridComponent.Actions {
     }
 
     public setTable(table: ObjectTable): void {
-        this.dispatch(updateTable({ index: this.index, table }));
+        this.dispatch(setTable({ index: this.index, table }));
     }
 }
 

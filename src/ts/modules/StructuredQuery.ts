@@ -18,12 +18,12 @@ const initialReduceState: State = {
   tables: Array(TablesIndex.Size).fill([])
 };
 
-export interface UpdateTablePayload {
+export interface SetTablePayload {
   index: TablesIndex;
   table: ObjectTable;
 }
 
-function updateTableHandler(state: State, payload: UpdateTablePayload): State {
+function setTableHandler(state: State, payload: SetTablePayload): State {
   return {
     ...state,
     tables: state.tables.map(
@@ -40,18 +40,18 @@ function updateTableHandler(state: State, payload: UpdateTablePayload): State {
 // ----------------------------------------------------------------------------
 // action types
 // ----------------------------------------------------------------------------
-const UPDATE_TABLE = 'react-studies/StructuredQuery/UPDATE_TABLE';
+const SET_TABLE = 'react-studies/StructuredQuery/SET_TABLE';
 
 // ----------------------------------------------------------------------------
 // action creators
 // ----------------------------------------------------------------------------
 const actionCreator = TypescriptFsa.actionCreatorFactory();
 
-export const updateTable = actionCreator<UpdateTablePayload>(UPDATE_TABLE);
+export const setTable = actionCreator<SetTablePayload>(SET_TABLE);
 
 // ----------------------------------------------------------------------------
 // reducer
 // ----------------------------------------------------------------------------
 export default TypescriptFsaReducers.reducerWithInitialState(initialReduceState)
-    .case(updateTable, updateTableHandler)
+    .case(setTable, setTableHandler)
     .build();
