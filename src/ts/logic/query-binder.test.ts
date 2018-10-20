@@ -19,6 +19,26 @@ describe('query-binder GenerateQuery test', () => {
 
         expect(actual).toEqual(expected);
     });
+    it('basic only with value encoded & that is used separator if not encoded', () => {
+        const encodedAmpersand = '%26';
+
+        const input: QueryBinder = {
+            basic: [
+                ['view', 'Q&A'],
+                ['no', '1']
+            ],
+            coord: []
+        };
+
+        const expected = [
+            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
+            ['no', '1'].join('=')
+        ].join('&');
+
+        const actual = generateQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
     it('coord only', () => {
         const input: QueryBinder = {
             basic: [],
@@ -89,6 +109,26 @@ describe('query-binder ParseQuery test', () => {
                 ['a', '1'],
                 ['b', '2'],
                 ['c', '3']
+            ],
+            coord: []
+        };
+
+        const actual = parseQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
+    it('basic only with value encoded & that is used separator if not encoded', () => {
+        const encodedAmpersand = '%26';
+
+        const input = [
+            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
+            ['no', '1'].join('=')
+        ].join('&');
+
+        const expected: QueryBinder = {
+            basic: [
+                ['view', 'Q&A'],
+                ['no', '1']
             ],
             coord: []
         };
