@@ -28,11 +28,11 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const encoded_comma = '%2C';
+        const encodedComma = '%2C';
 
         const expected = [
-          ['coord1', ['x1', 'y1', 'z1'].join(encoded_comma)].join('='),
-          ['coord2', ['x2', 'y2', 'z2'].join(encoded_comma)].join('=')
+          ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+          ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
         ].join('&');
 
         const actual = generateQuery(input);
@@ -52,14 +52,14 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const encoded_comma = '%2C';
+        const encodedComma = '%2C';
 
         const expected = [
             ['a', '1'].join('='),
             ['b', '2'].join('='),
             ['c', '3'].join('='),
-            ['coord1', ['x1', 'y1', 'z1'].join(encoded_comma)].join('='),
-            ['coord2', ['x2', 'y2', 'z2'].join(encoded_comma)].join('=')
+            ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+            ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
         ].join('&');
 
         const actual = generateQuery(input);
