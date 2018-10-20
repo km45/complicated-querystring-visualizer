@@ -32,6 +32,21 @@
 </head>
 
 <body>
+    <h1 class="ui header">
+        <%= htmlWebpackPlugin.options.title %>
+        <div class="ui label">
+            version
+            <div class="detail">
+                <%= htmlWebpackPlugin.options.version %>
+            </div>
+        </div>
+        <div class="ui label">
+            mode
+            <div class="detail">
+                <%= htmlWebpackPlugin.options.mode %>
+            </div>
+        </div>
+    </h1>
     <div id="content"></div>
 </body>
 

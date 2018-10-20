@@ -3,6 +3,8 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const package = require('./package.json');
+
 module.exports = (env, argv) => {
   const mode = argv.mode;
 
@@ -50,7 +52,15 @@ module.exports = (env, argv) => {
       ]),
       new HtmlWebpackPlugin({
         template: srcHtmlIndex,
-        title: 'react-studies(' + mode + ')',
+        templateParameters: {
+          htmlWebpackPlugin: {
+            options: {
+              title: package.name,
+              mode,
+              version: package.version,
+            },
+          },
+        },
       }),
     ],
     resolve: {

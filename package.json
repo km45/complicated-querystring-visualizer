@@ -1,7 +1,8 @@
 {
-  "name": "react-studies",
+  "name": "complicated-querystring-visualizer",
   "author": "km45",
   "license": "MIT",
+  "version": "v3.1.0",
   "dependencies": {
     "ag-grid-community": "^19.0.0",
     "ag-grid-react": "^19.0.0",

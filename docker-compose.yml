@@ -2,7 +2,9 @@ version: "3"
 
 services:
   develop:
-    build: .
+    build:
+      context: .
+      dockerfile: ./dockerfiles/develop/Dockerfile
     volumes:
       - .:/usr/src/app
   selenium-hub:
