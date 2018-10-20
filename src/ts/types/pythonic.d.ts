@@ -21,5 +21,10 @@ declare module 'pythonic' {
         iterFirst: ArrayLike<T1>,
         iterSecond: ArrayLike<T2>): Generator<T1, T2>;
 
-    // function items(obj)
+    function items<T>(
+        dict: { [key: string]: T } | Map<string, T>
+    ): Generator<string, T>;
+    function items<T>(
+        dict: { [key: number]: T } | Map<number, T>
+    ): Generator<number, T>;
 }

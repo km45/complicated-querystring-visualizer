@@ -19,6 +19,26 @@ describe('query-binder GenerateQuery test', () => {
 
         expect(actual).toEqual(expected);
     });
+    it('basic only with value encoded & that is used separator if not encoded', () => {
+        const encodedAmpersand = '%26';
+
+        const input: QueryBinder = {
+            basic: [
+                ['view', 'Q&A'],
+                ['no', '1']
+            ],
+            coord: []
+        };
+
+        const expected = [
+            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
+            ['no', '1'].join('=')
+        ].join('&');
+
+        const actual = generateQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
     it('coord only', () => {
         const input: QueryBinder = {
             basic: [],
@@ -28,7 +48,12 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const expected = 'coord1=x1,y1,z1&coord2=x2,y2,z2';
+        const encodedComma = '%2C';
+
+        const expected = [
+          ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+          ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
+        ].join('&');
 
         const actual = generateQuery(input);
 
@@ -47,7 +72,15 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const expected = 'a=1&b=2&c=3&coord1=x1,y1,z1&coord2=x2,y2,z2';
+        const encodedComma = '%2C';
+
+        const expected = [
+            ['a', '1'].join('='),
+            ['b', '2'].join('='),
+            ['c', '3'].join('='),
+            ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+            ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
+        ].join('&');
 
         const actual = generateQuery(input);
 
@@ -76,6 +109,26 @@ describe('query-binder ParseQuery test', () => {
                 ['a', '1'],
                 ['b', '2'],
                 ['c', '3']
+            ],
+            coord: []
+        };
+
+        const actual = parseQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
+    it('basic only with value encoded & that is used separator if not encoded', () => {
+        const encodedAmpersand = '%26';
+
+        const input = [
+            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
+            ['no', '1'].join('=')
+        ].join('&');
+
+        const expected: QueryBinder = {
+            basic: [
+                ['view', 'Q&A'],
+                ['no', '1']
             ],
             coord: []
         };
