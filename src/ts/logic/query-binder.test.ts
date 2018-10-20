@@ -28,7 +28,12 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const expected = 'coord1=x1,y1,z1&coord2=x2,y2,z2';
+        const encoded_comma = '%2C';
+
+        const expected = [
+          ['coord1', ['x1', 'y1', 'z1'].join(encoded_comma)].join('='),
+          ['coord2', ['x2', 'y2', 'z2'].join(encoded_comma)].join('=')
+        ].join('&');
 
         const actual = generateQuery(input);
 
@@ -47,7 +52,15 @@ describe('query-binder GenerateQuery test', () => {
             ]
         };
 
-        const expected = 'a=1&b=2&c=3&coord1=x1,y1,z1&coord2=x2,y2,z2';
+        const encoded_comma = '%2C';
+
+        const expected = [
+            ['a', '1'].join('='),
+            ['b', '2'].join('='),
+            ['c', '3'].join('='),
+            ['coord1', ['x1', 'y1', 'z1'].join(encoded_comma)].join('='),
+            ['coord2', ['x2', 'y2', 'z2'].join(encoded_comma)].join('=')
+        ].join('&');
 
         const actual = generateQuery(input);
 
