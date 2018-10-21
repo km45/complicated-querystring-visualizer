@@ -40,11 +40,9 @@ module.exports = (env, argv) => {
     performance: {
       assetFilter: (assetFilename) => {
         if (assetFilename.endsWith('.js.map')) {
-          // disable performance hints for source map
           return false;
         }
         if (assetFilename === 'vender.js') {
-          // disable performance hints for non-standard libraries
           return false;
         }
 
