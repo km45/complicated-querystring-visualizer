@@ -28,6 +28,12 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    optimization: {
+      splitChunks: {
+        name: 'vender',
+        chunks: 'initial',
+      },
+    },
     output: {
       path: outputPath,
     },
