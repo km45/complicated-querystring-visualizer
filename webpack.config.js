@@ -2,6 +2,7 @@ const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 const package = require('./package.json');
 
@@ -16,20 +17,6 @@ module.exports = (env, argv) => {
   return {
     devtool: 'source-map',
     entry: srcTsIndex,
-    externals: {
-      'ag-grid-community': 'agGrid',
-      'ag-grid-react': false,
-      'pythonic': false,
-      'react': 'React',
-      'react-dom': 'ReactDOM',
-      'react-dom-factories': false,
-      'react-redux': 'ReactRedux',
-      'redux': 'Redux',
-      'semantic-ui-react': 'semanticUIReact',
-      'ts-deepcopy': false,
-      'typescript-fsa': false,
-      'typescript-fsa-reducers': false,
-    },
     module: {
       rules: [
         {
@@ -61,6 +48,77 @@ module.exports = (env, argv) => {
             },
           },
         },
+      }),
+      new HtmlWebpackExternalsPlugin({
+        externals: [
+          {
+            module: 'ag-grid-community',
+            global: 'agGrid',
+            entry: {
+              path: 'https://unpkg.com/ag-grid-community@19.0/dist/ag-grid-community.min.noStyle.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          {
+            module: 'react',
+            global: 'React',
+            entry: {
+              path: 'https://unpkg.com/react@16.5/umd/react.production.min.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          {
+            module: 'react-dom',
+            global: 'ReactDOM',
+            entry: {
+              path: 'https://unpkg.com/react-dom@16.5/umd/react-dom.production.min.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          {
+            module: 'react-redux',
+            global: 'ReactRedux',
+            entry: {
+              path: 'https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          {
+            module: 'redux',
+            global: 'Redux',
+            entry: {
+              path: 'https://unpkg.com/redux@4.0/dist/redux.min.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          {
+            module: 'semantic-ui-react',
+            global: 'semanticUIReact',
+            entry: {
+              path: 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-react/0.82.5/semantic-ui-react.min.js',
+              attributes: {
+                crossorigin: 'anonymous',
+              },
+            },
+          },
+          // Not use externals for following libraries:
+          //   - ag-grid-react
+          //   - pythonic
+          //   - react-dom-factories
+          //   - ts-deepcopy
+          //   - typescript-fsa
+          //   - typescript-fsa-reducers
+        ],
       }),
     ],
     resolve: {
