@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
         },
       }),
       new HtmlWebpackExternalsPlugin({
+        enabled: mode === 'development',
         externals: [
           {
             module: 'ag-grid-community',
