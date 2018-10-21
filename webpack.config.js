@@ -103,7 +103,6 @@ module.exports = (env, argv) => {
           // Not use externals for following libraries:
           //   - ag-grid-react
           //   - pythonic
-          //   - react-dom-factories
           //   - ts-deepcopy
           //   - typescript-fsa
           //   - typescript-fsa-reducers
