@@ -72,33 +72,33 @@ module.exports = (env, argv) => {
         externals: [
           {
             module: 'ag-grid-community',
-            global: 'agGrid',
             entry: 'dist/ag-grid-community.min.noStyle.js',
+            global: 'agGrid',
           },
           {
             module: 'react',
-            global: 'React',
             entry: 'umd/react.production.min.js',
+            global: 'React',
           },
           {
             module: 'react-dom',
-            global: 'ReactDOM',
             entry: 'umd/react-dom.production.min.js',
+            global: 'ReactDOM',
           },
           {
             module: 'react-redux',
-            global: 'ReactRedux',
             entry: 'dist/react-redux.min.js',
+            global: 'ReactRedux',
           },
           {
             module: 'redux',
-            global: 'Redux',
             entry: 'dist/redux.min.js',
+            global: 'Redux',
           },
           {
             module: 'semantic-ui-react',
-            global: 'semanticUIReact',
             entry: 'dist/umd/semantic-ui-react.min.js',
+            global: 'semanticUIReact',
           },
           // Not use externals for following libraries:
           //   - ag-grid-react
