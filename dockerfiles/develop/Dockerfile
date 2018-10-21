@@ -4,6 +4,11 @@ RUN apk update \
     && apk add make \
     && rm -rf /var/cache/apk/*
 
-WORKDIR /usr/src/app
+#
+# yarn
+#
+ENV YARN_VERSION 1.10.1
+
+RUN npm install -g yarn@${YARN_VERSION}
 
 CMD [ "tail", "-f", "/dev/null" ]
