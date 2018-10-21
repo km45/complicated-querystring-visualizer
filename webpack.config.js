@@ -37,6 +37,20 @@ module.exports = (env, argv) => {
     output: {
       path: outputPath,
     },
+    performance: {
+      assetFilter: (assetFilename) => {
+        if (assetFilename.endsWith('.js.map')) {
+          // disable performance hints for source map
+          return false;
+        }
+        if (assetFilename === 'vender.js') {
+          // disable performance hints for non-standard libraries
+          return false;
+        }
+
+        return true;
+      },
+    },
     plugins: [
       new CleanWebpackPlugin([
         outputPath,
@@ -137,10 +151,6 @@ module.exports = (env, argv) => {
     // Disabled following settings defined in webpack.production.js
     // because it is maybe needless:
     // ```
-    // performance: {
-    //     hints: false
-    // },
-    //
     // plugins: [
     //     new webpack.DefinePlugin({
     //         'process.env.NODE_ENV': JSON.stringify('production')
