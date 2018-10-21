@@ -40,6 +40,6 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/python/Dockerfile
-    working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app
