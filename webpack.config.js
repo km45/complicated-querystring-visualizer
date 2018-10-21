@@ -9,7 +9,6 @@ const package = require('./package.json');
 module.exports = (env, argv) => {
   const mode = argv.mode;
 
-  const outputJs = 'bundle.js';
   const outputPath = path.resolve(__dirname, 'dist', mode);
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
@@ -30,7 +29,6 @@ module.exports = (env, argv) => {
       ],
     },
     output: {
-      filename: outputJs,
       path: outputPath,
     },
     plugins: [
