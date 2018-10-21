@@ -2,13 +2,13 @@ const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 const package = require('./package.json');
 
 module.exports = (env, argv) => {
   const mode = argv.mode;
 
-  const outputJs = 'bundle.js';
   const outputPath = path.resolve(__dirname, 'dist', mode);
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
@@ -16,20 +16,6 @@ module.exports = (env, argv) => {
   return {
     devtool: 'source-map',
     entry: srcTsIndex,
-    externals: {
-      'ag-grid-community': 'agGrid',
-      'ag-grid-react': false,
-      'pythonic': false,
-      'react': 'React',
-      'react-dom': 'ReactDOM',
-      'react-dom-factories': false,
-      'react-redux': 'ReactRedux',
-      'redux': 'Redux',
-      'semantic-ui-react': 'semanticUIReact',
-      'ts-deepcopy': false,
-      'typescript-fsa': false,
-      'typescript-fsa-reducers': false,
-    },
     module: {
       rules: [
         {
@@ -42,9 +28,26 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    optimization: {
+      splitChunks: {
+        name: 'vender',
+        chunks: 'initial',
+      },
+    },
     output: {
-      filename: outputJs,
       path: outputPath,
+    },
+    performance: {
+      assetFilter: (assetFilename) => {
+        if (assetFilename.endsWith('.js.map')) {
+          return false;
+        }
+        if (assetFilename === 'vender.js') {
+          return false;
+        }
+
+        return true;
+      },
     },
     plugins: [
       new CleanWebpackPlugin([
@@ -62,6 +65,47 @@ module.exports = (env, argv) => {
           },
         },
       }),
+      new HtmlWebpackExternalsPlugin({
+        enabled: mode === 'development',
+        externals: [
+          {
+            module: 'ag-grid-community',
+            entry: 'dist/ag-grid-community.min.noStyle.js',
+            global: 'agGrid',
+          },
+          {
+            module: 'react',
+            entry: 'umd/react.production.min.js',
+            global: 'React',
+          },
+          {
+            module: 'react-dom',
+            entry: 'umd/react-dom.production.min.js',
+            global: 'ReactDOM',
+          },
+          {
+            module: 'react-redux',
+            entry: 'dist/react-redux.min.js',
+            global: 'ReactRedux',
+          },
+          {
+            module: 'redux',
+            entry: 'dist/redux.min.js',
+            global: 'Redux',
+          },
+          {
+            module: 'semantic-ui-react',
+            entry: 'dist/umd/semantic-ui-react.min.js',
+            global: 'semanticUIReact',
+          },
+          // Not use externals for following libraries:
+          //   - ag-grid-react
+          //   - pythonic
+          //   - ts-deepcopy
+          //   - typescript-fsa
+          //   - typescript-fsa-reducers
+        ],
+      }),
     ],
     resolve: {
       extensions: [
@@ -74,10 +118,6 @@ module.exports = (env, argv) => {
     // Disabled following settings defined in webpack.production.js
     // because it is maybe needless:
     // ```
-    // performance: {
-    //     hints: false
-    // },
-    //
     // plugins: [
     //     new webpack.DefinePlugin({
     //         'process.env.NODE_ENV': JSON.stringify('production')
