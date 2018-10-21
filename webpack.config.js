@@ -73,62 +73,32 @@ module.exports = (env, argv) => {
           {
             module: 'ag-grid-community',
             global: 'agGrid',
-            entry: {
-              path: 'https://unpkg.com/ag-grid-community@19.0/dist/ag-grid-community.min.noStyle.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'dist/ag-grid-community.min.noStyle.js',
           },
           {
             module: 'react',
             global: 'React',
-            entry: {
-              path: 'https://unpkg.com/react@16.5/umd/react.production.min.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'umd/react.production.min.js',
           },
           {
             module: 'react-dom',
             global: 'ReactDOM',
-            entry: {
-              path: 'https://unpkg.com/react-dom@16.5/umd/react-dom.production.min.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'umd/react-dom.production.min.js',
           },
           {
             module: 'react-redux',
             global: 'ReactRedux',
-            entry: {
-              path: 'https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'dist/react-redux.min.js',
           },
           {
             module: 'redux',
             global: 'Redux',
-            entry: {
-              path: 'https://unpkg.com/redux@4.0/dist/redux.min.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'dist/redux.min.js',
           },
           {
             module: 'semantic-ui-react',
             global: 'semanticUIReact',
-            entry: {
-              path: 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-react/0.82.5/semantic-ui-react.min.js',
-              attributes: {
-                crossorigin: 'anonymous',
-              },
-            },
+            entry: 'dist/umd/semantic-ui-react.min.js',
           },
           // Not use externals for following libraries:
           //   - ag-grid-react
