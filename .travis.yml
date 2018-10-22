@@ -7,7 +7,6 @@ script:
   - make up
   - docker-compose exec develop make fetch
   - docker-compose exec develop make lint
-  - docker-compose exec develop make build CONFIG=development
   - docker-compose exec develop make build CONFIG=production
   - docker-compose exec develop make test
   - make e2etest
