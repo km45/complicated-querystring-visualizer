@@ -9,7 +9,7 @@ const package = require('./package.json');
 module.exports = (env, argv) => {
   const mode = argv.mode;
 
-  const outputPath = path.resolve(__dirname, 'dist', mode);
+  const outputPath = path.resolve(__dirname, 'dist');
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
