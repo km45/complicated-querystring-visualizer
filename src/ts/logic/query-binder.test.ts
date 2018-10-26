@@ -69,7 +69,7 @@ describe('query-binder GenerateQuery test', () => {
             libs: [
                 ['libs', 'lib1.so', 'lib2.so']
             ]
-        }
+        };
 
         const encodedPeriod = '%2e';
 
@@ -172,7 +172,7 @@ describe('query-binder ParseQuery test', () => {
             libs: [
                 ['libs', 'lib1.so', 'lib2.so']
             ]
-        }
+        };
 
         const actual = parseQuery(input);
 

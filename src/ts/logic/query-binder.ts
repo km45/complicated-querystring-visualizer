@@ -40,8 +40,8 @@ export function parseQuery(query: string): QueryBinder {
       if (key.match(/^coord[0-9]+$/)) {
         coord.push([key].concat(value.split(',')));
       } else if (key === 'libs') {
-        libs.push([key].concat(value.split('.').map((value: string) => {
-          return decodeURIComponent(value);
+        libs.push([key].concat(value.split('.').map((v: string) => {
+          return decodeURIComponent(v);
         })));
       } else if (key) {  // ignore empty key
         basic.push([key, decodeURIComponent(value)]);
@@ -55,8 +55,8 @@ export function parseQuery(query: string): QueryBinder {
     };
 }
 
-function fixedEncodeURIComponent(str: string) {
-    return encodeURIComponent(str).replace(/[-_.!~*'()]/g, function (c) {
+function fixedEncodeURIComponent(str: string): string {
+    return encodeURIComponent(str).replace(/[-_.!~*'()]/g, (c: string) => {
         return '%' + c.charCodeAt(0).toString(16);
     });
 }
@@ -68,7 +68,7 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, encodeURIComponent(value)];
     });
 
-    const coord = binder.coord.map((v: ArrayRow): [string,string] => {
+    const coord = binder.coord.map((v: ArrayRow): [string, string] => {
         const key = v[0];
 
         const values = v.slice(1);
