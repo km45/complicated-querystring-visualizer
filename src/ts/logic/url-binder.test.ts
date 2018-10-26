@@ -10,7 +10,8 @@ describe('url-binder GenerateUrl test', () => {
                 basic: [
                     ['piyo', 'fuga']
                 ],
-                coord: []
+                coord: [],
+                libs: []
             }
         };
 
@@ -29,7 +30,8 @@ describe('url-binder GenerateUrl test', () => {
                 basic: [
                     ['piyo', 'fuga']
                 ],
-                coord: []
+                coord: [],
+                libs: []
             }
         };
 
@@ -53,7 +55,8 @@ describe('url-binder ParseUrl test', () => {
                 basic: [
                     ['piyo', 'fuga']
                 ],
-                coord: []
+                coord: [],
+                libs: []
             }
         };
 
@@ -72,7 +75,8 @@ describe('url-binder ParseUrl test', () => {
                 basic: [
                     ['piyo', 'fuga']
                 ],
-                coord: []
+                coord: [],
+                libs: []
             }
         };
 

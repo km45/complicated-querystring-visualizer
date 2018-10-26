@@ -7,6 +7,7 @@ export const enum TablesIndex {
   Basic,
   Coord,
   Host,
+  Libs,
   Size  // HACK: not use last value as size
 }
 

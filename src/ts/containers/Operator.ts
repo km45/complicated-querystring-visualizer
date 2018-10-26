@@ -13,6 +13,7 @@ interface ObjectTables {
   basic: ObjectTable;
   coord: ObjectTable;
   host: ObjectTable;
+  libs: ObjectTable;
 }
 
 function generateUrl(tables: ObjectTables): string {
@@ -21,7 +22,8 @@ function generateUrl(tables: ObjectTables): string {
         objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
     query: {
       basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
-      coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord)
+      coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
+      libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
     }
   });
 }
@@ -32,7 +34,8 @@ function parseUrl(url: string): ObjectTables {
   return {
     basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
     coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
-    host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host)
+    host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
+    libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
   };
 }
 
@@ -42,6 +45,8 @@ class Actions implements Component.Actions {
   private basicObjectTable: ObjectTable;
   private coordObjectTable: ObjectTable;
   private hostObjectTable: ObjectTable;
+  private libsObjectTable: ObjectTable;
+
   private stringifiedQuery: string;
 
   constructor(dispatch: Redux.Dispatch<any>, state: RootState) {
@@ -50,6 +55,8 @@ class Actions implements Component.Actions {
     this.basicObjectTable = state.structuredQuery.tables[TablesIndex.Basic];
     this.coordObjectTable = state.structuredQuery.tables[TablesIndex.Coord];
     this.hostObjectTable = state.structuredQuery.tables[TablesIndex.Host];
+    this.libsObjectTable = state.structuredQuery.tables[TablesIndex.Libs];
+
     this.stringifiedQuery = state.stringifiedQuery.text;
   }
 
@@ -61,7 +68,8 @@ class Actions implements Component.Actions {
     const url = generateUrl({
       basic: this.basicObjectTable,
       coord: this.coordObjectTable,
-      host: this.hostObjectTable
+      host: this.hostObjectTable,
+      libs: this.libsObjectTable
     });
 
     this.dispatch(setText(url));
@@ -84,6 +92,7 @@ class Actions implements Component.Actions {
     this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
     this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
     this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
+    this.dispatch(setTable({index: TablesIndex.Libs, table: tables.libs}));
   }
 
   public processOwnQuery(): void {
@@ -102,6 +111,7 @@ class Actions implements Component.Actions {
     this.dispatch(setTable({index: TablesIndex.Basic, table: tables.basic}));
     this.dispatch(setTable({index: TablesIndex.Coord, table: tables.coord}));
     this.dispatch(setTable({index: TablesIndex.Host, table: tables.host}));
+    this.dispatch(setTable({index: TablesIndex.Libs, table: tables.libs}));
   }
 }
 
