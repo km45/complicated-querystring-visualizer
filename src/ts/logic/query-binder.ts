@@ -11,6 +11,11 @@ export class ColumnsDefinition {
         { key: 'x', name: 'x' },
         { key: 'y', name: 'y' },
         { key: 'z', name: 'z' }];
+    public static readonly libs: Columns = [
+        { key: 'key', name: 'Key' },
+        { key: 'lib1', name: 'lib1' },
+        { key: 'lib2', name: 'lib2' }
+    ];
 }
 
 export interface QueryBinder {

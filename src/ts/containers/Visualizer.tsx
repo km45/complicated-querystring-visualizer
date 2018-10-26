@@ -29,7 +29,8 @@ interface Props {
     children: {
         basicGrid: GridComponent.Props,
         coordGrid: GridComponent.Props,
-        hostGrid: GridComponent.Props
+        hostGrid: GridComponent.Props,
+        libsGrid: GridComponent.Props
     };
 }
 
@@ -46,6 +47,9 @@ class Visualizer extends React.Component<Props, State> {
                 <GridComponent.default
                     actions={this.props.children.coordGrid.actions}
                     values={this.props.children.coordGrid.values} />
+                <GridComponent.default
+                    actions={this.props.children.libsGrid.actions}
+                    values={this.props.children.libsGrid.values} />
             </div>);
     }
 }
@@ -54,12 +58,14 @@ interface StateProps {
     basicGridValues: GridComponent.Values;
     coordGridValues: GridComponent.Values;
     hostGridValues: GridComponent.Values;
+    libsGridValues: GridComponent.Values;
 }
 
 interface DispatchProps {
     basicGridActions: GridComponent.Actions;
     coordGridActions: GridComponent.Actions;
     hostGridActions: GridComponent.Actions;
+    libsGridActions: GridComponent.Actions;
 }
 
 interface OwnProps { }
@@ -80,6 +86,11 @@ function mapStateToProps(state: RootState): StateProps {
             columns: UrlBinder.ColumnsDefinition.host,
             table: state.structuredQuery.tables[TablesIndex.Host],
             title: 'Host'
+        },
+        libsGridValues: {
+            columns: ColumnsDefinition.libs,
+            table: state.structuredQuery.tables[TablesIndex.Libs],
+            title: 'Libs'
         }
     };
 }
@@ -88,7 +99,8 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
     return {
         basicGridActions: new Actions(dispatch, TablesIndex.Basic),
         coordGridActions: new Actions(dispatch, TablesIndex.Coord),
-        hostGridActions: new Actions(dispatch, TablesIndex.Host)
+        hostGridActions: new Actions(dispatch, TablesIndex.Host),
+        libsGridActions: new Actions(dispatch, TablesIndex.Libs)
     };
 }
 
@@ -108,6 +120,10 @@ function mergeProps(
             hostGrid: {
                 actions: dispatchProps.hostGridActions,
                 values: stateProps.hostGridValues
+            },
+            libsGrid: {
+                actions: dispatchProps.libsGridActions,
+                values: stateProps.libsGridValues
             }
         }
     };
