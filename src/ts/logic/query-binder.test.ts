@@ -1,194 +1,102 @@
-import {
-    generateQuery, parseQuery, QueryBinder
-} from './query-binder';
+import {generateQuery, parseQuery, QueryBinder} from './query-binder';
 
-describe('query-binder GenerateQuery test', () => {
-    it('basic only', () => {
-        const input: QueryBinder = {
-            basic: [
-                ['a', '1'],
-                ['b', '2'],
-                ['c', '3']
-            ],
-            coord: [],
-            libs: []
-        };
+interface TestParameter {
+  queryString: string;
+  binder: QueryBinder;
+  skipGenerateQueryTest?: boolean;
+  skipParseQueryTest?: boolean;
+}
 
-        const expected = 'a=1&b=2&c=3';
+type TestCase = [string, TestParameter];
 
-        const actual = generateQuery(input);
+const emptyQueryBinder: QueryBinder = {
+  basic: [],
+  coord: [],
+  libs: []
+};
 
-        expect(actual).toEqual(expected);
-    });
-    it('basic only with value encoded & that is used separator if not encoded', () => {
-        const encodedAmpersand = '%26';
+const encodedAmpersand = '%26';
+const encodedPeriod = '%2E';
+const encodedComma = '%2C';
 
-        const input: QueryBinder = {
-            basic: [
-                ['view', 'Q&A'],
-                ['no', '1']
-            ],
-            coord: [],
-            libs: []
-        };
+const testCases: TestCase[] = [
+  [
+    'basic only', {
+      queryString: ['a=1', 'b=2', 'c=3'].join('&'),
+      binder:
+          {...emptyQueryBinder, basic: [['a', '1'], ['b', '2'], ['c', '3']]}
+    }
+  ],
+  [
+    'basic only with value encoded & that is used separator if not encoded', {
+      queryString: [
+        ['view', 'Q' + encodedAmpersand + 'A'].join('='), ['no', '1'].join('=')
+      ].join('&'),
+      binder: {...emptyQueryBinder, basic: [['view', 'Q&A'], ['no', '1']]}
+    }
+  ],
+  [
+    'coord only', {
+      queryString: [
+        ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+        ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
+      ].join('&'),
+      binder: {
+        ...emptyQueryBinder,
+        coord: [['coord1', 'x1', 'y1', 'z1'], ['coord2', 'x2', 'y2', 'z2']]
+      }
+    }
+  ],
+  [
+    'coord only with non-encoded separator comma', {
+      queryString: [
+        ['coord1', ['x1', 'y1', 'z1'].join(',')].join('='),
+        ['coord2', ['x2', 'y2', 'z2'].join(',')].join('=')
+      ].join('&'),
+      binder: {
+        ...emptyQueryBinder,
+        coord: [['coord1', 'x1', 'y1', 'z1'], ['coord2', 'x2', 'y2', 'z2']]
+      },
+      skipGenerateQueryTest: true
+    }
+  ],
+  [
+    'libs only', {
+      queryString: [
+        'libs',
+        [
+          ['lib1', 'so'].join(encodedPeriod), ['lib2', 'so'].join(encodedPeriod)
+        ].join('.')
+      ].join('='),
+      binder: {...emptyQueryBinder, libs: [['libs', 'lib1.so', 'lib2.so']]}
+    }
+  ],
+  ['none', {queryString: '', binder: {...emptyQueryBinder}}]
+];
 
-        const expected = [
-            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
-            ['no', '1'].join('=')
-        ].join('&');
+describe.each(testCases)(
+    'query-binder / %s', (_: string, p: TestParameter): void => {
+      test('generateQuery', () => {
+        if (p.skipGenerateQueryTest) {
+          return;
+        }
 
-        const actual = generateQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('coord only', () => {
-        const input: QueryBinder = {
-            basic: [],
-            coord: [
-                ['coord1', 'x1', 'y1', 'z1'],
-                ['coord2', 'x2', 'y2', 'z2']
-            ],
-            libs: []
-        };
-
-        const encodedComma = '%2C';
-
-        const expected = [
-          ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
-          ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
-        ].join('&');
-
-        const actual = generateQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('libs only', () => {
-        const input: QueryBinder = {
-            basic: [],
-            coord: [],
-            libs: [
-                ['libs', 'lib1.so', 'lib2.so']
-            ]
-        };
-
-        const encodedPeriod = '%2e';
-
-        const expected = [
-            'libs',
-            [
-                ['lib1', 'so'].join(encodedPeriod),
-                ['lib2', 'so'].join(encodedPeriod)
-            ].join('.')
-        ].join('=');
-
-        const actual = generateQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('none', () => {
-        const input: QueryBinder = {
-            basic: [],
-            coord: [],
-            libs: []
-        };
-
-        const expected = '';
+        const input = p.binder;
+        const expected = p.queryString;
 
         const actual = generateQuery(input);
-
         expect(actual).toEqual(expected);
-    });
-});
+      });
 
-describe('query-binder ParseQuery test', () => {
-    it('basic only', () => {
-        const input = 'a=1&b=2&c=3';
+      test('parseQuery', () => {
+        if (p.skipParseQueryTest) {
+          return;
+        }
 
-        const expected: QueryBinder = {
-            basic: [
-                ['a', '1'],
-                ['b', '2'],
-                ['c', '3']
-            ],
-            coord: [],
-            libs: []
-        };
+        const input = p.queryString;
+        const expected = p.binder;
 
         const actual = parseQuery(input);
-
         expect(actual).toEqual(expected);
+      });
     });
-    it('basic only with value encoded & that is used separator if not encoded', () => {
-        const encodedAmpersand = '%26';
-
-        const input = [
-            ['view', 'Q' + encodedAmpersand + 'A'].join('='),
-            ['no', '1'].join('=')
-        ].join('&');
-
-        const expected: QueryBinder = {
-            basic: [
-                ['view', 'Q&A'],
-                ['no', '1']
-            ],
-            coord: [],
-            libs: []
-        };
-
-        const actual = parseQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('coord only', () => {
-        const input = 'coord1=x1,y1,z1&coord2=x2,y2,z2';
-
-        const expected: QueryBinder = {
-            basic: [],
-            coord: [
-                ['coord1', 'x1', 'y1', 'z1'],
-                ['coord2', 'x2', 'y2', 'z2']
-            ],
-            libs: []
-        };
-
-        const actual = parseQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('libs only', () => {
-        const encodedPeriod = '%2e';
-
-        const input = [
-            'libs',
-            [
-                ['lib1', 'so'].join(encodedPeriod),
-                ['lib2', 'so'].join(encodedPeriod)
-            ].join('.')
-        ].join('=');
-
-        const expected: QueryBinder = {
-            basic: [],
-            coord: [],
-            libs: [
-                ['libs', 'lib1.so', 'lib2.so']
-            ]
-        };
-
-        const actual = parseQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-    it('none', () => {
-        const input = '';
-
-        const expected: QueryBinder = {
-            basic: [],
-            coord: [],
-            libs: []
-        };
-
-        const actual = parseQuery(input);
-
-        expect(actual).toEqual(expected);
-    });
-});
