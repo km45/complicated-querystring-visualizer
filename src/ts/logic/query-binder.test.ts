@@ -10,7 +10,8 @@ describe('query-binder GenerateQuery test', () => {
                 ['b', '2'],
                 ['c', '3']
             ],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const expected = 'a=1&b=2&c=3';
@@ -27,7 +28,8 @@ describe('query-binder GenerateQuery test', () => {
                 ['view', 'Q&A'],
                 ['no', '1']
             ],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const expected = [
@@ -45,7 +47,8 @@ describe('query-binder GenerateQuery test', () => {
             coord: [
                 ['coord1', 'x1', 'y1', 'z1'],
                 ['coord2', 'x2', 'y2', 'z2']
-            ]
+            ],
+            libs: []
         };
 
         const encodedComma = '%2C';
@@ -54,6 +57,29 @@ describe('query-binder GenerateQuery test', () => {
           ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
           ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
         ].join('&');
+
+        const actual = generateQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
+    it('libs only', () => {
+        const input: QueryBinder = {
+            basic: [],
+            coord: [],
+            libs: [
+                ['libs', 'lib1.so', 'lib2.so']
+            ]
+        }
+
+        const encodedPeriod = '%2e';
+
+        const expected = [
+            'libs',
+            [
+                ['lib1', 'so'].join(encodedPeriod),
+                ['lib2', 'so'].join(encodedPeriod)
+            ].join('.')
+        ].join('=');
 
         const actual = generateQuery(input);
 
@@ -89,7 +115,8 @@ describe('query-binder GenerateQuery test', () => {
     it('none', () => {
         const input: QueryBinder = {
             basic: [],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const expected = '';
@@ -110,7 +137,8 @@ describe('query-binder ParseQuery test', () => {
                 ['b', '2'],
                 ['c', '3']
             ],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const actual = parseQuery(input);
@@ -130,7 +158,8 @@ describe('query-binder ParseQuery test', () => {
                 ['view', 'Q&A'],
                 ['no', '1']
             ],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const actual = parseQuery(input);
@@ -145,8 +174,32 @@ describe('query-binder ParseQuery test', () => {
             coord: [
                 ['coord1', 'x1', 'y1', 'z1'],
                 ['coord2', 'x2', 'y2', 'z2']
-            ]
+            ],
+            libs: []
         };
+
+        const actual = parseQuery(input);
+
+        expect(actual).toEqual(expected);
+    });
+    it('libs only', () => {
+        const encodedPeriod = '%2e';
+
+        const input = [
+            'libs',
+            [
+                ['lib1', 'so'].join(encodedPeriod),
+                ['lib2', 'so'].join(encodedPeriod)
+            ].join('.')
+        ].join('=');
+
+        const expected: QueryBinder = {
+            basic: [],
+            coord: [],
+            libs: [
+                ['libs', 'lib1.so', 'lib2.so']
+            ]
+        }
 
         const actual = parseQuery(input);
 
@@ -176,7 +229,8 @@ describe('query-binder ParseQuery test', () => {
 
         const expected: QueryBinder = {
             basic: [],
-            coord: []
+            coord: [],
+            libs: []
         };
 
         const actual = parseQuery(input);

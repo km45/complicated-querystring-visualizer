@@ -19,6 +19,7 @@ export class ColumnsDefinition {
 export interface QueryBinder {
     basic: ArrayTable;
     coord: ArrayTable;
+    libs: ArrayTable;
 }
 
 function convertParsedUrlQueryElementToString(
