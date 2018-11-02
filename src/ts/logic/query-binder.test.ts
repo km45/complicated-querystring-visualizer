@@ -1,5 +1,7 @@
 import {generateQuery, parseQuery, QueryBinder} from './query-binder';
 
+type TestName = string;
+
 interface TestParameter {
   queryString: string;
   binder: QueryBinder;
@@ -7,7 +9,7 @@ interface TestParameter {
   skipParseQueryTest?: boolean;
 }
 
-type TestCase = [string, TestParameter];
+type TestCase = [TestName, TestParameter];
 
 const emptyQueryBinder: QueryBinder = {
   basic: [],
