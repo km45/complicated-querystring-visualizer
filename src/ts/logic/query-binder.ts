@@ -38,7 +38,7 @@ export function parseQuery(query: string): QueryBinder {
       const value = param[1];
 
       if (key.match(/^coord[0-9]+$/)) {
-        coord.push([key].concat(value.split(',')));
+        coord.push([key].concat(decodeURIComponent(value).split(',')));
       } else if (key === 'libs') {
         libs.push([key].concat(value.split('.').map((v: string) => {
           return decodeURIComponent(v);
@@ -57,7 +57,7 @@ export function parseQuery(query: string): QueryBinder {
 
 function fixedEncodeURIComponent(str: string): string {
     return encodeURIComponent(str).replace(/[-_.!~*'()]/g, (c: string) => {
-        return '%' + c.charCodeAt(0).toString(16);
+        return '%' + c.charCodeAt(0).toString(16).toUpperCase();
     });
 }
 
