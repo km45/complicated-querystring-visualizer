@@ -4,8 +4,9 @@ import {generateUrl, parseUrl, UrlBinder} from './url-binder';
 type TestName = string;
 
 interface TestParameter {
-  url: string;
   binder: UrlBinder;
+  url: string;
+
   skipGenerateUrlTest?: boolean;
   skipParseUrlTest?: boolean;
 }
@@ -20,22 +21,22 @@ const emptyUrlBinder: UrlBinder = {
 const testCases: TestCase[] = [
   [
     'both host and query', {
-      url: 'http://example.com:80/hoge?piyo=fuga',
       binder: {
         ...emptyUrlBinder,
         host: [['host', 'http://example.com:80/hoge']],
         query: {...emptyQueryBinder, basic: [['piyo', 'fuga']]}
-      }
+      },
+      url: 'http://example.com:80/hoge?piyo=fuga'
     }
   ],
   [
     'only query', {
-      url: 'piyo=fuga',
       binder: {
         ...emptyUrlBinder,
         host: [['host', '']],
         query: {...emptyQueryBinder, basic: [['piyo', 'fuga']]}
-      }
+      },
+      url: 'piyo=fuga'
     }
   ]
 ];

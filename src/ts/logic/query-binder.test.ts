@@ -3,8 +3,9 @@ import {generateQuery, parseQuery, QueryBinder} from './query-binder';
 type TestName = string;
 
 interface TestParameter {
-  queryString: string;
   binder: QueryBinder;
+  queryString: string;
+
   skipGenerateQueryTest?: boolean;
   skipParseQueryTest?: boolean;
 }
@@ -24,53 +25,53 @@ const encodedComma = '%2C';
 const testCases: TestCase[] = [
   [
     'basic only', {
-      queryString: ['a=1', 'b=2', 'c=3'].join('&'),
       binder:
-          {...emptyQueryBinder, basic: [['a', '1'], ['b', '2'], ['c', '3']]}
+          {...emptyQueryBinder, basic: [['a', '1'], ['b', '2'], ['c', '3']]},
+      queryString: ['a=1', 'b=2', 'c=3'].join('&')
     }
   ],
   [
     'basic only with value encoded & that is used separator if not encoded', {
+      binder: {...emptyQueryBinder, basic: [['view', 'Q&A'], ['no', '1']]},
       queryString: [
         ['view', 'Q' + encodedAmpersand + 'A'].join('='), ['no', '1'].join('=')
-      ].join('&'),
-      binder: {...emptyQueryBinder, basic: [['view', 'Q&A'], ['no', '1']]}
+      ].join('&')
     }
   ],
   [
     'coord only', {
-      queryString: [
-        ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
-        ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
-      ].join('&'),
-      binder: {
-        ...emptyQueryBinder,
-        coord: [['coord1', 'x1', 'y1', 'z1'], ['coord2', 'x2', 'y2', 'z2']]
-      }
-    }
-  ],
-  [
-    'coord only with non-encoded separator comma', {
-      queryString: [
-        ['coord1', ['x1', 'y1', 'z1'].join(',')].join('='),
-        ['coord2', ['x2', 'y2', 'z2'].join(',')].join('=')
-      ].join('&'),
       binder: {
         ...emptyQueryBinder,
         coord: [['coord1', 'x1', 'y1', 'z1'], ['coord2', 'x2', 'y2', 'z2']]
       },
+      queryString: [
+        ['coord1', ['x1', 'y1', 'z1'].join(encodedComma)].join('='),
+        ['coord2', ['x2', 'y2', 'z2'].join(encodedComma)].join('=')
+      ].join('&')
+    }
+  ],
+  [
+    'coord only with non-encoded separator comma', {
+      binder: {
+        ...emptyQueryBinder,
+        coord: [['coord1', 'x1', 'y1', 'z1'], ['coord2', 'x2', 'y2', 'z2']]
+      },
+      queryString: [
+        ['coord1', ['x1', 'y1', 'z1'].join(',')].join('='),
+        ['coord2', ['x2', 'y2', 'z2'].join(',')].join('=')
+      ].join('&'),
       skipGenerateQueryTest: true
     }
   ],
   [
     'libs only', {
+      binder: {...emptyQueryBinder, libs: [['libs', 'lib1.so', 'lib2.so']]},
       queryString: [
         'libs',
         [
           ['lib1', 'so'].join(encodedPeriod), ['lib2', 'so'].join(encodedPeriod)
         ].join('.')
-      ].join('='),
-      binder: {...emptyQueryBinder, libs: [['libs', 'lib1.so', 'lib2.so']]}
+      ].join('=')
     }
   ],
   ['none', {queryString: '', binder: {...emptyQueryBinder}}]
