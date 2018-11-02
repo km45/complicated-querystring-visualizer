@@ -8,9 +8,8 @@
 
 ```
 $ make up
-$ make shell
-$ make
-$ exit
+$ make fetch
+$ make build
 $ make down
 ```
 
