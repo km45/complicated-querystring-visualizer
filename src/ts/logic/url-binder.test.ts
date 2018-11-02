@@ -1,87 +1,68 @@
-import { generateUrl, parseUrl, UrlBinder } from './url-binder';
+import {emptyQueryBinder} from './query-binder.test';
+import {generateUrl, parseUrl, UrlBinder} from './url-binder';
 
-describe('url-binder GenerateUrl test', () => {
-    it('both host and query', () => {
-        const input: UrlBinder = {
-            host: [
-                ['host', 'http://example.com:80/hoge']
-            ],
-            query: {
-                basic: [
-                    ['piyo', 'fuga']
-                ],
-                coord: [],
-                libs: []
-            }
-        };
+type TestName = string;
 
-        const expected: string = 'http://example.com:80/hoge?piyo=fuga';
+interface TestParameter {
+  url: string;
+  binder: UrlBinder;
+  skipGenerateUrlTest?: boolean;
+  skipParseUrlTest?: boolean;
+}
+
+type TestCase = [TestName, TestParameter];
+
+const emptyUrlBinder: UrlBinder = {
+  host: [],
+  query: emptyQueryBinder
+};
+
+const testCases: TestCase[] = [
+  [
+    'both host and query', {
+      url: 'http://example.com:80/hoge?piyo=fuga',
+      binder: {
+        ...emptyUrlBinder,
+        host: [['host', 'http://example.com:80/hoge']],
+        query: {...emptyQueryBinder, basic: [['piyo', 'fuga']]}
+      }
+    }
+  ],
+  [
+    'only query', {
+      url: 'piyo=fuga',
+      binder: {
+        ...emptyUrlBinder,
+        host: [['host', '']],
+        query: {...emptyQueryBinder, basic: [['piyo', 'fuga']]}
+      }
+    }
+  ]
+];
+
+describe.each(testCases)(
+    'url-binder / %s', (_: string, p: TestParameter): void => {
+      test('generateUrl', () => {
+        if (p.skipGenerateUrlTest) {
+          return;
+        }
+
+        const input = p.binder;
+        const expected = p.url;
 
         const actual = generateUrl(input);
-
         expect(actual).toEqual(expected);
-    });
-    it('only query', () => {
-        const input: UrlBinder = {
-            host: [
-                ['host', '']
-            ],
-            query: {
-                basic: [
-                    ['piyo', 'fuga']
-                ],
-                coord: [],
-                libs: []
-            }
-        };
+      });
 
-        const expected: string = 'piyo=fuga';
+      test('parseUrl', () => {
+        if (p.skipParseUrlTest) {
+          return;
+        }
 
-        const actual = generateUrl(input);
-
-        expect(actual).toEqual(expected);
-    });
-});
-
-describe('url-binder ParseUrl test', () => {
-    it('both host and query', () => {
-        const input = 'http://example.com:80/hoge?piyo=fuga';
-
-        const expected: UrlBinder = {
-            host: [
-                ['host', 'http://example.com:80/hoge']
-            ],
-            query: {
-                basic: [
-                    ['piyo', 'fuga']
-                ],
-                coord: [],
-                libs: []
-            }
-        };
+        const input = p.url;
+        const expected = p.binder;
 
         const actual = parseUrl(input);
-
         expect(actual).toEqual(expected);
+      });
     });
-    it('only query', () => {
-        const input = 'piyo=fuga';
-
-        const expected: UrlBinder = {
-            host: [
-                ['host', '']
-            ],
-            query: {
-                basic: [
-                    ['piyo', 'fuga']
-                ],
-                coord: [],
-                libs: []
-            }
-        };
-
-        const actual = parseUrl(input);
-
-        expect(actual).toEqual(expected);
-    });
-});

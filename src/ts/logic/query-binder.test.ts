@@ -11,7 +11,7 @@ interface TestParameter {
 
 type TestCase = [TestName, TestParameter];
 
-const emptyQueryBinder: QueryBinder = {
+export const emptyQueryBinder: QueryBinder = {
   basic: [],
   coord: [],
   libs: []
