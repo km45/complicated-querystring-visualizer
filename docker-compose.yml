@@ -23,19 +23,19 @@ services:
       - HUB_PORT=4444
     volumes:
       - .:/usr/src/app
-  # firefox-debug:
-  #   image: selenium/node-firefox-debug:3.14.0-europium
-  #   depends_on:
-  #     - selenium-hub
-  #   environment:
-  #     - HUB_HOST=selenium-hub
-  #     - HUB_PORT=4444
-  #   ports:
-  #     # vnc port to access like following:
-  #     # $ echo 'secret' | vncviewer -autopass 127.0.0.1:5900
-  #     - 5900:5900
-  #   volumes:
-  #     - .:/usr/src/app
+  firefox-debug:
+    image: selenium/node-firefox-debug:3.14.0-europium
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    ports:
+      # vnc port to access like following:
+      # $ echo 'secret' | vncviewer -autopass 127.0.0.1:5900
+      - 5900:5900
+    volumes:
+      - .:/usr/src/app
   python:
     build:
       context: .
