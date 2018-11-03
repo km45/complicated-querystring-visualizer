@@ -1,7 +1,7 @@
 FROM node:10-alpine
 
 RUN apk update \
-    && apk add make shadow \
+    && apk add shadow \
     && rm -rf /var/cache/apk/*
 
 #
