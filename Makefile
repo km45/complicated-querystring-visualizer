@@ -22,14 +22,14 @@ all: fetch lint build test
 
 .PHONY: fetch
 fetch:
-	yarn install
+	npm install
 
 .PHONY: build
 build:
 ifeq ($(WATCH),true)
-	yarn run webpack --mode=$(CONFIG) --watch
+	npx webpack --mode=$(CONFIG) --watch
 endif
-	yarn run webpack --mode=$(CONFIG)
+	npx webpack --mode=$(CONFIG)
 
 .PHONY: clean
 clean:
@@ -38,15 +38,15 @@ clean:
 .PHONY: test
 test:
 ifeq ($(WATCH),true)
-	yarn run jest --coverage --watchAll
+	npx jest --coverage --watchAll
 else
-	yarn run jest --coverage
+	npx jest --coverage
 endif
 
 .PHONY: lint
 lint:
-	yarn run eslint .eslintrc.js webpack.config.js
-	yarn run tslint src/ts/**/*.ts src/ts/**/*.tsx
+	npx eslint .eslintrc.js webpack.config.js
+	npx tslint src/ts/**/*.ts src/ts/**/*.tsx
 
 .PHONY: e2etest
 e2etest:
