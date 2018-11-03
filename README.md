@@ -8,7 +8,7 @@
 
 ```
 $ make up
-$ make fetch
+$ make sync
 $ make build
 $ make down
 ```
