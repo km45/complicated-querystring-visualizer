@@ -4,6 +4,11 @@ services:
   - docker
 
 script:
+  - pwd
+  - whoami
+  - id -u
+  - id -g
+  - su - travis
   - make up SERVICE='develop python firefox'
   - make clean
   - make fetch
