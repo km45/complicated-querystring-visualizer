@@ -37,7 +37,8 @@ help:
 
 .PHONY: up
 up:
-	docker-compose up -d --build $(SERVICE)
+	docker-compose build --build-arg VOLUME_UID=$$(id -u) --build-arg VOLUME_GID=$$(id -g) $(SERVICE)
+	docker-compose up -d --no-build $(SERVICE)
 
 .PHONY: down
 down:
