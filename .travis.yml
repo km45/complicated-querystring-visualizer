@@ -5,5 +5,10 @@ services:
 
 script:
   - make up SERVICE='develop python firefox'
-  - make all CONFIG=production
+  - make clean
+  - make fetch
+  - make lint
+  - make build CONFIG=production
+  - make unit-test
+  - make e2e-test
   - make down
