@@ -6,7 +6,7 @@ services:
 script:
   - make up SERVICE='develop python firefox'
   - make clean
-  - make fetch
+  - make sync
   - make lint
   - make build CONFIG=production
   - make unit-test

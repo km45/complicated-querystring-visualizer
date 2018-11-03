@@ -17,6 +17,7 @@ help:
 	@echo '    shell [SERVICE]'
 	@echo '    clean'
 	@echo '    fetch'
+	@echo '    sync'
 	@echo '    lint'
 	@echo '    build [CONFIG] [WATCH]'
 	@echo '    unit-test [WATCH]'
@@ -49,7 +50,7 @@ shell:
 	docker-compose exec --user `id -u`:`id -g` $(SERVICE) /bin/sh
 
 .PHONY: all
-all: clean fetch lint build unit-test e2e-test
+all: clean sync lint build unit-test e2e-test
 
 .PHONY: clean
 clean:
@@ -58,6 +59,10 @@ clean:
 .PHONY: fetch
 fetch:
 	docker-compose exec --user `id -u`:`id -g` develop npm install
+
+.PHONY: sync
+sync:
+	docker-compose exec --user `id -u`:`id -g` develop npm ci
 
 .PHONY: lint
 lint:
