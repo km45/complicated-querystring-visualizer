@@ -7,7 +7,7 @@ RUN apk update \
 #
 # yarn
 #
-ENV YARN_VERSION 1.10.1
+ENV YARN_VERSION 1.12.1
 
 RUN npm install -g yarn@${YARN_VERSION}
 
