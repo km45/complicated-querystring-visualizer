@@ -47,34 +47,34 @@ down:
 
 .PHONY: shell
 shell:
-	docker-compose exec --user `id -u`:`id -g` $(SERVICE) /bin/sh
+	docker-compose exec --user $$(id -u):$$(id -g) $(SERVICE) /bin/sh
 
 .PHONY: all
 all: clean sync lint build unit-test e2e-test
 
 .PHONY: clean
 clean:
-	docker-compose exec --user `id -u`:`id -g` develop rm -fr dist node_modules
+	docker-compose exec --user $$(id -u):$$(id -g) develop rm -fr dist node_modules
 
 .PHONY: fetch
 fetch:
-	docker-compose exec --user `id -u`:`id -g` develop npm install
+	docker-compose exec --user $$(id -u):$$(id -g) develop npm install
 
 .PHONY: sync
 sync:
-	docker-compose exec --user `id -u`:`id -g` develop npm ci
+	docker-compose exec --user $$(id -u):$$(id -g) develop npm ci
 
 .PHONY: lint
 lint:
-	docker-compose exec --user `id -u`:`id -g` develop npx eslint .eslintrc.js webpack.config.js
-	docker-compose exec --user `id -u`:`id -g` develop npx tslint src/ts/**/*.ts src/ts/**/*.tsx
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx eslint .eslintrc.js webpack.config.js
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx tslint src/ts/**/*.ts src/ts/**/*.tsx
 
 .PHONY: build
 build:
 ifeq ($(WATCH),true)
-	docker-compose exec --user `id -u`:`id -g` develop npx webpack --mode=$(CONFIG) --watch
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx webpack --mode=$(CONFIG) --watch
 else
-	docker-compose exec --user `id -u`:`id -g` develop npx webpack --mode=$(CONFIG)
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx webpack --mode=$(CONFIG)
 endif
 
 .PHONY: test
@@ -83,11 +83,11 @@ test: unit-test
 .PHONY: unit-test
 unit-test:
 ifeq ($(WATCH),true)
-	docker-compose exec --user `id -u`:`id -g` develop npx jest --coverage --watchAll
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx jest --coverage --watchAll
 else
-	docker-compose exec --user `id -u`:`id -g` develop npx jest --coverage
+	docker-compose exec --user $$(id -u):$$(id -g) develop npx jest --coverage
 endif
 
 .PHONY: e2e-test
 e2e-test:
-	docker-compose exec --user `id -u`:`id -g` python pytest src/python/tests
+	docker-compose exec --user $$(id -u):$$(id -g) python pytest src/python/tests
