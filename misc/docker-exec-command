@@ -1,0 +1,55 @@
+#!/bin/bash
+set -eu
+
+flag_allocate_tty=0
+
+function loge() {
+    local message="$@"
+    echo "${message}" >&2
+}
+
+function parse_parameters() {
+    # Define below variables as local variables so that not affect global values
+    local OPTIND=''
+    local OPTARG=''
+    local OPTKEY=''
+
+    while getopts 't:' 'OPTKEY'; do
+        case ${OPTKEY} in
+            't' )
+                case ${OPTARG} in
+                    'false' )
+                        flag_allocate_tty=1
+                        ;;
+                    'true' )
+                        flag_allocate_tty=0
+                        ;;
+                    * )
+                        loge "Invalid argument \"${OPTARG}\" for -t option"
+                        false
+                        ;;
+                esac
+                ;;
+        esac
+    done
+}
+
+function generate_commnad() {
+    readonly base="docker-compose exec --user $(id -u):$(id -g)"
+
+    local command=${base}
+
+    if [ ${flag_allocate_tty} -ne '0' ]; then
+        # Set docker-compose exec option "-T" to disable pseudo-tty allocation
+        command+=' -T'
+    fi
+
+    echo ${command}
+}
+
+function main() {
+    parse_parameters "$@"
+    generate_commnad
+}
+
+main "$@"

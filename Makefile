@@ -1,5 +1,6 @@
 CONFIG := development
 SERVICE := develop
+TTY := true
 WATCH := false
 
 default: help
@@ -15,13 +16,13 @@ help:
 	@echo '    up [SERVICE]'
 	@echo '    down'
 	@echo '    shell [SERVICE]'
-	@echo '    clean'
-	@echo '    fetch'
-	@echo '    sync'
-	@echo '    lint'
-	@echo '    build [CONFIG] [WATCH]'
-	@echo '    unit-test [WATCH]'
-	@echo '    e2e-test'
+	@echo '    clean [TTY]'
+	@echo '    fetch [TTY]'
+	@echo '    sync [TTY]'
+	@echo '    lint [TTY]'
+	@echo '    build [CONFIG] [TTY] [WATCH]'
+	@echo '    unit-test [TTY] [WATCH]'
+	@echo '    e2e-test [TTY]'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -31,6 +32,10 @@ help:
 	@echo '    SERVICE:'
 	@echo '        docker-compose service name [default: develop]'
 	@echo '        `make up` can receive multiple services'
+	@echo '    TTY:'
+	@echo '        allocate pseudo-tty or not'
+	@echo '            - true (default)'
+	@echo '            - false'
 	@echo '    WATCH:'
 	@echo '        run as watch mode or not'
 	@echo '            - true'
@@ -47,34 +52,35 @@ down:
 
 .PHONY: shell
 shell:
-	docker-compose exec --user $$(id -u):$$(id -g) $(SERVICE) /bin/sh
+	# Use fixed value for -t option as if TTY=true
+	$$(misc/docker-exec-command -t true) $(SERVICE) /bin/sh
 
 .PHONY: all
 all: clean sync lint build unit-test e2e-test
 
 .PHONY: clean
 clean:
-	docker-compose exec --user $$(id -u):$$(id -g) develop rm -fr dist node_modules
+	$$(misc/docker-exec-command -t $(TTY)) develop rm -fr dist node_modules
 
 .PHONY: fetch
 fetch:
-	docker-compose exec --user $$(id -u):$$(id -g) develop npm install
+	$$(misc/docker-exec-command -t $(TTY)) develop npm install
 
 .PHONY: sync
 sync:
-	docker-compose exec --user $$(id -u):$$(id -g) develop npm ci
+	$$(misc/docker-exec-command -t $(TTY)) develop npm ci
 
 .PHONY: lint
 lint:
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx eslint .eslintrc.js webpack.config.js
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx tslint src/ts/**/*.ts src/ts/**/*.tsx
+	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint .eslintrc.js webpack.config.js
+	$$(misc/docker-exec-command -t $(TTY)) develop npx tslint src/ts/**/*.ts src/ts/**/*.tsx
 
 .PHONY: build
 build:
 ifeq ($(WATCH),true)
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx webpack --mode=$(CONFIG) --watch
+	$$(misc/docker-exec-command -t $(TTY)) develop npx webpack --mode=$(CONFIG) --watch
 else
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx webpack --mode=$(CONFIG)
+	$$(misc/docker-exec-command -t $(TTY)) develop npx webpack --mode=$(CONFIG)
 endif
 
 .PHONY: test
@@ -83,11 +89,11 @@ test: unit-test
 .PHONY: unit-test
 unit-test:
 ifeq ($(WATCH),true)
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx jest --coverage --watchAll
+	$$(misc/docker-exec-command -t $(TTY)) develop npx jest --coverage --watchAll
 else
-	docker-compose exec --user $$(id -u):$$(id -g) develop npx jest --coverage
+	$$(misc/docker-exec-command -t $(TTY)) develop npx jest --coverage
 endif
 
 .PHONY: e2e-test
 e2e-test:
-	docker-compose exec --user $$(id -u):$$(id -g) python pytest src/python/tests
+	$$(misc/docker-exec-command -t $(TTY)) python pytest src/python/tests
