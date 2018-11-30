@@ -40,7 +40,7 @@ module.exports = (env, argv) => {
     },
     optimization: {
       splitChunks: {
-        name: 'vender',
+        name: 'vendor',
         chunks: 'initial',
       },
     },
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
         if (assetFilename.endsWith('.js.map')) {
           return false;
         }
-        if (assetFilename === 'vender.js') {
+        if (assetFilename === 'vendor.js') {
           return false;
         }
 
