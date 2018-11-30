@@ -52,7 +52,13 @@ module.exports = (env, argv) => {
     },
     performance: {
       assetFilter: (assetFilename) => {
+        if (assetFilename.endsWith('.css.map')) {
+          return false;
+        }
         if (assetFilename.endsWith('.js.map')) {
+          return false;
+        }
+        if (assetFilename === 'vendor.css') {
           return false;
         }
         if (assetFilename === 'vendor.js') {
