@@ -3,6 +3,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const package = require('./package.json');
 
@@ -22,18 +23,27 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/, // '.ts' or '.tsx' extension
+          test: /\.(ts|tsx)$/,
           loader: 'awesome-typescript-loader',
         }, {
           enforce: 'pre',
           loader: 'source-map-loader',
-          test: /\.js$/, // '.js' extension
+          test: /\.js$/,
+        }, {
+          test: /\.css/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+          ],
+        }, {
+          test: /\.(eot|png|svg|ttf|woff|woff2)$/,
+          loader: 'url-loader',
         },
       ],
     },
     optimization: {
       splitChunks: {
-        name: 'vender',
+        name: 'vendor',
         chunks: 'initial',
       },
     },
@@ -42,10 +52,16 @@ module.exports = (env, argv) => {
     },
     performance: {
       assetFilter: (assetFilename) => {
+        if (assetFilename.endsWith('.css.map')) {
+          return false;
+        }
         if (assetFilename.endsWith('.js.map')) {
           return false;
         }
-        if (assetFilename === 'vender.js') {
+        if (assetFilename === 'vendor.css') {
+          return false;
+        }
+        if (assetFilename === 'vendor.js') {
           return false;
         }
 
@@ -109,6 +125,7 @@ module.exports = (env, argv) => {
           //   - typescript-fsa-reducers
         ],
       }),
+      new MiniCssExtractPlugin(),
     ],
     resolve: {
       extensions: [
