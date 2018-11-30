@@ -7,6 +7,8 @@ import Form from './containers/Form';
 import Operator from './containers/Operator';
 import Visualizer from "./containers/Visualizer";
 
+import '../stylesheet/index.css';
+
 ReactDOM.render(
     <div>
         <ReactRedux.Provider store={store}>
