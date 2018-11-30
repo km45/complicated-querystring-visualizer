@@ -35,6 +35,9 @@ module.exports = (env, argv) => {
             MiniCssExtractPlugin.loader,
             'css-loader',
           ],
+        }, {
+          test: /\.(eot|png|svg|ttf|woff|woff2)$/,
+          loader: 'url-loader',
         },
       ],
     },
