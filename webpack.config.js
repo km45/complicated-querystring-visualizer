@@ -14,6 +14,9 @@ module.exports = (env, argv) => {
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
   return {
+    devServer: {
+      host: '0.0.0.0',
+    },
     devtool: 'source-map',
     entry: srcTsIndex,
     module: {
