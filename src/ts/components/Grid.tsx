@@ -44,7 +44,7 @@ export default class Grid extends React.Component<Props, State> {
         };
     }
 
-    private agGridApi: AgGrid.GridApi | null = null;
+    private agGridApi: AgGrid.GridApi | null | undefined = null;
 
     private columnDefs: AgGrid.ColDef[];
 
@@ -60,7 +60,7 @@ export default class Grid extends React.Component<Props, State> {
     }
 
     public render() {
-        if (this.agGridApi !== null) {
+        if (this.agGridApi) {
             // Update rowData even if values are not changed
             // because its reference is changed.
             //
@@ -106,6 +106,8 @@ export default class Grid extends React.Component<Props, State> {
     }
 
     private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
-        this.resize(event.columnApi);
+        if (event.columnApi) {
+            this.resize(event.columnApi);
+        }
     }
 }
