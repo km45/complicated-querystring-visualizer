@@ -21,6 +21,7 @@ help:
 	@echo '    sync [TTY]'
 	@echo '    lint [TTY]'
 	@echo '    build [CONFIG] [TTY] [WATCH]'
+	@echo '    dev-server [CONFIG]'
 	@echo '    unit-test [TTY] [WATCH]'
 	@echo '    e2e-test [TTY]'
 	@echo
@@ -82,6 +83,11 @@ ifeq ($(WATCH),true)
 else
 	$$(misc/docker-exec-command -t $(TTY)) develop npx webpack --mode=$(CONFIG)
 endif
+
+.PHONY: dev-server
+dev-server:
+	# Use fixed value for -t option as if TTY=true
+	$$(misc/docker-exec-command -t true) develop npx webpack-dev-server --mode=$(CONFIG)
 
 .PHONY: test
 test: unit-test
