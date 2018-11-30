@@ -8,8 +8,8 @@
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "ag-grid-community": "^19.0.0",
-    "ag-grid-react": "^19.0.0",
+    "ag-grid-community": "^19.1.4",
+    "ag-grid-react": "^19.1.2",
     "pythonic": "^1.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
