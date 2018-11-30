@@ -23,12 +23,12 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/, // '.ts' or '.tsx' extension
+          test: /\.(ts|tsx)$/,
           loader: 'awesome-typescript-loader',
         }, {
           enforce: 'pre',
           loader: 'source-map-loader',
-          test: /\.js$/, // '.js' extension
+          test: /\.js$/,
         }, {
           test: /\.css/,
           use: [
