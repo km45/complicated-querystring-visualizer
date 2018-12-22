@@ -27,7 +27,7 @@
     "@types/react-redux": "^6.0.10",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^1.0.0",
-    "css-loader": "^1.0.1",
+    "css-loader": "^2.0.2",
     "eslint": "^5.10.0",
     "eslint-config-google": "^0.11.0",
     "html-webpack-externals-plugin": "^3.8.0",
