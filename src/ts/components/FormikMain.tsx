@@ -26,6 +26,7 @@ function render(_: Props & Formik.FormikProps<FormValues>): JSX.Element {
                 </button>
                 <button
                     className='ui secondary button'
+                    // TODO: Handle what operates on submit
                     type='submit'
                 >
                     <i className='arrow alternate circle up icon' ></i>
