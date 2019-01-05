@@ -81,6 +81,20 @@ function mapPropsToValues(props: Props): Props & FormValues {
 function handleSubmit(values: FormValues): void {
     console.log('handleSubmit');
     console.log(values);
+
+    switch (values.operation) {
+        case SubmitOperation.Open:
+            openQuery(values.url);
+            break;
+    }
+}
+
+function openQuery(url: string): void {
+    console.group('Open query');
+    console.log(url);
+    console.groupEnd();
+
+    window.open(url, '_blank');
 }
 
 const NewMain = Formik.withFormik<Props, FormValues>({
