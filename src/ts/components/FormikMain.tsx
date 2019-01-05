@@ -59,6 +59,7 @@ function mapPropsToValues(props: Props): Props & FormValues {
 }
 
 function handleSubmit(values: FormValues): void {
+    console.log('handleSubmit');
     console.log(values);
 }
 
