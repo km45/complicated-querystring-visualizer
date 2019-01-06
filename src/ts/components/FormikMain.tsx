@@ -12,7 +12,9 @@ interface Stringified {
 
 interface Structured {
     basic: ObjectTable;
+    coord: ObjectTable;
     host: ObjectTable;
+    libs: ObjectTable;
 }
 
 function openQuery(url: string): void {
@@ -40,7 +42,9 @@ export default class FormikMain extends React.Component<Props, State> {
             },
             structured: {
                 basic: [],
-                host: []
+                coord: [],
+                host: [],
+                libs: []
             }
         };
     }
@@ -77,10 +81,22 @@ export default class FormikMain extends React.Component<Props, State> {
                 <FormikGrid
                     columns={UrlBinder.ColumnsDefinition.host}
                     data={this.state.structured.host}
+                    title='Host'
                 />
                 <FormikGrid
                     columns={ColumnsDefinition.basic}
                     data={this.state.structured.basic}
+                    title='Basic'
+                />
+                <FormikGrid
+                    columns={ColumnsDefinition.coord}
+                    data={this.state.structured.coord}
+                    title='Coord'
+                />
+                <FormikGrid
+                    columns={ColumnsDefinition.libs}
+                    data={this.state.structured.libs}
+                    title='Libs'
                 />
             </SemanticUiReact.Form>
         );
@@ -114,20 +130,12 @@ export default class FormikMain extends React.Component<Props, State> {
         const parsed = parseUrl(this.state.stringified.url);
         this.setState({
             stringified: this.state.stringified,
-            structured: {
-                basic: parsed.basic,
-                host: parsed.host
-            }
+            structured: parsed
         });
     }
 
     private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
-        const generated = generateUrl({
-            basic: this.state.structured.basic,
-            coord: [],
-            host: this.state.structured.host,
-            libs: []
-        });
+        const generated = generateUrl(this.state.structured);
 
         this.setState({
             stringified: {

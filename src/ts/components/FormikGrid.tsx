@@ -21,15 +21,11 @@ interface State {
 //     setTable(table: ObjectTable): void;
 // }
 
-// export interface Values {
-//     title: string;
-// }
-
 export interface Props {
     // actions: Actions;
-    // values: Values;
     data: ObjectTable;
     columns: Columns;
+    title: string;
 }
 
 const defaultColDef: AgGrid.ColDef = {
@@ -71,7 +67,7 @@ export default class FormikGrid extends React.Component<Props, State> {
 
         return (
             <div>
-                {/* <h2>{this.props.values.title}</h2> */}
+                <h2>{this.props.title}</h2>
                 <div className='ag-theme-balham'>
                     <AgGridReact
                         columnDefs={this.columnDefs}
