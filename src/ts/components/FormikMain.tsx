@@ -1,6 +1,10 @@
 import * as Formik from 'formik';
 import * as React from 'react';
 
+interface Stringified {
+    url: string;
+}
+
 enum SubmitOperation {
     Undefined,
     Parse,
@@ -10,7 +14,7 @@ enum SubmitOperation {
 
 interface FormValues {
     operation: SubmitOperation;
-    url: string;
+    stringified: Stringified;
 }
 
 interface Props { }
@@ -22,7 +26,7 @@ function render(props: Props & Formik.FormikProps<FormValues>): JSX.Element {
                 <div className='field'>
                     <Formik.Field
                         component='textarea'
-                        name='url'
+                        name='stringified.url'
                     />
                 </div>
                 <button
@@ -73,7 +77,9 @@ function render(props: Props & Formik.FormikProps<FormValues>): JSX.Element {
 function mapPropsToValues(props: Props): Props & FormValues {
     console.log(props);
     return {
-        url: '',
+        stringified: {
+            url: ''
+        },
         operation: SubmitOperation.Undefined
     };
 }
@@ -84,7 +90,7 @@ function handleSubmit(values: FormValues): void {
 
     switch (values.operation) {
         case SubmitOperation.Open:
-            openQuery(values.url);
+            openQuery(values.stringified.url);
             break;
     }
 }
