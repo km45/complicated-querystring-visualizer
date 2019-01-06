@@ -1,127 +1,18 @@
-import * as Formik from 'formik';
+import * as SemanticUiReact from 'semantic-ui-react';
 import * as React from 'react';
 import FormikGrid from './FormikGrid';
 import { ObjectTable } from '../logic/table-data';
 import { ColumnsDefinition } from '../logic/query-binder';
+import { parseUrl, generateUrl } from '../containers/Operator';
+import * as UrlBinder from '../logic/url-binder';
 
 interface Stringified {
     url: string;
 }
 
 interface Structured {
-    basicTable: ObjectTable;
-}
-
-enum SubmitOperation {
-    Undefined,
-    Parse,
-    Generate,
-    Open
-}
-
-interface FormValues {
-    operation: SubmitOperation;
-    stringified: Stringified;
-    structured: Structured;
-}
-
-interface NewMainProps { }
-
-function render(props: NewMainProps & Formik.FormikProps<FormValues>): JSX.Element {
-    return (
-        <Formik.Form>
-            <div className='ui form'>
-                <div className='field'>
-                    <Formik.Field
-                        component='textarea'
-                        name='stringified.url'
-                    />
-                </div>
-                <button
-                    className='ui primary button'
-                    type='button'
-                    onClick={async () => {
-                        await props.setFieldValue('operation', SubmitOperation.Parse);
-                        props.submitForm();
-                    }}
-                >
-                    <i className='arrow alternate circle down icon' ></i>
-                    parse
-                </button>
-                <button
-                    className='ui secondary button'
-                    type='button'
-                    onClick={async () => {
-                        await props.setFieldValue('operation', SubmitOperation.Generate);
-                        props.submitForm();
-                    }}
-                >
-                    <i className='arrow alternate circle up icon' ></i>
-                    generate
-                </button>
-                <button
-                    className='ui positive button'
-                    type='button'
-                    onClick={async () => {
-                        await props.setFieldValue('operation', SubmitOperation.Open);
-                        props.submitForm();
-                    }}
-                >
-                    <i className='external icon' ></i>
-                    open
-                </button>
-                <button
-                    className='ui negative button'
-                    type='button'
-                    onClick={async () => {
-                        await props.setFieldValue('stringified.url', '');
-                        await props.setFieldValue('structured.basicTable', []);
-                    }}
-                >
-                    <i className='trash icon' ></i>
-                    clear
-                </button>
-                <Formik.FieldArray
-                    name="structured.basicTable"
-                    render={() => (
-                        <FormikGrid
-                            columns={ColumnsDefinition.basic}
-                            data={props.values.structured.basicTable}
-                        />
-                    )}
-                />
-            </div>
-        </Formik.Form>
-    );
-};
-
-function mapPropsToValues(props: NewMainProps): NewMainProps & FormValues {
-    console.log(props);
-    return {
-        stringified: {
-            url: ''
-        },
-        operation: SubmitOperation.Undefined,
-        structured: {
-            basicTable: [
-                {
-                    key: 'key',
-                    value: 'value'
-                }
-            ]
-        }
-    };
-}
-
-function handleSubmit(values: FormValues): void {
-    console.log('handleSubmit');
-    console.log(values);
-
-    switch (values.operation) {
-        case SubmitOperation.Open:
-            openQuery(values.stringified.url);
-            break;
-    }
+    basic: ObjectTable;
+    host: ObjectTable;
 }
 
 function openQuery(url: string): void {
@@ -132,23 +23,117 @@ function openQuery(url: string): void {
     window.open(url, '_blank');
 }
 
-const NewMain = Formik.withFormik<NewMainProps, FormValues>({
-    mapPropsToValues,
-    handleSubmit
-})(render);
-
 interface Props { }
 
-interface State { }
+interface State {
+    stringified: Stringified;
+    structured: Structured;
+}
 
 export default class FormikMain extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
+
+        this.state = {
+            stringified: {
+                url: ''
+            },
+            structured: {
+                basic: [],
+                host: []
+            }
+        };
     }
 
     public render() {
         return (
-            <NewMain />
+            <SemanticUiReact.Form>
+                <SemanticUiReact.TextArea
+                    autoHeight={true}
+                    onChange={(event) => { this.onChangeStringifiedTextArea(event) }}
+                    value={this.state.stringified.url}
+                />
+                <SemanticUiReact.Button
+                    content='parse'
+                    icon='arrow alternate circle down'
+                    onClick={(event) => this.onClickOperationParse(event)}
+                    primary={true} />
+                <SemanticUiReact.Button
+                    content='generate'
+                    icon='arrow alternate circle up'
+                    onClick={(event) => this.onClickOperationGenerate(event)}
+                    secondary={true} />
+                <SemanticUiReact.Button
+                    content='open'
+                    icon='external'
+                    positive={true}
+                    onClick={(event) => this.onClickOperationOpen(event)} />
+                <SemanticUiReact.Button
+                    content='clear'
+                    icon='trash'
+                    negative={true}
+                    onClick={(event) => this.onClickOperationClear(event)}
+                />
+                <FormikGrid
+                    columns={UrlBinder.ColumnsDefinition.host}
+                    data={this.state.structured.host}
+                />
+                <FormikGrid
+                    columns={ColumnsDefinition.basic}
+                    data={this.state.structured.basic}
+                />
+            </SemanticUiReact.Form>
         );
+    }
+
+    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>) {
+        this.setState({
+            ...this.state,
+            stringified: {
+                ...this.state.stringified,
+                url: event.currentTarget.value
+            }
+        });
+    }
+
+    private onClickOperationClear(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+        this.setState({
+            ...this.state,
+            stringified: {
+                ...this.state.stringified,
+                url: ''
+            }
+        });
+    }
+
+    private onClickOperationOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+        openQuery(this.state.stringified.url);
+    }
+
+    private onClickOperationParse(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+        const parsed = parseUrl(this.state.stringified.url);
+        this.setState({
+            stringified: this.state.stringified,
+            structured: {
+                basic: parsed.basic,
+                host: parsed.host
+            }
+        });
+    }
+
+    private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+        const generated = generateUrl({
+            basic: this.state.structured.basic,
+            coord: [],
+            host: this.state.structured.host,
+            libs: []
+        });
+
+        this.setState({
+            stringified: {
+                url: generated
+            },
+            structured: this.state.structured
+        });
     }
 }

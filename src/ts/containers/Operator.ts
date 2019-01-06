@@ -16,7 +16,7 @@ interface ObjectTables {
   libs: ObjectTable;
 }
 
-function generateUrl(tables: ObjectTables): string {
+export function generateUrl(tables: ObjectTables): string {
   return UrlBinder.generateUrl({
     host:
         objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
@@ -28,7 +28,7 @@ function generateUrl(tables: ObjectTables): string {
   });
 }
 
-function parseUrl(url: string): ObjectTables {
+export function parseUrl(url: string): ObjectTables {
   const parsed = UrlBinder.parseUrl(url);
 
   return {
