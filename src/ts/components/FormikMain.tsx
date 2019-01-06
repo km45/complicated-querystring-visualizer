@@ -25,9 +25,9 @@ interface FormValues {
     structured: Structured;
 }
 
-interface Props { }
+interface NewMainProps { }
 
-function render(props: Props & Formik.FormikProps<FormValues>): JSX.Element {
+function render(props: NewMainProps & Formik.FormikProps<FormValues>): JSX.Element {
     return (
         <Formik.Form>
             <div className='ui form'>
@@ -95,7 +95,7 @@ function render(props: Props & Formik.FormikProps<FormValues>): JSX.Element {
     );
 };
 
-function mapPropsToValues(props: Props): Props & FormValues {
+function mapPropsToValues(props: NewMainProps): NewMainProps & FormValues {
     console.log(props);
     return {
         stringified: {
@@ -132,9 +132,23 @@ function openQuery(url: string): void {
     window.open(url, '_blank');
 }
 
-const NewMain = Formik.withFormik<Props, FormValues>({
+const NewMain = Formik.withFormik<NewMainProps, FormValues>({
     mapPropsToValues,
     handleSubmit
 })(render);
 
-export default NewMain;
+interface Props { }
+
+interface State { }
+
+export default class FormikMain extends React.Component<Props, State> {
+    public constructor(props: Props, context: State) {
+        super(props, context);
+    }
+
+    public render() {
+        return (
+            <NewMain />
+        );
+    }
+}
