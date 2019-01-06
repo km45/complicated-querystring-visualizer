@@ -10,7 +10,6 @@
   "dependencies": {
     "ag-grid-community": "^19.1.4",
     "ag-grid-react": "^19.1.2",
-    "formik": "^1.4.1",
     "pythonic": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
