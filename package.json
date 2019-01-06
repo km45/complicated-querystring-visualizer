@@ -13,18 +13,13 @@
     "pythonic": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
     "semantic-ui-react": "^0.84.0",
-    "ts-deepcopy": "^0.1.4",
-    "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-reducers": "^1.1.0"
+    "ts-deepcopy": "^0.1.4"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
-    "@types/react-redux": "^6.0.11",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^2.0.2",
