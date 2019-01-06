@@ -1,6 +1,6 @@
 import * as SemanticUiReact from 'semantic-ui-react';
 import * as React from 'react';
-import FormikGrid from './FormikGrid';
+import Grid from './Grid';
 import { arrayTableToObjectTable,ObjectTable,objectTableToArrayTable } from '../logic/table-data';
 import { ColumnsDefinition } from '../logic/query-binder';
 import * as UrlBinder from '../logic/url-binder';
@@ -76,22 +76,22 @@ export default class FormikMain extends React.Component<Props, State> {
                     negative={true}
                     onClick={(event) => this.onClickOperationClear(event)}
                 />
-                <FormikGrid
+                <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
                     data={this.state.structured.host}
                     title='Host'
                 />
-                <FormikGrid
+                <Grid
                     columns={ColumnsDefinition.basic}
                     data={this.state.structured.basic}
                     title='Basic'
                 />
-                <FormikGrid
+                <Grid
                     columns={ColumnsDefinition.coord}
                     data={this.state.structured.coord}
                     title='Coord'
                 />
-                <FormikGrid
+                <Grid
                     columns={ColumnsDefinition.libs}
                     data={this.state.structured.libs}
                     title='Libs'
