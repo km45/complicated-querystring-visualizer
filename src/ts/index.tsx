@@ -12,7 +12,7 @@ import '../stylesheet/index.css';
 
 ReactDOM.render(
     <div>
-        <FormikMain />
+        <FormikMain query={window.location.search} />
         <ReactRedux.Provider store={store}>
             <div>
                 <Form />

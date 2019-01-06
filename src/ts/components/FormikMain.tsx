@@ -25,7 +25,9 @@ function openQuery(url: string): void {
     window.open(url, '_blank');
 }
 
-interface Props { }
+interface Props {
+    query: string;
+}
 
 interface State {
     stringified: Stringified;
@@ -36,16 +38,13 @@ export default class FormikMain extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
 
+        const url = props.query.substring('?'.length);
+        const parsed = parseUrl(url);
         this.state = {
             stringified: {
-                url: ''
+                url
             },
-            structured: {
-                basic: [],
-                coord: [],
-                host: [],
-                libs: []
-            }
+            structured: parsed
         };
     }
 
