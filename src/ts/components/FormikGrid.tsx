@@ -40,7 +40,7 @@ export default class FormikGrid extends React.Component<Props, State> {
     //     };
     // }
 
-    // private agGridApi: AgGrid.GridApi | null | undefined = null;
+    private agGridApi: AgGrid.GridApi | null | undefined = null;
 
     private columnDefs: AgGrid.ColDef[];
 
@@ -56,14 +56,14 @@ export default class FormikGrid extends React.Component<Props, State> {
     }
 
     public render() {
-        // if (this.agGridApi) {
-        //     // Update rowData even if values are not changed
-        //     // because its reference is changed.
-        //     //
-        //     // Refer issue #6
-        //     // https://github.com/km45/complicated-querystring-visualizer/issues/6
-        //     this.agGridApi.setRowData(this.state.table);
-        // }
+        if (this.agGridApi) {
+            // Update rowData even if values are not changed
+            // because its reference is changed.
+            //
+            // Refer issue #6
+            // https://github.com/km45/complicated-querystring-visualizer/issues/6
+            this.agGridApi.setRowData(this.props.data);
+        }
 
         return (
             <div>
@@ -76,7 +76,7 @@ export default class FormikGrid extends React.Component<Props, State> {
                         enableColResize={true}
                         enableFilter={true}
                         enableSorting={true}
-                        // onGridReady={this.onGridReady.bind(this)}
+                        onGridReady={this.onGridReady.bind(this)}
                         // onCellValueChanged={this.onCellValueChanged.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.props.data}
@@ -97,9 +97,9 @@ export default class FormikGrid extends React.Component<Props, State> {
     //     this.props.actions.setTable(this.state.table);
     // }
 
-    // private onGridReady(event: AgGrid.GridReadyEvent) {
-    //     this.agGridApi = event.api;
-    // }
+    private onGridReady(event: AgGrid.GridReadyEvent) {
+        this.agGridApi = event.api;
+    }
 
     private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
         if (event.columnApi) {
