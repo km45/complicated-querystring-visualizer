@@ -103,16 +103,6 @@ module.exports = (env, argv) => {
             global: 'ReactDOM',
           },
           {
-            module: 'react-redux',
-            entry: 'dist/react-redux.min.js',
-            global: 'ReactRedux',
-          },
-          {
-            module: 'redux',
-            entry: 'dist/redux.min.js',
-            global: 'Redux',
-          },
-          {
             module: 'semantic-ui-react',
             entry: 'dist/umd/semantic-ui-react.min.js',
             global: 'semanticUIReact',
@@ -121,8 +111,6 @@ module.exports = (env, argv) => {
           //   - ag-grid-react
           //   - pythonic
           //   - ts-deepcopy
-          //   - typescript-fsa
-          //   - typescript-fsa-reducers
         ],
       }),
       new MiniCssExtractPlugin(),
