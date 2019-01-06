@@ -1,28 +1,12 @@
 import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import * as React from 'react';
-// import deepCopy from 'ts-deepcopy';
 
 import { Columns, ObjectTable } from '../logic/table-data';
 
-interface State {
-    //     // Ag-grid changes table set as rowData,
-    //     // which is set by constructor props rowData or function SetRowData.
-    //     //
-    //     // This behavior causes redux store changes not by redux dispatch
-    //     // if set props table as ag-gird rowData.
-    //     //
-    //     // To avoid the above situation,
-    //     // deep copy props table to state and set it as rowData.
-    //     table: ObjectTable;
-}
-
-// export interface Actions {
-//     setTable(table: ObjectTable): void;
-// }
+interface State { }
 
 export interface Props {
-    // actions: Actions;
     data: ObjectTable;
     columns: Columns;
     title: string;
@@ -34,12 +18,6 @@ const defaultColDef: AgGrid.ColDef = {
 };
 
 export default class FormikGrid extends React.Component<Props, State> {
-    // public static getDerivedStateFromProps(nextProps: Props, _: State): State {
-    //     return {
-    //         table: deepCopy(nextProps.values.table)
-    //     };
-    // }
-
     private agGridApi: AgGrid.GridApi | null | undefined = null;
 
     private columnDefs: AgGrid.ColDef[];
@@ -77,7 +55,6 @@ export default class FormikGrid extends React.Component<Props, State> {
                         enableFilter={true}
                         enableSorting={true}
                         onGridReady={this.onGridReady.bind(this)}
-                        // onCellValueChanged={this.onCellValueChanged.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.props.data}
                     />
@@ -92,10 +69,6 @@ export default class FormikGrid extends React.Component<Props, State> {
             });
         api.autoSizeColumns(allColumnIds);
     }
-
-    // private onCellValueChanged(_: AgGrid.CellValueChangedEvent) {
-    //     this.props.actions.setTable(this.state.table);
-    // }
 
     private onGridReady(event: AgGrid.GridReadyEvent) {
         this.agGridApi = event.api;

@@ -110,7 +110,6 @@ module.exports = (env, argv) => {
           // Not use externals for following libraries:
           //   - ag-grid-react
           //   - pythonic
-          //   - ts-deepcopy
         ],
       }),
       new MiniCssExtractPlugin(),

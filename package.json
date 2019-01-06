@@ -13,8 +13,7 @@
     "pythonic": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "semantic-ui-react": "^0.84.0",
-    "ts-deepcopy": "^0.1.4"
+    "semantic-ui-react": "^0.84.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
