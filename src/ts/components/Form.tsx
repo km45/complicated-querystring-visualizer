@@ -1,9 +1,10 @@
-import * as SemanticUiReact from 'semantic-ui-react';
 import * as React from 'react';
-import Grid from './Grid';
-import { arrayTableToObjectTable,ObjectTable,objectTableToArrayTable } from '../logic/table-data';
+import * as SemanticUiReact from 'semantic-ui-react';
+
 import { ColumnsDefinition } from '../logic/query-binder';
+import { arrayTableToObjectTable, ObjectTable, objectTableToArrayTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
+import Grid from './Grid';
 
 interface Stringified {
     url: string;
@@ -52,7 +53,7 @@ export default class FormikMain extends React.Component<Props, State> {
             <SemanticUiReact.Form>
                 <SemanticUiReact.TextArea
                     autoHeight={true}
-                    onChange={(event) => { this.onChangeStringifiedTextArea(event) }}
+                    onChange={(event) => this.onChangeStringifiedTextArea(event)}
                     value={this.state.stringified.url}
                 />
                 <SemanticUiReact.Button
