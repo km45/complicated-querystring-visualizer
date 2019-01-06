@@ -1,8 +1,15 @@
 import * as Formik from 'formik';
 import * as React from 'react';
+import FormikGrid from './FormikGrid';
+import { ObjectTable } from '../logic/table-data';
+import { ColumnsDefinition } from '../logic/query-binder';
 
 interface Stringified {
     url: string;
+}
+
+interface Structured {
+    basicTable: ObjectTable;
 }
 
 enum SubmitOperation {
@@ -15,6 +22,7 @@ enum SubmitOperation {
 interface FormValues {
     operation: SubmitOperation;
     stringified: Stringified;
+    structured: Structured;
 }
 
 interface Props { }
@@ -64,11 +72,24 @@ function render(props: Props & Formik.FormikProps<FormValues>): JSX.Element {
                 </button>
                 <button
                     className='ui negative button'
-                    type='reset'
+                    type='button'
+                    onClick={async () => {
+                        await props.setFieldValue('stringified.url', '');
+                        await props.setFieldValue('structured.basicTable', []);
+                    }}
                 >
                     <i className='trash icon' ></i>
                     clear
                 </button>
+                <Formik.FieldArray
+                    name="structured.basicTable"
+                    render={() => (
+                        <FormikGrid
+                            columns={ColumnsDefinition.basic}
+                            data={props.values.structured.basicTable}
+                        />
+                    )}
+                />
             </div>
         </Formik.Form>
     );
@@ -80,7 +101,15 @@ function mapPropsToValues(props: Props): Props & FormValues {
         stringified: {
             url: ''
         },
-        operation: SubmitOperation.Undefined
+        operation: SubmitOperation.Undefined,
+        structured: {
+            basicTable: [
+                {
+                    key: 'key',
+                    value: 'value'
+                }
+            ]
+        }
     };
 }
 
