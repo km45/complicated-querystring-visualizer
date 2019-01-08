@@ -7,8 +7,8 @@ import { Columns, ObjectTable } from '../logic/table-data';
 interface State { }
 
 export interface Props {
-    data: ObjectTable;
     columns: Columns;
+    data: ObjectTable;
     title: string;
 }
 
