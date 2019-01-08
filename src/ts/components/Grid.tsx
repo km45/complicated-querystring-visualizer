@@ -1,35 +1,15 @@
 import * as AgGrid from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import * as React from 'react';
-import deepCopy from 'ts-deepcopy';
 
 import { Columns, ObjectTable } from '../logic/table-data';
 
-interface State {
-    // Ag-grid changes table set as rowData,
-    // which is set by constructor props rowData or function SetRowData.
-    //
-    // This behavior causes redux store changes not by redux dispatch
-    // if set props table as ag-gird rowData.
-    //
-    // To avoid the above situation,
-    // deep copy props table to state and set it as rowData.
-    table: ObjectTable;
-}
-
-export interface Actions {
-    setTable(table: ObjectTable): void;
-}
-
-export interface Values {
-    columns: Columns;
-    table: ObjectTable;
-    title: string;
-}
+interface State { }
 
 export interface Props {
-    actions: Actions;
-    values: Values;
+    columns: Columns;
+    data: ObjectTable;
+    title: string;
 }
 
 const defaultColDef: AgGrid.ColDef = {
@@ -38,12 +18,6 @@ const defaultColDef: AgGrid.ColDef = {
 };
 
 export default class Grid extends React.Component<Props, State> {
-    public static getDerivedStateFromProps(nextProps: Props, _: State): State {
-        return {
-            table: deepCopy(nextProps.values.table)
-        };
-    }
-
     private agGridApi: AgGrid.GridApi | null | undefined = null;
 
     private columnDefs: AgGrid.ColDef[];
@@ -51,7 +25,7 @@ export default class Grid extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
 
-        this.columnDefs = props.values.columns.map((column): AgGrid.ColDef => {
+        this.columnDefs = props.columns.map((column): AgGrid.ColDef => {
             return {
                 field: column.key,
                 headerName: column.name
@@ -66,12 +40,12 @@ export default class Grid extends React.Component<Props, State> {
             //
             // Refer issue #6
             // https://github.com/km45/complicated-querystring-visualizer/issues/6
-            this.agGridApi.setRowData(this.state.table);
+            this.agGridApi.setRowData(this.props.data);
         }
 
         return (
             <div>
-                <h2>{this.props.values.title}</h2>
+                <h2>{this.props.title}</h2>
                 <div className='ag-theme-balham'>
                     <AgGridReact
                         columnDefs={this.columnDefs}
@@ -81,9 +55,8 @@ export default class Grid extends React.Component<Props, State> {
                         enableFilter={true}
                         enableSorting={true}
                         onGridReady={this.onGridReady.bind(this)}
-                        onCellValueChanged={this.onCellValueChanged.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
-                        rowData={this.state.table}
+                        rowData={this.props.data}
                     />
                 </div>
             </div>);
@@ -95,10 +68,6 @@ export default class Grid extends React.Component<Props, State> {
                 return column.getColId();
             });
         api.autoSizeColumns(allColumnIds);
-    }
-
-    private onCellValueChanged(_: AgGrid.CellValueChangedEvent) {
-        this.props.actions.setTable(this.state.table);
     }
 
     private onGridReady(event: AgGrid.GridReadyEvent) {
