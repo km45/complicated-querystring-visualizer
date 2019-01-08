@@ -34,7 +34,7 @@ interface State {
     structured: Structured;
 }
 
-export default class FormikMain extends React.Component<Props, State> {
+export default class Form extends React.Component<Props, State> {
     public constructor(props: Props, context: State) {
         super(props, context);
 

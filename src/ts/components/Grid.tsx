@@ -17,7 +17,7 @@ const defaultColDef: AgGrid.ColDef = {
     suppressMovable: true
 };
 
-export default class FormikGrid extends React.Component<Props, State> {
+export default class Grid extends React.Component<Props, State> {
     private agGridApi: AgGrid.GridApi | null | undefined = null;
 
     private columnDefs: AgGrid.ColDef[];
