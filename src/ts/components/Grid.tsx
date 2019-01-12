@@ -34,15 +34,6 @@ export default class Grid extends React.Component<Props, State> {
     }
 
     public render() {
-        if (this.agGridApi) {
-            // Update rowData even if values are not changed
-            // because its reference is changed.
-            //
-            // Refer issue #6
-            // https://github.com/km45/complicated-querystring-visualizer/issues/6
-            this.agGridApi.setRowData(this.props.data);
-        }
-
         return (
             <div>
                 <h2>{this.props.title}</h2>
@@ -77,6 +68,19 @@ export default class Grid extends React.Component<Props, State> {
     private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
         if (event.columnApi) {
             this.resize(event.columnApi);
+        }
+    }
+
+    public componentDidUpdate(prevProps: Props, _2/*prevState*/: State, _3/*snapshot*/: any) {
+        if (prevProps.data !== this.props.data) {
+            // Update rowData when its reference is changed
+            // even if values are same.
+            //
+            // Refer issue #6
+            // https://github.com/km45/complicated-querystring-visualizer/issues/6
+            if (this.agGridApi) {
+                this.agGridApi.setRowData(this.props.data);
+            }
         }
     }
 }
