@@ -11,6 +11,7 @@ module.exports = (env, argv) => {
   const mode = argv.mode;
 
   const outputPath = path.resolve(__dirname, 'dist');
+  const srcFavicon = path.resolve(__dirname, 'src', 'image', 'favicon.ico');
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
@@ -73,6 +74,7 @@ module.exports = (env, argv) => {
         outputPath,
       ]),
       new HtmlWebpackPlugin({
+        favicon: srcFavicon,
         template: srcHtmlIndex,
         templateParameters: {
           htmlWebpackPlugin: {
