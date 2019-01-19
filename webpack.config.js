@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MonacoEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const package = require('./package.json');
 
@@ -115,6 +116,7 @@ module.exports = (env, argv) => {
         ],
       }),
       new MiniCssExtractPlugin(),
+      new MonacoEditorWebpackPlugin(),
     ],
     resolve: {
       extensions: [
