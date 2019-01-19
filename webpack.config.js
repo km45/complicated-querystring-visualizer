@@ -29,6 +29,7 @@ module.exports = (env, argv) => {
           loader: 'awesome-typescript-loader',
         }, {
           enforce: 'pre',
+          exclude: /node_modules/,
           loader: 'source-map-loader',
           test: /\.js$/,
         }, {
