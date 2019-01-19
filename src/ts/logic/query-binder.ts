@@ -21,6 +21,7 @@ export class ColumnsDefinition {
 export interface QueryBinder {
     basic: ArrayTable;
     coord: ArrayTable;
+    json: string;
     libs: ArrayTable;
 }
 
@@ -33,6 +34,8 @@ export function parseQuery(query: string): QueryBinder {
     const coord: ArrayTable = [];
     const libs: ArrayTable = [];
 
+    const jsonParams: [string, string][] = [];
+
     for (const param of table) {
       const key = param[0];
       const value = param[1];
@@ -43,14 +46,34 @@ export function parseQuery(query: string): QueryBinder {
         libs.push([key].concat(value.split('.').map((v: string) => {
           return decodeURIComponent(v);
         })));
+      } else if(key.match(/^json[0-9]+$/)){
+        jsonParams.push([key, decodeURIComponent(value)]);
       } else if (key) {  // ignore empty key
         basic.push([key, decodeURIComponent(value)]);
       }
     }
 
+    const json = [
+      '[',
+      jsonParams.map((v: [string, string]): string => {
+        const key = v[0];
+        const value = v[1];
+        return [
+          '{',
+          [
+              ['"key"', '"' + key + '"'].join(':'),
+              ['"value"', value].join(':')
+          ].join(','),
+          '}'
+        ].join('');
+      }).join(','),
+      ']'
+    ].join('');
+
     return {
         basic,
         coord,
+        json,
         libs
     };
 }
