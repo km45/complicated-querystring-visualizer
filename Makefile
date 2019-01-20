@@ -24,6 +24,7 @@ help:
 	@echo '    dev-server [CONFIG]'
 	@echo '    unit-test [TTY] [WATCH]'
 	@echo '    e2e-test [TTY]'
+	@echo '    audit [TTY]'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -103,3 +104,7 @@ endif
 .PHONY: e2e-test
 e2e-test:
 	$$(misc/docker-exec-command -t $(TTY)) python pytest src/python/tests
+
+.PHONY: audit
+audit:
+	$$(misc/docker-exec-command -t $(TTY)) develop npm audit
