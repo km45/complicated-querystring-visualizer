@@ -166,7 +166,7 @@ interface ObjectTables {
     basic: ObjectTable;
     coord: ObjectTable;
     host: ObjectTable;
-    json:string;
+    json: string;
     libs: ObjectTable;
 }
 

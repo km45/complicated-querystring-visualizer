@@ -20,7 +20,7 @@ export default class Editor extends React.Component<Props, State> {
         <h2>{this.props.title}</h2>
         <ReactMonacoEditor
           height={window.innerHeight * 0.8}
-          language="json"
+          language='json'
           onChange={(value) => this.props.onChange(value)}
           value={this.props.value}
         />
