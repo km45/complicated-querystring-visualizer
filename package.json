@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "km45",
   "license": "MIT",
-  "version": "v4.2.0",
+  "version": "v4.3.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
@@ -21,7 +21,6 @@
     "@types/jest": "^23.3.10",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
-    "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^2.0.2",
     "eslint": "^5.10.0",
@@ -33,6 +32,7 @@
     "semantic-ui-css": "^2.4.1",
     "source-map-loader": "^0.2.4",
     "ts-jest": "^23.10.5",
+    "ts-loader": "^5.3.3",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2",
     "url-loader": "^1.1.2",
