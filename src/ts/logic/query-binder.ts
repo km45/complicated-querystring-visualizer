@@ -55,7 +55,7 @@ export function parseQuery(query: string): QueryBinder {
 
     const json = [
       '[',
-      jsonParams.map((v: [string, string]): string => {
+      jsonParams.map((v: string[]): string => {
         const key = v[0];
         const value = v[1];
         return [
