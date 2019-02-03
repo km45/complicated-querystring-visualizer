@@ -77,7 +77,17 @@ const testCases: TestCase[] = [
   ],
   [
     'json only', {
-      binder: {...emptyQueryBinder, json: '[{"json1":{"id":1,"name":"alice"}},{"json2":{"name":"origin","coord":{"x":-1,"y":3}}}]'},
+      binder: {
+        ...emptyQueryBinder,
+        json: [
+          '[',
+          [
+            '{"json1":{"id":1,"name":"alice"}}',
+            '{"json2":{"name":"origin","coord":{"x":-1,"y":3}}}'
+          ].join(','),
+          ']'
+        ].join('')
+      },
       queryString: [
         [
           'json1',
