@@ -117,7 +117,11 @@ module.exports = (env, argv) => {
         ],
       }),
       new MiniCssExtractPlugin(),
-      new MonacoEditorWebpackPlugin(),
+      new MonacoEditorWebpackPlugin({
+        languages: [
+          'json',
+        ],
+      }),
     ],
     resolve: {
       extensions: [
