@@ -11,13 +11,13 @@ services:
       - .:/usr/src/app
     working_dir: /usr/src/app
   selenium-hub:
-    image: selenium/hub:3.141.59-europium
+    image: selenium/hub:3.141.59-fluorine
     container_name: selenium-hub
     ports:
       # Can watch state on http://localhost:4444/grid/console
       - "4444:4444"
   firefox:
-    image: selenium/node-firefox:3.141.59-europium
+    image: selenium/node-firefox:3.141.59-fluorine
     depends_on:
       - selenium-hub
     environment:
@@ -26,7 +26,7 @@ services:
     volumes:
       - .:/usr/src/app
   firefox-debug:
-    image: selenium/node-firefox-debug:3.141.59-europium
+    image: selenium/node-firefox-debug:3.141.59-fluorine
     depends_on:
       - selenium-hub
     environment:
