@@ -75,6 +75,12 @@ const testCases: TestCase[] = [
       ].join('=')
     }
   ],
+  [
+    'json only', {
+      binder: {...emptyQueryBinder, json: '[{"json1":{"id":1,"name":"alice"}},{"json2":{"name":"origin","coord":{"x":-1,"y":3}}}]'},
+      queryString: 'json1={"id":1,"name":"alice"}&json2={"name":"origin","coord":{"x":-1,"y":3}}'
+    }
+  ],
   ['none', {queryString: '', binder: {...emptyQueryBinder}}]
 ];
 
