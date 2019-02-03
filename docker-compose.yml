@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/develop/Dockerfile
+    environment:
+      - HOME=/usr/src/app/cache/develop/home
     ports:
       - 8080:8080
     volumes:
