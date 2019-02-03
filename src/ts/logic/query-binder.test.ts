@@ -15,7 +15,7 @@ type TestCase = [TestName, TestParameter];
 export const emptyQueryBinder: QueryBinder = {
   basic: [],
   coord: [],
-  json: '',
+  json: '[]',
   libs: []
 };
 
