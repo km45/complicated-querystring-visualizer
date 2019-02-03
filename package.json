@@ -8,21 +8,21 @@
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "ag-grid-community": "^19.1.4",
-    "ag-grid-react": "^19.1.2",
+    "ag-grid-community": "^20.0.0",
+    "ag-grid-react": "^20.0.0",
     "pythonic": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "semantic-ui-react": "^0.84.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.10",
-    "@types/react": "^16.7.18",
+    "@types/jest": "^23.3.13",
+    "@types/react": "^16.8.1",
     "@types/react-dom": "^16.0.11",
-    "clean-webpack-plugin": "^1.0.0",
-    "css-loader": "^2.0.2",
-    "eslint": "^5.10.0",
-    "eslint-config-google": "^0.11.0",
+    "clean-webpack-plugin": "^1.0.1",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.13.0",
+    "eslint-config-google": "^0.12.0",
     "html-webpack-externals-plugin": "^3.8.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
@@ -31,12 +31,12 @@
     "source-map-loader": "^0.2.4",
     "ts-jest": "^23.10.5",
     "ts-loader": "^5.3.3",
-    "tslint": "^5.12.0",
-    "typescript": "^3.2.2",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.11"
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "jest": {
     "transform": {
