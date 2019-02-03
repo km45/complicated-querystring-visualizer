@@ -105,7 +105,13 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
-    return Array.prototype.concat(basic, coord, libs)
+    const json = JSON.parse(binder.json).map((v: any): [string, string] => {
+        const key = Object.keys(v)[0];
+        const value = encodeURIComponent(JSON.stringify(v[key]));
+        return [key, value];
+    });
+
+    return Array.prototype.concat(basic, coord, libs, json)
         .map((v: [string, string]) => {
             return v.join('=');
         })

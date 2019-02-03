@@ -177,7 +177,7 @@ function generateUrl(tables: ObjectTables): string {
         query: {
             basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
             coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
-            json: '', // TODO
+            json: tables.json,
             libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
         }
     });
