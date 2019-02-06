@@ -11,11 +11,13 @@ _GENERATE_BUTTON_XPATH = '''//button[contains(text(), 'generate')]'''
 _PARSE_BUTTON_XPATH = '''//button[contains(text(), 'parse')]'''
 
 
-@pytest.fixture
-def driver():
+@pytest.fixture(params=[
+    DesiredCapabilities.CHROME,
+    DesiredCapabilities.FIREFOX])
+def driver(request):
     driver = webdriver.Remote(
         command_executor='http://selenium-hub:4444/wd/hub',
-        desired_capabilities=DesiredCapabilities.FIREFOX.copy())
+        desired_capabilities=request.param.copy())
     yield driver
     driver.quit()
 

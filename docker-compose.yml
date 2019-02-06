@@ -18,6 +18,15 @@ services:
     ports:
       # Can watch state on http://localhost:4444/grid/console
       - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.141.59-fluorine
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    volumes:
+      - .:/usr/src/app
   firefox:
     image: selenium/node-firefox:3.141.59-fluorine
     depends_on:
