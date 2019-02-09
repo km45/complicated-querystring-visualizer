@@ -14,6 +14,9 @@ export interface Props {
 
 const defaultColDef: AgGrid.ColDef = {
     editable: true,
+    filter: true,
+    resizable: true,
+    sortable: true,
     suppressMovable: true
 };
 
@@ -55,9 +58,6 @@ export default class Grid extends React.Component<Props, State> {
                         columnDefs={this.columnDefs}
                         defaultColDef={defaultColDef}
                         domLayout={'autoHeight'}
-                        enableColResize={true}
-                        enableFilter={true}
-                        enableSorting={true}
                         onGridReady={this.onGridReady.bind(this)}
                         onModelUpdated={this.onModelUpdated.bind(this)}
                         rowData={this.props.data}
