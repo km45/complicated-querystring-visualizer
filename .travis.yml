@@ -4,7 +4,7 @@ services:
   - docker
 
 script:
-  - make up SERVICE='develop python firefox'
+  - make up SERVICE='develop python chrome firefox'
   - make clean
   - make sync
   - make audit

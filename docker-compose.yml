@@ -5,19 +5,43 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/develop/Dockerfile
+    environment:
+      - HOME=/usr/src/app/cache/develop/home
     ports:
       - 8080:8080
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
   selenium-hub:
-    image: selenium/hub:3.141.59-fluorine
+    image: selenium/hub:3.141.59-gold
     container_name: selenium-hub
     ports:
       # Can watch state on http://localhost:4444/grid/console
       - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.141.59-gold
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    volumes:
+      - .:/usr/src/app
+  chrome-debug:
+    image: selenium/node-chrome-debug:3.141.59-gold
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    ports:
+      # vnc port to access like following:
+      # $ echo 'secret' | vncviewer -autopass 127.0.0.1:5900
+      - 5900:5900
+    volumes:
+      - .:/usr/src/app
   firefox:
-    image: selenium/node-firefox:3.141.59-fluorine
+    image: selenium/node-firefox:3.141.59-gold
     depends_on:
       - selenium-hub
     environment:
@@ -26,7 +50,7 @@ services:
     volumes:
       - .:/usr/src/app
   firefox-debug:
-    image: selenium/node-firefox-debug:3.141.59-fluorine
+    image: selenium/node-firefox-debug:3.141.59-gold
     depends_on:
       - selenium-hub
     environment:
