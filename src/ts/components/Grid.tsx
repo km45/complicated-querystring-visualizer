@@ -15,8 +15,8 @@ export interface Props {
 const defaultColDef: AgGrid.ColDef = {
     editable: true,
     filter: true,
+    resizable: true,
     sortable: true,
-    resizable:true,
     suppressMovable: true
 };
 
