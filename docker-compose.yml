@@ -27,6 +27,19 @@ services:
       - HUB_PORT=4444
     volumes:
       - .:/usr/src/app
+  chrome-debug:
+    image: selenium/node-chrome-debug:3.141.59-fluorine
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    ports:
+      # vnc port to access like following:
+      # $ echo 'secret' | vncviewer -autopass 127.0.0.1:5900
+      - 5900:5900
+    volumes:
+      - .:/usr/src/app
   firefox:
     image: selenium/node-firefox:3.141.59-fluorine
     depends_on:
