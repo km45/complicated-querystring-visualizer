@@ -124,6 +124,9 @@ module.exports = (env, argv) => {
         '.tsx',
       ],
     },
+    watchOptions: {
+      poll: true,
+    },
     // Disabled following settings defined in webpack.production.js
     // because it is maybe needless:
     // ```
