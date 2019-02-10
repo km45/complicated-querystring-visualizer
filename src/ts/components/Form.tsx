@@ -185,12 +185,13 @@ function generateUrl(tables: ObjectTables): string {
 
 function parseUrl(url: string): ObjectTables {
     const parsed = UrlBinder.parseUrl(url);
+    const indent = 4;
 
     return {
         basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
         coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
         host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
-        json: parsed.query.json,
+        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
         libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
     };
 }
