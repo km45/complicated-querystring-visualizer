@@ -4,6 +4,7 @@ import * as SemanticUiReact from 'semantic-ui-react';
 import { ColumnsDefinition } from '../logic/query-binder';
 import { arrayTableToObjectTable, ObjectTable, objectTableToArrayTable } from '../logic/table-data';
 import * as UrlBinder from '../logic/url-binder';
+import Editor from './Editor';
 import Grid from './Grid';
 
 interface Stringified {
@@ -14,6 +15,7 @@ interface Structured {
     basic: ObjectTable;
     coord: ObjectTable;
     host: ObjectTable;
+    json: string;
     libs: ObjectTable;
 }
 
@@ -97,6 +99,11 @@ export default class Form extends React.Component<Props, State> {
                     data={this.state.structured.libs}
                     title='Libs'
                 />
+                <Editor
+                    onChange={(value) => this.onChangeStructuredJsonEditor(value)}
+                    title='JsonValueParameters'
+                    value={this.state.structured.json}
+                />
             </SemanticUiReact.Form>
         );
     }
@@ -107,6 +114,16 @@ export default class Form extends React.Component<Props, State> {
             stringified: {
                 ...this.state.stringified,
                 url: event.currentTarget.value
+            }
+        });
+    }
+
+    private onChangeStructuredJsonEditor(value: string) {
+        this.setState({
+            ...this.state,
+            structured: {
+                ...this.state.structured,
+                json: value
             }
         });
     }
@@ -149,6 +166,7 @@ interface ObjectTables {
     basic: ObjectTable;
     coord: ObjectTable;
     host: ObjectTable;
+    json: string;
     libs: ObjectTable;
 }
 
@@ -159,6 +177,7 @@ function generateUrl(tables: ObjectTables): string {
         query: {
             basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
             coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
+            json: tables.json,
             libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
         }
     });
@@ -166,11 +185,13 @@ function generateUrl(tables: ObjectTables): string {
 
 function parseUrl(url: string): ObjectTables {
     const parsed = UrlBinder.parseUrl(url);
+    const indent = 4;
 
     return {
         basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
         coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
         host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
+        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
         libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
     };
 }

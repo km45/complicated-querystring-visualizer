@@ -21,6 +21,7 @@ export class ColumnsDefinition {
 export interface QueryBinder {
     basic: ArrayTable;
     coord: ArrayTable;
+    json: string;
     libs: ArrayTable;
 }
 
@@ -33,6 +34,8 @@ export function parseQuery(query: string): QueryBinder {
     const coord: ArrayTable = [];
     const libs: ArrayTable = [];
 
+    const jsonParams: string[][] = [];
+
     for (const param of table) {
       const key = param[0];
       const value = param[1];
@@ -43,14 +46,27 @@ export function parseQuery(query: string): QueryBinder {
         libs.push([key].concat(value.split('.').map((v: string) => {
           return decodeURIComponent(v);
         })));
+      } else if (key.match(/^json[0-9]+$/)) {
+        jsonParams.push([key, decodeURIComponent(value)]);
       } else if (key) {  // ignore empty key
         basic.push([key, decodeURIComponent(value)]);
       }
     }
 
+    const json = [
+      '[',
+      jsonParams.map((v: string[]): string => {
+        const key = v[0];
+        const value = v[1];
+        return '{"' + key + '":' + value + '}';
+      }).join(','),
+      ']'
+    ].join('');
+
     return {
         basic,
         coord,
+        json,
         libs
     };
 }
@@ -89,7 +105,13 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
-    return Array.prototype.concat(basic, coord, libs)
+    const json = JSON.parse(binder.json).map((v: any): [string, string] => {
+        const key = Object.keys(v)[0];
+        const value = encodeURIComponent(JSON.stringify(v[key]));
+        return [key, value];
+    });
+
+    return Array.prototype.concat(basic, coord, libs, json)
         .map((v: [string, string]) => {
             return v.join('=');
         })

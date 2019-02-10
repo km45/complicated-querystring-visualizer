@@ -15,6 +15,7 @@ type TestCase = [TestName, TestParameter];
 export const emptyQueryBinder: QueryBinder = {
   basic: [],
   coord: [],
+  json: '[]',
   libs: []
 };
 
@@ -72,6 +73,31 @@ const testCases: TestCase[] = [
           ['lib1', 'so'].join(encodedPeriod), ['lib2', 'so'].join(encodedPeriod)
         ].join('.')
       ].join('=')
+    }
+  ],
+  [
+    'json only', {
+      binder: {
+        ...emptyQueryBinder,
+        json: [
+          '[',
+          [
+            '{"json1":{"id":1,"name":"alice"}}',
+            '{"json2":{"name":"origin","coord":{"x":-1,"y":3}}}'
+          ].join(','),
+          ']'
+        ].join('')
+      },
+      queryString: [
+        [
+          'json1',
+          encodeURIComponent('{"id":1,"name":"alice"}')
+        ].join('='),
+        [
+          'json2',
+          encodeURIComponent('{"name":"origin","coord":{"x":-1,"y":3}}')
+        ].join('=')
+      ].join('&')
     }
   ],
   ['none', {queryString: '', binder: {...emptyQueryBinder}}]

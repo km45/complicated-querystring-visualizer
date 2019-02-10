@@ -10,9 +10,11 @@
   "dependencies": {
     "ag-grid-community": "^20.0.0",
     "ag-grid-react": "^20.0.0",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "pythonic": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-monaco-editor": "^0.22.0",
     "semantic-ui-react": "^0.84.0"
   },
   "devDependencies": {

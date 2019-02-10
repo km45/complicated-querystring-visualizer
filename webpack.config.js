@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MonacoEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const package = require('./package.json');
 
@@ -28,6 +29,7 @@ module.exports = (env, argv) => {
           loader: 'ts-loader',
         }, {
           enforce: 'pre',
+          exclude: /node_modules/,
           loader: 'source-map-loader',
           test: /\.js$/,
         }, {
@@ -115,6 +117,11 @@ module.exports = (env, argv) => {
         ],
       }),
       new MiniCssExtractPlugin(),
+      new MonacoEditorWebpackPlugin({
+        languages: [
+          'json',
+        ],
+      }),
     ],
     resolve: {
       extensions: [
