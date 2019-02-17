@@ -14,10 +14,11 @@ services:
     working_dir: /usr/src/app
   selenium-hub:
     image: selenium/hub:3.141.59-gold
-    container_name: selenium-hub
+    expose:
+      - "4444"
     ports:
-      # Can watch state on http://localhost:4444/grid/console
-      - "4444:4444"
+      # Can watch state on http://localhost:${DynamicPort}/grid/console
+      - "4444"
   chrome:
     image: selenium/node-chrome:3.141.59-gold
     depends_on:
