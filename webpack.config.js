@@ -106,6 +106,11 @@ module.exports = (env, argv) => {
             entry: 'umd/react-dom.production.min.js',
             global: 'ReactDOM',
           },
+          {
+            module: 'semantic-ui-react',
+            entry: 'dist/umd/semantic-ui-react.min.js',
+            global: 'semanticUIReact',
+          },
           // Not use externals for following libraries:
           //   - ag-grid-react
           //   - pythonic
