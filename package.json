@@ -15,7 +15,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-monaco-editor": "^0.22.0",
-    "semantic-ui-react": "^0.84.0"
+    "semantic-ui-react": "0.85.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.6",
