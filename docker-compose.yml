@@ -13,14 +13,14 @@ services:
       - .:/usr/src/app
     working_dir: /usr/src/app
   selenium-hub:
-    image: selenium/hub:3.141.59-hafnium
+    image: selenium/hub:3.141.59-iron
     expose:
       - "4444"
     ports:
       # Can watch state on http://localhost:${DynamicPort}/grid/console
       - "4444"
   chrome:
-    image: selenium/node-chrome:3.141.59-hafnium
+    image: selenium/node-chrome:3.141.59-iron
     depends_on:
       - selenium-hub
     environment:
@@ -29,7 +29,7 @@ services:
     volumes:
       - .:/usr/src/app
   chrome-debug:
-    image: selenium/node-chrome-debug:3.141.59-hafnium
+    image: selenium/node-chrome-debug:3.141.59-iron
     depends_on:
       - selenium-hub
     environment:
@@ -42,7 +42,7 @@ services:
     volumes:
       - .:/usr/src/app
   firefox:
-    image: selenium/node-firefox:3.141.59-hafnium
+    image: selenium/node-firefox:3.141.59-iron
     depends_on:
       - selenium-hub
     environment:
@@ -51,7 +51,7 @@ services:
     volumes:
       - .:/usr/src/app
   firefox-debug:
-    image: selenium/node-firefox-debug:3.141.59-hafnium
+    image: selenium/node-firefox-debug:3.141.59-iron
     depends_on:
       - selenium-hub
     environment:
