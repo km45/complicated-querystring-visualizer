@@ -14,7 +14,7 @@
     "pythonic": "^1.0.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
-    "react-monaco-editor": "^0.22.0",
+    "react-monaco-editor": "0.24.0",
     "semantic-ui-react": "^0.84.0"
   },
   "devDependencies": {
