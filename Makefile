@@ -25,6 +25,7 @@ help:
 	@echo '    unit-test [TTY] [WATCH]'
 	@echo '    e2e-test [TTY]'
 	@echo '    audit [TTY]'
+	@echo '    lint-dockerfile'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -108,3 +109,8 @@ e2e-test:
 .PHONY: audit
 audit:
 	$$(misc/docker-exec-command -t $(TTY)) develop npm audit
+
+.PHONY: lint-dockerfile
+lint-dockerfile:
+	docker run --rm -i hadolint/hadolint < dockerfiles/develop/Dockerfile
+	docker run --rm -i hadolint/hadolint < dockerfiles/python/Dockerfile
