@@ -4,6 +4,7 @@ services:
   - docker
 
 script:
+  - make lint-dockerfile
   - make up SERVICE='develop python chrome firefox'
   - make clean
   - make sync

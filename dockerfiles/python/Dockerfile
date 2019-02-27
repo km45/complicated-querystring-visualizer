@@ -1,6 +1,6 @@
 FROM python:3.7-slim
 
-RUN pip install pipenv
+RUN pip install pipenv==2018.11.26
 
 COPY Pipfile Pipfile.lock ./
 
