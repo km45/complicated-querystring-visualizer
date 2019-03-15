@@ -72,9 +72,7 @@ module.exports = (env, argv) => {
       },
     },
     plugins: [
-      new CleanWebpackPlugin([
-        outputPath,
-      ]),
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         favicon: srcFavicon,
         template: srcHtmlIndex,
