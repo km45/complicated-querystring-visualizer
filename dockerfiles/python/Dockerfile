@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.7.2-slim
 
 RUN pip install pipenv==2018.11.26
 
