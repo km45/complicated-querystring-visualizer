@@ -22,6 +22,7 @@ export default class Editor extends React.Component<Props, State> {
       <div>
         <h2>{this.props.title}</h2>
         <ReactAce
+          editorProps={{ $blockScrolling: true }}
           fontSize={16}
           // height={window.innerHeight * 0.8}
           mode="json"
