@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ReactAce from 'react-ace';
 
-import "brace/mode/json";
-import "brace/theme/textmate";
+import 'brace/mode/json';
+import 'brace/theme/textmate';
 
 interface State { }
 
@@ -25,12 +25,12 @@ export default class Editor extends React.Component<Props, State> {
           editorProps={{ $blockScrolling: true }}
           fontSize={16}
           maxLines={Infinity}
-          mode="json"
+          mode='json'
           onChange={(value) => this.props.onChange(value)}
           showPrintMargin={false}
-          theme="textmate"
+          theme='textmate'
           value={this.props.value}
-          width="100%"
+          width='100%'
           wrapEnabled={true}
         />
       </div>
