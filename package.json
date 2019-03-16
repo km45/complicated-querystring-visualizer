@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "km45",
   "license": "MIT",
-  "version": "v5.2.0",
+  "version": "v5.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
@@ -37,7 +37,7 @@
     "typescript": "3.3.3333",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.1",
-    "webpack-cli": "3.2.3",
+    "webpack-cli": "3.3.0",
     "webpack-dev-server": "3.2.1"
   },
   "jest": {
