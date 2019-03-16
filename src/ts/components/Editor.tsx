@@ -24,7 +24,7 @@ export default class Editor extends React.Component<Props, State> {
         <ReactAce
           editorProps={{ $blockScrolling: true }}
           fontSize={16}
-          // height={window.innerHeight * 0.8}
+          maxLines={Infinity}
           mode="json"
           onChange={(value) => this.props.onChange(value)}
           showPrintMargin={false}
