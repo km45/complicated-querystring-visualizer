@@ -1,5 +1,8 @@
 import * as React from 'react';
-import ReactMonacoEditor from 'react-monaco-editor';
+import ReactAce from 'react-ace';
+
+import "brace/mode/json";
+import "brace/theme/textmate";
 
 interface State { }
 
@@ -18,11 +21,16 @@ export default class Editor extends React.Component<Props, State> {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <ReactMonacoEditor
-          height={window.innerHeight * 0.8}
-          language='json'
+        <ReactAce
+          fontSize={16}
+          // height={window.innerHeight * 0.8}
+          mode="json"
           onChange={(value) => this.props.onChange(value)}
+          showPrintMargin={false}
+          theme="textmate"
           value={this.props.value}
+          width="100%"
+          wrapEnabled={true}
         />
       </div>
     );
