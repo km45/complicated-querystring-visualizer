@@ -8,7 +8,9 @@ services:
     environment:
       - HOME=/usr/src/app/cache/develop/home
     ports:
-      - 8080:8080
+      # You can check ephemeral port on host environment by following command:
+      # `docker-compose port develop 8080`
+      - "8080"
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
