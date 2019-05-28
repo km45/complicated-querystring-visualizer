@@ -1,3 +1,3 @@
-FROM node:12.2.0-alpine
+FROM node:12.3.1-alpine
 
 CMD [ "tail", "-f", "/dev/null" ]
