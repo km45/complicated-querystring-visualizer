@@ -14,7 +14,7 @@
     "react": "16.8.6",
     "react-ace": "6.6.0",
     "react-dom": "16.8.6",
-    "semantic-ui-react": "0.87.1"
+    "semantic-ui-react": "0.87.2"
   },
   "devDependencies": {
     "@types/jest": "24.0.15",
