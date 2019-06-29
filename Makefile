@@ -26,6 +26,7 @@ help:
 	@echo '    e2e-test [TTY]'
 	@echo '    audit [TTY]'
 	@echo '    lint-dockerfile'
+	@echo '    outdated'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -114,3 +115,7 @@ audit:
 lint-dockerfile:
 	docker run --rm -i hadolint/hadolint < dockerfiles/develop/Dockerfile
 	docker run --rm -i hadolint/hadolint < dockerfiles/python/Dockerfile
+
+.PHONY: outdated
+outdated:
+	$$(misc/docker-exec-command -t $(TTY)) develop npm outdated
