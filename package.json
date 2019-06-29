@@ -12,7 +12,7 @@
     "ag-grid-react": "20.2.0",
     "pythonic": "2.0.3",
     "react": "16.8.6",
-    "react-ace": "6.6.0",
+    "react-ace": "7.0.2",
     "react-dom": "16.8.6",
     "semantic-ui-react": "0.87.2"
   },
