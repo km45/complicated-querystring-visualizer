@@ -28,7 +28,7 @@
     "typescript": "3.5.3",
     "url-loader": "2.0.1",
     "webpack-cli": "3.3.5",
-    "webpack": "4.35.0"
+    "webpack": "4.35.3"
   },
   "devDependencies": {
     "eslint-config-google": "0.13.0",
