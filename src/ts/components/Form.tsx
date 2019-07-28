@@ -17,6 +17,7 @@ interface Structured {
     host: ObjectTable;
     json: string;
     libs: ObjectTable;
+    nested: string;
 }
 
 function openQuery(url: string): void {
@@ -104,6 +105,11 @@ export default class Form extends React.Component<Props, State> {
                     title='JsonValueParameters'
                     value={this.state.structured.json}
                 />
+                <Editor
+                    onChange={(value) => this.onChangeStructuredNestedEditor(value)}
+                    title='NestedParameters'
+                    value={this.state.structured.nested}
+                />
             </SemanticUiReact.Form>
         );
     }
@@ -124,6 +130,16 @@ export default class Form extends React.Component<Props, State> {
             structured: {
                 ...this.state.structured,
                 json: value
+            }
+        });
+    }
+
+    private onChangeStructuredNestedEditor(value: string) {
+        this.setState({
+            ...this.state,
+            structured: {
+                ...this.state.structured,
+                nested: value
             }
         });
     }
@@ -168,6 +184,7 @@ interface ObjectTables {
     host: ObjectTable;
     json: string;
     libs: ObjectTable;
+    nested: string;
 }
 
 function generateUrl(tables: ObjectTables): string {
@@ -178,7 +195,8 @@ function generateUrl(tables: ObjectTables): string {
             basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
             coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
             json: tables.json,
-            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
+            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs),
+            nested: tables.nested
         }
     });
 }
@@ -192,6 +210,7 @@ function parseUrl(url: string): ObjectTables {
         coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
         host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
         json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
-        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
+        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs),
+        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent),
     };
 }
