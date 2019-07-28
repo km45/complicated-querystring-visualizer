@@ -1,3 +1,5 @@
+import * as CsvParseSync from 'csv-parse/lib/sync';
+
 import {
     ArrayRow, ArrayTable, Columns
 } from './table-data';
@@ -26,6 +28,17 @@ export interface QueryBinder {
     nested: string;
 }
 
+interface NestedParam {
+    key: string;
+    values: string[][];
+}
+
+function createKeyValuePair<K, V>(key: K, value: V): { K: V } {
+    const obj: any = {};
+    obj[key] = value;
+    return obj;
+}
+
 export function parseQuery(query: string): QueryBinder {
     const table = query.split('&').map((keyValuePair: string) => {
         return keyValuePair.split('=');
@@ -36,6 +49,7 @@ export function parseQuery(query: string): QueryBinder {
     const libs: ArrayTable = [];
 
     const jsonParams: string[][] = [];
+    const nestedParams: NestedParam[] = [];
 
     for (const param of table) {
       const key = param[0];
@@ -49,6 +63,9 @@ export function parseQuery(query: string): QueryBinder {
         })));
       } else if (key.match(/^json[0-9]+$/)) {
         jsonParams.push([key, decodeURIComponent(value)]);
+      } else if (key.match(/^nested[0-9]+$/)) {
+        const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',' });
+        nestedParams.push({ key, values: parsed });
       } else if (key) {  // ignore empty key
         basic.push([key, decodeURIComponent(value)]);
       }
@@ -64,7 +81,15 @@ export function parseQuery(query: string): QueryBinder {
       ']'
     ].join('');
 
-    const nested = '[]';
+    const nested = JSON.stringify(
+        nestedParams.map((p: NestedParam) => {
+            const valueObj = p.values.map((v: string[]) => {
+                const key = v[0];
+                const value = v[1];
+                return createKeyValuePair(key, value);
+            });
+            return createKeyValuePair(p.key, valueObj);
+        }));
 
     return {
         basic,
