@@ -133,7 +133,8 @@ const testCases: TestCase[] = [
         nested: [
           '[',
           [
-            '{"nested1":[{"key1":"value1,A:a"},{"key2,B:b":"value2"}]}'
+            '{"nested1":[{"key1":"value1,A:a"},{"key2,B:b":"value2"}]}',
+            '{"nested2":[{"key3":"value3\\"c"},{"key4\\"d":"value4"}]}'
           ].join(','),
           ']'
         ].join('')
@@ -142,6 +143,10 @@ const testCases: TestCase[] = [
         [
           'nested1',
           encodeURIComponent('key1:"value1,A:a","key2,B:b":value2')
+        ].join('='),
+        [
+          'nested2',
+          encodeURIComponent('key3:"value3""c","key4""d":value4')
         ].join('=')
       ].join('&')
     }
