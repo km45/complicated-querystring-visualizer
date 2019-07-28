@@ -147,10 +147,10 @@ export function generateQuery(binder: QueryBinder): string {
 
         const value = encodeURIComponent(
             CsvStringifySync(
-                valueObj.map((v: any) => {
-                    const key = Object.keys(v)[0];
-                    const value = v[key];
-                    return [key, value];
+                valueObj.map((obj: any) => {
+                    const objectKey = Object.keys(obj)[0];
+                    const objectValue = obj[objectKey];
+                    return [objectKey, objectValue];
                 }), {
                     delimiter: ':',
                     eof: false,

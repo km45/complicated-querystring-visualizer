@@ -211,6 +211,6 @@ function parseUrl(url: string): ObjectTables {
         host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
         json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
         libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs),
-        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent),
+        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent)
     };
 }
