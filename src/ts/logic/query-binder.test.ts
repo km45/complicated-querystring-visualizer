@@ -16,7 +16,8 @@ export const emptyQueryBinder: QueryBinder = {
   basic: [],
   coord: [],
   json: '[]',
-  libs: []
+  libs: [],
+  nested: '[]'
 };
 
 const encodedAmpersand = '%26';
@@ -100,7 +101,32 @@ const testCases: TestCase[] = [
       ].join('&')
     }
   ],
-  ['none', {queryString: '', binder: {...emptyQueryBinder}}]
+  [
+    'nested only', {
+      binder: {
+        ...emptyQueryBinder,
+        nested: [
+          '[',
+          [
+            '{"nested1":[{"key1":"value1"},{"key2":"value2"}]}',
+            '{"nested2":[{"key1":"value1"}]}'
+          ].join(','),
+          ']'
+        ].join('')
+      },
+      queryString: [
+        [
+          'nested1',
+          encodeURIComponent('key1:value1,key2:value2')
+        ].join('='),
+        [
+          'nested2',
+          encodeURIComponent('key1:value1')
+        ].join('=')
+      ].join('&')
+    }
+  ],
+  ['none', { queryString: '', binder: { ...emptyQueryBinder } }]
 ];
 
 describe.each(testCases)(

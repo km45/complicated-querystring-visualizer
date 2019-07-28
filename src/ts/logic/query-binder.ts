@@ -23,6 +23,7 @@ export interface QueryBinder {
     coord: ArrayTable;
     json: string;
     libs: ArrayTable;
+    nested: string;
 }
 
 export function parseQuery(query: string): QueryBinder {
@@ -63,11 +64,14 @@ export function parseQuery(query: string): QueryBinder {
       ']'
     ].join('');
 
+    const nested = '[]';
+
     return {
         basic,
         coord,
         json,
-        libs
+        libs,
+        nested
     };
 }
 
