@@ -126,6 +126,26 @@ const testCases: TestCase[] = [
       ].join('&')
     }
   ],
+  [
+    'nested only escaped', {
+      binder: {
+        ...emptyQueryBinder,
+        nested: [
+          '[',
+          [
+            '{"nested1":[{"key1":"value1,A:a"},{"key2,B:b":"value2"}]}'
+          ].join(','),
+          ']'
+        ].join('')
+      },
+      queryString: [
+        [
+          'nested1',
+          encodeURIComponent('key1:"value1,A:a","key2,B:b":value2')
+        ].join('=')
+      ].join('&')
+    }
+  ],
   ['none', { queryString: '', binder: { ...emptyQueryBinder } }]
 ];
 
