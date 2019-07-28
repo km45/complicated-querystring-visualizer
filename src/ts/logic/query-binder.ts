@@ -1,4 +1,5 @@
 import * as CsvParseSync from 'csv-parse/lib/sync';
+import * as CsvStringifySync from 'csv-stringify/lib/sync';
 
 import {
     ArrayRow, ArrayTable, Columns
@@ -140,7 +141,26 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
-    return Array.prototype.concat(basic, coord, libs, json)
+    const nested = JSON.parse(binder.nested).map((v: any): [string, string] => {
+        const key = Object.keys(v)[0];
+        const valueObj = v[key];
+
+        const value = encodeURIComponent(
+            CsvStringifySync(
+                valueObj.map((v: any) => {
+                    const key = Object.keys(v)[0];
+                    const value = v[key];
+                    return [key, value];
+                }), {
+                    delimiter: ':',
+                    eof: false,
+                    record_delimiter: ','
+                }));
+
+        return [key, value];
+    });
+
+    return Array.prototype.concat(basic, coord, libs, json, nested)
         .map((v: [string, string]) => {
             return v.join('=');
         })
