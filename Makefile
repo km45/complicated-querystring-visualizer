@@ -90,7 +90,7 @@ endif
 .PHONY: dev-server
 dev-server:
 	# Use fixed value for -t option as if TTY=true
-	$$(misc/docker-exec-command -t true) develop npx webpack-dev-server --mode=$(CONFIG)
+	$$(misc/docker-exec-command -t true) develop npx webpack-dev-server --mode=$(CONFIG) --public $$(docker-compose port develop 8080)
 
 .PHONY: test
 test: unit-test
