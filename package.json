@@ -31,12 +31,12 @@
     "webpack-cli": "^3.3.9"
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
     "eslint-config-google": "0.14.0",
-    "eslint": "6.3.0",
     "jest": "24.9.0",
     "source-map-loader": "0.2.4",
     "ts-jest": "24.0.2",
-    "tslint": "5.19.0",
+    "tslint": "^5.20.0",
     "webpack-dev-server": "3.8.0"
   },
   "jest": {
