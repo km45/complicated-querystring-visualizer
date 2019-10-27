@@ -27,6 +27,7 @@ help:
 	@echo '    audit [TTY]'
 	@echo '    lint-dockerfile'
 	@echo '    outdated'
+	@echo '    update'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -118,3 +119,7 @@ lint-dockerfile:
 .PHONY: outdated
 outdated:
 	$$(misc/docker-exec-command -t $(TTY)) develop npm outdated
+
+.PHONY: update
+update:
+	$$(misc/docker-exec-command -t true) develop npm update
