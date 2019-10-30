@@ -20,7 +20,7 @@
     "mini-css-extract-plugin": "0.8.0",
     "pythonic": "2.0.3",
     "react": "^16.11.0",
-    "react-ace": "7.0.4",
+    "react-ace": "8.x",
     "react-dom": "^16.11.0",
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "0.88.1",
