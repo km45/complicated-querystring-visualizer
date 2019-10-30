@@ -1,8 +1,9 @@
 import * as React from 'react';
 import ReactAce from 'react-ace';
 
-import 'brace/mode/json';
-import 'brace/theme/textmate';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-textmate';
+import 'ace-builds/webpack-resolver';
 
 interface State { }
 
