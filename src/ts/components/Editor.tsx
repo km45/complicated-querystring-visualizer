@@ -1,8 +1,9 @@
 import * as React from 'react';
-import ReactAce from 'react-ace';
+import AceEditor from 'react-ace';
 
-import 'brace/mode/json';
-import 'brace/theme/textmate';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-textmate';
+import 'ace-builds/webpack-resolver';
 
 interface State { }
 
@@ -21,7 +22,7 @@ export default class Editor extends React.Component<Props, State> {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <ReactAce
+        <AceEditor
           editorProps={{ $blockScrolling: true }}
           fontSize={16}
           maxLines={Infinity}
