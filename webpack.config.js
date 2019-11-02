@@ -1,6 +1,7 @@
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -72,6 +73,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new HardSourceWebpackPlugin(),
       new HtmlWebpackPlugin({
         favicon: srcFavicon,
         template: srcHtmlIndex,
