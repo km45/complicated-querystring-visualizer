@@ -1,8 +1,8 @@
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const package = require('./package.json');
@@ -72,6 +72,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new HardSourceWebpackPlugin(),
       new HtmlWebpackPlugin({
         favicon: srcFavicon,
         template: srcHtmlIndex,
@@ -84,29 +85,6 @@ module.exports = (env, argv) => {
             },
           },
         },
-      }),
-      new HtmlWebpackExternalsPlugin({
-        enabled: mode === 'development',
-        externals: [
-          {
-            module: 'ag-grid-community',
-            entry: 'dist/ag-grid-community.min.noStyle.js',
-            global: 'agGrid',
-          },
-          {
-            module: 'react',
-            entry: 'umd/react.production.min.js',
-            global: 'React',
-          },
-          {
-            module: 'react-dom',
-            entry: 'umd/react-dom.production.min.js',
-            global: 'ReactDOM',
-          },
-          // Not use externals for following libraries:
-          //   - ag-grid-react
-          //   - pythonic
-        ],
       }),
       new MiniCssExtractPlugin(),
     ],
