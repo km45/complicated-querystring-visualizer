@@ -8,9 +8,9 @@
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^24.0.22",
     "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.3",
+    "@types/react-dom": "^16.9.4",
     "ag-grid-community": "^21.2.2",
     "ag-grid-react": "^21.2.2",
     "clean-webpack-plugin": "3.0.0",
@@ -26,10 +26,10 @@
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "0.88.1",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.6.4",
+    "typescript": "^3.7.2",
     "url-loader": "^2.2.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.10"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
@@ -37,7 +37,7 @@
     "jest": "24.9.0",
     "source-map-loader": "0.2.4",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
+    "tslint": "^5.20.1",
     "webpack-dev-server": "^3.9.0"
   },
   "jest": {
