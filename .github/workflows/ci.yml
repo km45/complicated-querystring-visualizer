@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - run: make lint-dockerfile
+    - run: make up SERVICE='develop python chrome firefox'
+    - run: make clean
+    - run: make sync
+    - run: make audit
+    - run: make lint
+    - run: make build CONFIG=production
+    - run: make unit-test
+    - run: make e2e-test
+    - run: make down
