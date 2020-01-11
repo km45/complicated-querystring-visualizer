@@ -13,6 +13,7 @@ module.exports = {
     'eslint:recommended',
     "plugin:react/recommended",
     "plugin:node/recommended",
+    "plugin:eslint-comments/recommended",
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
