@@ -128,7 +128,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationClear(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationClear(_: React.MouseEvent<HTMLButtonElement>): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -138,11 +138,11 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationOpen(_: React.MouseEvent<HTMLButtonElement>): void {
         openQuery(this.state.stringified.url);
     }
 
-    private onClickOperationParse(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationParse(_: React.MouseEvent<HTMLButtonElement>): void {
         const parsed = parseUrl(this.state.stringified.url);
         this.setState({
             stringified: this.state.stringified,
@@ -150,7 +150,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationGenerate(_: React.MouseEvent<HTMLButtonElement>): void {
         const generated = generateUrl(this.state.structured);
 
         this.setState({
