@@ -30,7 +30,7 @@ export default class Editor extends React.Component<Props, State> {
           fontSize={16}
           maxLines={Infinity}
           mode='json'
-          onChange={(value) => this.props.onChange(value)}
+          onChange={(value): void => this.props.onChange(value)}
           showPrintMargin={false}
           theme='textmate'
           value={this.props.value}

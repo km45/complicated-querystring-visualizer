@@ -55,29 +55,29 @@ export default class Form extends React.Component<Props, State> {
             <SemanticUiReact.Form>
                 <SemanticUiReact.TextArea
                     autoHeight={true}
-                    onChange={(event) => this.onChangeStringifiedTextArea(event)}
+                    onChange={(event): void => this.onChangeStringifiedTextArea(event)}
                     value={this.state.stringified.url}
                 />
                 <SemanticUiReact.Button
                     content='parse'
                     icon='arrow alternate circle down'
-                    onClick={(event) => this.onClickOperationParse(event)}
+                    onClick={(event): void => this.onClickOperationParse(event)}
                     primary={true} />
                 <SemanticUiReact.Button
                     content='generate'
                     icon='arrow alternate circle up'
-                    onClick={(event) => this.onClickOperationGenerate(event)}
+                    onClick={(event): void => this.onClickOperationGenerate(event)}
                     secondary={true} />
                 <SemanticUiReact.Button
                     content='open'
                     icon='external'
                     positive={true}
-                    onClick={(event) => this.onClickOperationOpen(event)} />
+                    onClick={(event): void => this.onClickOperationOpen(event)} />
                 <SemanticUiReact.Button
                     content='clear'
                     icon='trash'
                     negative={true}
-                    onClick={(event) => this.onClickOperationClear(event)}
+                    onClick={(event): void => this.onClickOperationClear(event)}
                 />
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
@@ -100,7 +100,7 @@ export default class Form extends React.Component<Props, State> {
                     title='Libs'
                 />
                 <Editor
-                    onChange={(value) => this.onChangeStructuredJsonEditor(value)}
+                    onChange={(value): void => this.onChangeStructuredJsonEditor(value)}
                     title='JsonValueParameters'
                     value={this.state.structured.json}
                 />
@@ -108,7 +108,7 @@ export default class Form extends React.Component<Props, State> {
         );
     }
 
-    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>) {
+    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -118,7 +118,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onChangeStructuredJsonEditor(value: string) {
+    private onChangeStructuredJsonEditor(value: string): void {
         this.setState({
             ...this.state,
             structured: {
@@ -128,7 +128,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationClear(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationClear(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -138,11 +138,11 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
         openQuery(this.state.stringified.url);
     }
 
-    private onClickOperationParse(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationParse(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
         const parsed = parseUrl(this.state.stringified.url);
         this.setState({
             stringified: this.state.stringified,
@@ -150,7 +150,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>): void {
         const generated = generateUrl(this.state.structured);
 
         this.setState({
