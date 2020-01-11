@@ -105,6 +105,7 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = JSON.parse(binder.json).map((v: any): [string, string] => {
         const key = Object.keys(v)[0];
         const value = encodeURIComponent(JSON.stringify(v[key]));
