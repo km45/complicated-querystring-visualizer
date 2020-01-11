@@ -151,6 +151,26 @@ const testCases: TestCase[] = [
       ].join('&')
     }
   ],
+  [
+    'nested only missing value', {
+      binder: {
+        ...emptyQueryBinder,
+        nested: [
+          '[',
+          [
+            '{"nested1":[{"key1":null}]}'
+          ].join(','),
+          ']'
+        ].join('')
+      },
+      queryString: [
+        [
+          'nested1',
+          encodeURIComponent('key1')
+        ].join('='),
+      ].join('&')
+    }
+  ],
   ['none', { queryString: '', binder: { ...emptyQueryBinder } }]
 ];
 

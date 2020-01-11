@@ -65,7 +65,8 @@ export function parseQuery(query: string): QueryBinder {
       } else if (key.match(/^json[0-9]+$/)) {
         jsonParams.push([key, decodeURIComponent(value)]);
       } else if (key.match(/^nested[0-9]+$/)) {
-        const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',' });
+        const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',', relax_column_count: true });
+        console.table(parsed);
         nestedParams.push({ key, values: parsed });
       } else if (key) {  // ignore empty key
         basic.push([key, decodeURIComponent(value)]);
@@ -86,7 +87,7 @@ export function parseQuery(query: string): QueryBinder {
         nestedParams.map((p: NestedParam) => {
             const valueObj = p.values.map((v: string[]) => {
                 const key = v[0];
-                const value = v[1];
+                const value = v.length > 1 ? v[1] : null;
                 return createKeyValuePair(key, value);
             });
             return createKeyValuePair(p.key, valueObj);
@@ -150,6 +151,9 @@ export function generateQuery(binder: QueryBinder): string {
                 valueObj.map((obj: any) => {
                     const objectKey = Object.keys(obj)[0];
                     const objectValue = obj[objectKey];
+                    if (objectValue == null) {
+                        return [objectKey];
+                    }
                     return [objectKey, objectValue];
                 }), {
                     delimiter: ':',
