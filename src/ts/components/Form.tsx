@@ -87,23 +87,23 @@ export default class Form extends React.Component<Props, State> {
                 <SemanticUiReact.Button
                     content='parse'
                     icon='arrow alternate circle down'
-                    onClick={(event): void => this.onClickOperationParse(event)}
+                    onClick={(): void => this.onClickOperationParse()}
                     primary={true} />
                 <SemanticUiReact.Button
                     content='generate'
                     icon='arrow alternate circle up'
-                    onClick={(event): void => this.onClickOperationGenerate(event)}
+                    onClick={(): void => this.onClickOperationGenerate()}
                     secondary={true} />
                 <SemanticUiReact.Button
                     content='open'
                     icon='external'
                     positive={true}
-                    onClick={(event): void => this.onClickOperationOpen(event)} />
+                    onClick={(): void => this.onClickOperationOpen()} />
                 <SemanticUiReact.Button
                     content='clear'
                     icon='trash'
                     negative={true}
-                    onClick={(event): void => this.onClickOperationClear(event)}
+                    onClick={(): void => this.onClickOperationClear()}
                 />
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
@@ -154,7 +154,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationClear(_: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationClear(): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -164,11 +164,11 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationOpen(_: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationOpen(): void {
         openQuery(this.state.stringified.url);
     }
 
-    private onClickOperationParse(_: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationParse(): void {
         const parsed = parseUrl(this.state.stringified.url);
         this.setState({
             stringified: this.state.stringified,
@@ -176,7 +176,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationGenerate(_: React.MouseEvent<HTMLButtonElement>): void {
+    private onClickOperationGenerate(): void {
         const generated = generateUrl(this.state.structured);
 
         this.setState({
