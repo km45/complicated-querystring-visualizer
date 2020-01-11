@@ -27,6 +27,7 @@ help:
 	@echo '    audit [TTY]'
 	@echo '    lint-dockerfile'
 	@echo '    outdated'
+	@echo '    update'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -90,7 +91,7 @@ endif
 .PHONY: dev-server
 dev-server:
 	# Use fixed value for -t option as if TTY=true
-	$$(misc/docker-exec-command -t true) develop npx webpack-dev-server --mode=$(CONFIG)
+	$$(misc/docker-exec-command -t true) develop npx webpack-dev-server --mode=$(CONFIG) --public $$(docker-compose port develop 8080)
 
 .PHONY: test
 test: unit-test
@@ -113,9 +114,12 @@ audit:
 
 .PHONY: lint-dockerfile
 lint-dockerfile:
-	docker run --rm -i hadolint/hadolint < dockerfiles/develop/Dockerfile
 	docker run --rm -i hadolint/hadolint < dockerfiles/python/Dockerfile
 
 .PHONY: outdated
 outdated:
 	$$(misc/docker-exec-command -t $(TTY)) develop npm outdated
+
+.PHONY: update
+update:
+	$$(misc/docker-exec-command -t true) develop npm update

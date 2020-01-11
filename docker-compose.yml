@@ -2,9 +2,8 @@ version: "3"
 
 services:
   develop:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/develop/Dockerfile
+    image: node:13.0.1-alpine
+    command: ["tail", "-f", "/dev/null"]
     environment:
       - HOME=/usr/src/app/cache/develop/home
     ports:

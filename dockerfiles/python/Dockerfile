@@ -1,9 +1,6 @@
-FROM python:3.7.4-slim
+FROM python:3.8-slim
 
-RUN pip install pipenv==2018.11.26
-
-COPY Pipfile Pipfile.lock ./
-
-RUN pipenv install --system && rm Pipfile Pipfile.lock
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir selenium pytest
 
 CMD [ "tail", "-f", "/dev/null" ]
