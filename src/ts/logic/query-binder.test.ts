@@ -12,6 +12,7 @@ interface TestParameter {
 
 type TestCase = [TestName, TestParameter];
 
+// eslint-disable-next-line jest/no-export
 export const emptyQueryBinder: QueryBinder = {
   basic: [],
   coord: [],
