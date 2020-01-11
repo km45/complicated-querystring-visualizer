@@ -37,7 +37,7 @@ export default class Grid extends React.Component<Props, State> {
         });
     }
 
-    public componentDidUpdate(prevProps: Props, _2: State, _3: any): void {
+    public componentDidUpdate(prevProps: Props): void {
         if (prevProps.data !== this.props.data) {
             // Update rowData when its reference is changed
             // even if values are same.
