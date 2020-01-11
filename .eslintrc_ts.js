@@ -1,17 +1,12 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  // parserOptions: {
-  //   ecmaVersion: 2018,
-  // },
   plugins: [
     '@typescript-eslint',
     "jest",
     "react-hooks"
   ],
   extends: [
-    // 'google',
     'eslint:recommended',
     "plugin:react/recommended",
     "plugin:eslint-comments/recommended",
