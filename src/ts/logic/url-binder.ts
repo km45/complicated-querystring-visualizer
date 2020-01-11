@@ -20,8 +20,8 @@ export function parseUrl(url: string): UrlBinder {
     const splitedStrings = url.split('?');
     console.log(splitedStrings);
 
-    let hostString: string = '';
-    let queryString: string = '';
+    let hostString = '';
+    let queryString = '';
 
     if (splitedStrings.length === 2) {
         hostString = splitedStrings[0];
@@ -45,7 +45,7 @@ export function parseUrl(url: string): UrlBinder {
 }
 
 export function generateUrl(binder: UrlBinder): string {
-    let url: string = '';
+    let url = '';
 
     // TODO: refactor
     const hostString = binder.host[0][1];

@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Columns, ObjectTable } from '../logic/table-data';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State { }
 
 export interface Props {
@@ -36,7 +37,7 @@ export default class Grid extends React.Component<Props, State> {
         });
     }
 
-    public componentDidUpdate(prevProps: Props, _2/*prevState*/: State, _3/*snapshot*/: any) {
+    public componentDidUpdate(prevProps: Props): void {
         if (prevProps.data !== this.props.data) {
             // Update rowData when its reference is changed
             // even if values are same.
@@ -49,7 +50,7 @@ export default class Grid extends React.Component<Props, State> {
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <div>
                 <h2>{this.props.title}</h2>
@@ -74,11 +75,11 @@ export default class Grid extends React.Component<Props, State> {
         api.autoSizeColumns(allColumnIds);
     }
 
-    private onGridReady(event: AgGrid.GridReadyEvent) {
+    private onGridReady(event: AgGrid.GridReadyEvent): void {
         this.agGridApi = event.api;
     }
 
-    private onModelUpdated(event: AgGrid.ModelUpdatedEvent) {
+    private onModelUpdated(event: AgGrid.ModelUpdatedEvent): void {
         if (event.columnApi) {
             this.resize(event.columnApi);
         }
