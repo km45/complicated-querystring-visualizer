@@ -1,9 +1,11 @@
 import * as React from 'react';
 import AceEditor from 'react-ace';
 
+/* eslint-disable node/no-extraneous-import */
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-textmate';
 import 'ace-builds/webpack-resolver';
+/* eslint-enable node/no-extraneous-import */
 
 interface State { }
 
