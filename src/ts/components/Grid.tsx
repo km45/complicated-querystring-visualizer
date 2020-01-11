@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Columns, ObjectTable } from '../logic/table-data';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State { }
 
 export interface Props {

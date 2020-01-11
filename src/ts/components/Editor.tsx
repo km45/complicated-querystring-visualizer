@@ -7,6 +7,7 @@ import 'ace-builds/src-noconflict/theme-textmate';
 import 'ace-builds/webpack-resolver';
 /* eslint-enable node/no-extraneous-import */
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State { }
 
 export interface Props {
