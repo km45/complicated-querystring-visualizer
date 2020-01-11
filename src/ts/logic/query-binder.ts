@@ -37,30 +37,30 @@ export function parseQuery(query: string): QueryBinder {
     const jsonParams: string[][] = [];
 
     for (const param of table) {
-      const key = param[0];
-      const value = param[1];
+        const key = param[0];
+        const value = param[1];
 
-      if (key.match(/^coord[0-9]+$/)) {
-        coord.push([key].concat(decodeURIComponent(value).split(',')));
-      } else if (key === 'libs') {
-        libs.push([key].concat(value.split('.').map((v: string) => {
-          return decodeURIComponent(v);
-        })));
-      } else if (key.match(/^json[0-9]+$/)) {
-        jsonParams.push([key, decodeURIComponent(value)]);
-      } else if (key) {  // ignore empty key
-        basic.push([key, decodeURIComponent(value)]);
-      }
+        if (key.match(/^coord[0-9]+$/)) {
+            coord.push([key].concat(decodeURIComponent(value).split(',')));
+        } else if (key === 'libs') {
+            libs.push([key].concat(value.split('.').map((v: string) => {
+                return decodeURIComponent(v);
+            })));
+        } else if (key.match(/^json[0-9]+$/)) {
+            jsonParams.push([key, decodeURIComponent(value)]);
+        } else if (key) {  // ignore empty key
+            basic.push([key, decodeURIComponent(value)]);
+        }
     }
 
     const json = [
-      '[',
-      jsonParams.map((v: string[]): string => {
-        const key = v[0];
-        const value = v[1];
-        return '{"' + key + '":' + value + '}';
-      }).join(','),
-      ']'
+        '[',
+        jsonParams.map((v: string[]): string => {
+            const key = v[0];
+            const value = v[1];
+            return '{"' + key + '":' + value + '}';
+        }).join(','),
+        ']'
     ].join('');
 
     return {
