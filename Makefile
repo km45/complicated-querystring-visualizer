@@ -77,7 +77,7 @@ sync:
 
 .PHONY: lint
 lint:
-	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint .eslintrc.js webpack.config.js
+	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint . --ext .js,.jsx,.ts,.tsx
 
 .PHONY: build
 build:
