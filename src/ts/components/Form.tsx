@@ -50,7 +50,7 @@ export default class Form extends React.Component<Props, State> {
         };
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <SemanticUiReact.Form>
                 <SemanticUiReact.TextArea

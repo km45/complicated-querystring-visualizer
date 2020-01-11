@@ -20,7 +20,7 @@ export default class Editor extends React.Component<Props, State> {
     super(props, context);
   }
 
-  public render() {
+  public render(): React.ReactNode {
     return (
       <div>
         <h2>{this.props.title}</h2>

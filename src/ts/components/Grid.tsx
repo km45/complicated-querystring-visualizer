@@ -49,7 +49,7 @@ export default class Grid extends React.Component<Props, State> {
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <div>
                 <h2>{this.props.title}</h2>
