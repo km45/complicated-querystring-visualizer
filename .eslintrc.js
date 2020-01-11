@@ -27,6 +27,10 @@ module.exports = {
   },
   rules: {
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+
+    // // indent of 4 spaces
+    // "indent": "off",  // must disable the base rule as it can report incorrect errors
+    // "@typescript-eslint/indent": ["error", 4]
   }
 };
