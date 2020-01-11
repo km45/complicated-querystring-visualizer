@@ -7,6 +7,32 @@ import * as UrlBinder from '../logic/url-binder';
 import Editor from './Editor';
 import Grid from './Grid';
 
+function generateUrl(tables: ObjectTables): string {
+    return UrlBinder.generateUrl({
+        host:
+            objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
+        query: {
+            basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
+            coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
+            json: tables.json,
+            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
+        }
+    });
+}
+
+function parseUrl(url: string): ObjectTables {
+    const parsed = UrlBinder.parseUrl(url);
+    const indent = 4;
+
+    return {
+        basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
+        coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
+        host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
+        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
+        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
+    };
+}
+
 interface Stringified {
     url: string;
 }
@@ -168,30 +194,4 @@ interface ObjectTables {
     host: ObjectTable;
     json: string;
     libs: ObjectTable;
-}
-
-function generateUrl(tables: ObjectTables): string {
-    return UrlBinder.generateUrl({
-        host:
-            objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
-        query: {
-            basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
-            coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
-            json: tables.json,
-            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs)
-        }
-    });
-}
-
-function parseUrl(url: string): ObjectTables {
-    const parsed = UrlBinder.parseUrl(url);
-    const indent = 4;
-
-    return {
-        basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
-        coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
-        host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
-        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
-        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs)
-    };
 }
