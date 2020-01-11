@@ -12,6 +12,7 @@ module.exports = {
     // 'google',
     'eslint:recommended',
     "plugin:react/recommended",
+    "plugin:node/recommended",
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
