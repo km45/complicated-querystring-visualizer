@@ -35,6 +35,7 @@ interface NestedParam {
 }
 
 function createKeyValuePair<K, V>(key: K, value: V): { K: V } {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const obj: any = {};
     obj[key] = value;
     return obj;
@@ -143,12 +144,14 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nested = JSON.parse(binder.nested).map((v: any): [string, string] => {
         const key = Object.keys(v)[0];
         const valueObj = v[key];
 
         const value = encodeURIComponent(
             CsvStringifySync(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 valueObj.map((obj: any) => {
                     const objectKey = Object.keys(obj)[0];
                     const objectValue = obj[objectKey];
