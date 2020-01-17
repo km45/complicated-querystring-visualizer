@@ -134,7 +134,7 @@ export default class Form extends React.Component<Props, State> {
                     value={this.state.structured.json}
                 />
                 <Editor
-                    onChange={(value) => this.onChangeStructuredNestedEditor(value)}
+                    onChange={(value): void => this.onChangeStructuredNestedEditor(value)}
                     title='NestedParameters'
                     value={this.state.structured.nested}
                 />
@@ -162,7 +162,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onChangeStructuredNestedEditor(value: string) {
+    private onChangeStructuredNestedEditor(value: string): void {
         this.setState({
             ...this.state,
             structured: {
