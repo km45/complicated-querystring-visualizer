@@ -53,34 +53,34 @@ export function parseQuery(query: string): QueryBinder {
     const nestedParams: NestedParam[] = [];
 
     for (const param of table) {
-      const key = param[0];
-      const value = param[1];
+        const key = param[0];
+        const value = param[1];
 
-      if (key.match(/^coord[0-9]+$/)) {
-        coord.push([key].concat(decodeURIComponent(value).split(',')));
-      } else if (key === 'libs') {
-        libs.push([key].concat(value.split('.').map((v: string) => {
-          return decodeURIComponent(v);
-        })));
-      } else if (key.match(/^json[0-9]+$/)) {
-        jsonParams.push([key, decodeURIComponent(value)]);
-      } else if (key.match(/^nested[0-9]+$/)) {
-        const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',', relax_column_count: true });
-        console.table(parsed);
-        nestedParams.push({ key, values: parsed });
-      } else if (key) {  // ignore empty key
-        basic.push([key, decodeURIComponent(value)]);
-      }
+        if (key.match(/^coord[0-9]+$/)) {
+            coord.push([key].concat(decodeURIComponent(value).split(',')));
+        } else if (key === 'libs') {
+            libs.push([key].concat(value.split('.').map((v: string) => {
+                return decodeURIComponent(v);
+            })));
+        } else if (key.match(/^json[0-9]+$/)) {
+            jsonParams.push([key, decodeURIComponent(value)]);
+        } else if (key.match(/^nested[0-9]+$/)) {
+            const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',', relax_column_count: true });
+            console.table(parsed);
+            nestedParams.push({ key, values: parsed });
+        } else if (key) {  // ignore empty key
+            basic.push([key, decodeURIComponent(value)]);
+        }
     }
 
     const json = [
-      '[',
-      jsonParams.map((v: string[]): string => {
-        const key = v[0];
-        const value = v[1];
-        return '{"' + key + '":' + value + '}';
-      }).join(','),
-      ']'
+        '[',
+        jsonParams.map((v: string[]): string => {
+            const key = v[0];
+            const value = v[1];
+            return '{"' + key + '":' + value + '}';
+        }).join(','),
+        ']'
     ].join('');
 
     const nested = JSON.stringify(
@@ -136,6 +136,7 @@ export function generateQuery(binder: QueryBinder): string {
         return [key, value];
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = JSON.parse(binder.json).map((v: any): [string, string] => {
         const key = Object.keys(v)[0];
         const value = encodeURIComponent(JSON.stringify(v[key]));

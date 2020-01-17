@@ -1,1 +1,11 @@
+# explicitly add .eslintrc.js because dotfiles are ignored by default
 !/.eslintrc.js
+
+# fetched packages
+node_modules
+
+# build output
+dist
+
+# nyc coverage output
+coverage

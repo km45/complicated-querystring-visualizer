@@ -7,6 +7,34 @@ import * as UrlBinder from '../logic/url-binder';
 import Editor from './Editor';
 import Grid from './Grid';
 
+function generateUrl(tables: ObjectTables): string {
+    return UrlBinder.generateUrl({
+        host:
+            objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
+        query: {
+            basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
+            coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
+            json: tables.json,
+            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs),
+            nested: tables.nested
+        }
+    });
+}
+
+function parseUrl(url: string): ObjectTables {
+    const parsed = UrlBinder.parseUrl(url);
+    const indent = 4;
+
+    return {
+        basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
+        coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
+        host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
+        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
+        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs),
+        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent)
+    };
+}
+
 interface Stringified {
     url: string;
 }
@@ -51,34 +79,34 @@ export default class Form extends React.Component<Props, State> {
         };
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <SemanticUiReact.Form>
                 <SemanticUiReact.TextArea
                     autoHeight={true}
-                    onChange={(event) => this.onChangeStringifiedTextArea(event)}
+                    onChange={(event): void => this.onChangeStringifiedTextArea(event)}
                     value={this.state.stringified.url}
                 />
                 <SemanticUiReact.Button
                     content='parse'
                     icon='arrow alternate circle down'
-                    onClick={(event) => this.onClickOperationParse(event)}
+                    onClick={(): void => this.onClickOperationParse()}
                     primary={true} />
                 <SemanticUiReact.Button
                     content='generate'
                     icon='arrow alternate circle up'
-                    onClick={(event) => this.onClickOperationGenerate(event)}
+                    onClick={(): void => this.onClickOperationGenerate()}
                     secondary={true} />
                 <SemanticUiReact.Button
                     content='open'
                     icon='external'
                     positive={true}
-                    onClick={(event) => this.onClickOperationOpen(event)} />
+                    onClick={(): void => this.onClickOperationOpen()} />
                 <SemanticUiReact.Button
                     content='clear'
                     icon='trash'
                     negative={true}
-                    onClick={(event) => this.onClickOperationClear(event)}
+                    onClick={(): void => this.onClickOperationClear()}
                 />
                 <Grid
                     columns={UrlBinder.ColumnsDefinition.host}
@@ -101,7 +129,7 @@ export default class Form extends React.Component<Props, State> {
                     title='Libs'
                 />
                 <Editor
-                    onChange={(value) => this.onChangeStructuredJsonEditor(value)}
+                    onChange={(value): void => this.onChangeStructuredJsonEditor(value)}
                     title='JsonValueParameters'
                     value={this.state.structured.json}
                 />
@@ -114,7 +142,7 @@ export default class Form extends React.Component<Props, State> {
         );
     }
 
-    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>) {
+    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -124,7 +152,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onChangeStructuredJsonEditor(value: string) {
+    private onChangeStructuredJsonEditor(value: string): void {
         this.setState({
             ...this.state,
             structured: {
@@ -144,7 +172,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationClear(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationClear(): void {
         this.setState({
             ...this.state,
             stringified: {
@@ -154,11 +182,11 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationOpen(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationOpen(): void {
         openQuery(this.state.stringified.url);
     }
 
-    private onClickOperationParse(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationParse(): void {
         const parsed = parseUrl(this.state.stringified.url);
         this.setState({
             stringified: this.state.stringified,
@@ -166,7 +194,7 @@ export default class Form extends React.Component<Props, State> {
         });
     }
 
-    private onClickOperationGenerate(_/*event*/: React.MouseEvent<HTMLButtonElement>) {
+    private onClickOperationGenerate(): void {
         const generated = generateUrl(this.state.structured);
 
         this.setState({
@@ -185,32 +213,4 @@ interface ObjectTables {
     json: string;
     libs: ObjectTable;
     nested: string;
-}
-
-function generateUrl(tables: ObjectTables): string {
-    return UrlBinder.generateUrl({
-        host:
-            objectTableToArrayTable(UrlBinder.ColumnsDefinition.host, tables.host),
-        query: {
-            basic: objectTableToArrayTable(ColumnsDefinition.basic, tables.basic),
-            coord: objectTableToArrayTable(ColumnsDefinition.coord, tables.coord),
-            json: tables.json,
-            libs: objectTableToArrayTable(ColumnsDefinition.libs, tables.libs),
-            nested: tables.nested
-        }
-    });
-}
-
-function parseUrl(url: string): ObjectTables {
-    const parsed = UrlBinder.parseUrl(url);
-    const indent = 4;
-
-    return {
-        basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
-        coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
-        host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
-        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
-        libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs),
-        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent)
-    };
 }
