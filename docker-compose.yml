@@ -71,3 +71,10 @@ services:
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
+  chore:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/chore/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
