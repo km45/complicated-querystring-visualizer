@@ -10,7 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: make lint-dockerfile
-    - run: make up SERVICE='develop python chrome firefox'
+    - run: make up SERVICE='develop python chrome firefox chore'
+    - run: make check-version TTY=false
     - run: make clean TTY=false
     - run: make sync TTY=false
     - run: make audit TTY=false
