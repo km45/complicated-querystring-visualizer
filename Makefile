@@ -115,6 +115,7 @@ audit:
 
 .PHONY: lint-dockerfile
 lint-dockerfile:
+	docker run --rm -i hadolint/hadolint < dockerfiles/chore/Dockerfile
 	docker run --rm -i hadolint/hadolint < dockerfiles/python/Dockerfile
 
 .PHONY: outdated
