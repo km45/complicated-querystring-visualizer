@@ -42,9 +42,9 @@
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
-    "jest": "24.9.0",
+    "jest": "25.x",
     "source-map-loader": "0.2.4",
-    "ts-jest": "^24.3.0",
+    "ts-jest": "25.x",
     "webpack-dev-server": "^3.10.1"
   },
   "jest": {
