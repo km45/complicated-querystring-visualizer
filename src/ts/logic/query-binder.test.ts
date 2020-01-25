@@ -17,7 +17,8 @@ export const emptyQueryBinder: QueryBinder = {
     basic: [],
     coord: [],
     json: '[]',
-    libs: []
+    libs: [],
+    nested: '[]'
 };
 
 const encodedAmpersand = '%26';
@@ -101,7 +102,77 @@ const testCases: TestCase[] = [
             ].join('&')
         }
     ],
-    ['none', {queryString: '', binder: {...emptyQueryBinder}}]
+    [
+        'nested only', {
+            binder: {
+                ...emptyQueryBinder,
+                nested: [
+                    '[',
+                    [
+                        '{"nested1":[{"key1":"value1"},{"key2":"value2"}]}',
+                        '{"nested2":[{"key1":"value1"}]}'
+                    ].join(','),
+                    ']'
+                ].join('')
+            },
+            queryString: [
+                [
+                    'nested1',
+                    encodeURIComponent('key1:value1,key2:value2')
+                ].join('='),
+                [
+                    'nested2',
+                    encodeURIComponent('key1:value1')
+                ].join('=')
+            ].join('&')
+        }
+    ],
+    [
+        'nested only escaped', {
+            binder: {
+                ...emptyQueryBinder,
+                nested: [
+                    '[',
+                    [
+                        '{"nested1":[{"key1":"value1,A:a"},{"key2,B:b":"value2"}]}',
+                        '{"nested2":[{"key3":"value3\\"c"},{"key4\\"d":"value4"}]}'
+                    ].join(','),
+                    ']'
+                ].join('')
+            },
+            queryString: [
+                [
+                    'nested1',
+                    encodeURIComponent('key1:"value1,A:a","key2,B:b":value2')
+                ].join('='),
+                [
+                    'nested2',
+                    encodeURIComponent('key3:"value3""c","key4""d":value4')
+                ].join('=')
+            ].join('&')
+        }
+    ],
+    [
+        'nested only missing value', {
+            binder: {
+                ...emptyQueryBinder,
+                nested: [
+                    '[',
+                    [
+                        '{"nested1":[{"key1":null}]}'
+                    ].join(','),
+                    ']'
+                ].join('')
+            },
+            queryString: [
+                [
+                    'nested1',
+                    encodeURIComponent('key1')
+                ].join('='),
+            ].join('&')
+        }
+    ],
+    ['none', { queryString: '', binder: { ...emptyQueryBinder } }]
 ];
 
 describe.each(testCases)(
