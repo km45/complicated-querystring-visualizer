@@ -28,6 +28,7 @@ help:
 	@echo '    lint-dockerfile'
 	@echo '    outdated'
 	@echo '    update'
+	@echo '    check-version [TTY]'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -114,6 +115,7 @@ audit:
 
 .PHONY: lint-dockerfile
 lint-dockerfile:
+	docker run --rm -i hadolint/hadolint < dockerfiles/chore/Dockerfile
 	docker run --rm -i hadolint/hadolint < dockerfiles/python/Dockerfile
 
 .PHONY: outdated
@@ -123,3 +125,7 @@ outdated:
 .PHONY: update
 update:
 	$$(misc/docker-exec-command -t true) develop npm update
+
+.PHONY: check-version
+check-version:
+	$$(misc/docker-exec-command -t $(TTY)) chore test $$(jq .version < package.json) = $$(jq .version < package-lock.json)
