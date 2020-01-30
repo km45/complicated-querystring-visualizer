@@ -19,7 +19,7 @@ help:
 	@echo '    clean [TTY]'
 	@echo '    fetch [TTY]'
 	@echo '    sync [TTY]'
-	@echo '    lint [TTY]'
+	@echo '    lint [TTY] [AUTOFIX]'
 	@echo '    build [CONFIG] [TTY] [WATCH]'
 	@echo '    dev-server [CONFIG]'
 	@echo '    unit-test [TTY] [WATCH]'
@@ -44,6 +44,10 @@ help:
 	@echo '            - false'
 	@echo '    WATCH:'
 	@echo '        run as watch mode or not'
+	@echo '            - true'
+	@echo '            - false (default)'
+	@echo '    AUTOFIX:'
+	@echo '        fix erros automatically or not'
 	@echo '            - true'
 	@echo '            - false (default)'
 
@@ -78,8 +82,13 @@ sync:
 
 .PHONY: lint
 lint:
+ifeq ($(AUTOFIX),true)
+	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint . --config .eslintrc_ts.js --ext .ts,.tsx --fix
+	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint . --config .eslintrc_js.js --ext .js,.jsx --fix
+else
 	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint . --config .eslintrc_ts.js --ext .ts,.tsx
 	$$(misc/docker-exec-command -t $(TTY)) develop npx eslint . --config .eslintrc_js.js --ext .js,.jsx
+endif
 
 .PHONY: build
 build:
