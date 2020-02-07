@@ -2,13 +2,13 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "@types/jest": "25.x",
+    "@types/jest": "^25.1.2",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "ag-grid-community": "^22.1.1",
@@ -34,18 +34,18 @@
     "webpack-cli": "^3.3.10"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.18.0",
-    "@typescript-eslint/parser": "^2.18.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "eslint": "^6.8.0",
     "eslint-config-google": "0.14.0",
     "eslint-plugin-eslint-comments": "^3.1.2",
     "eslint-plugin-jest": "^23.6.0",
-    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.3.0",
     "jest": "25.x",
     "source-map-loader": "0.2.4",
-    "ts-jest": "^25.1.0",
-    "webpack-dev-server": "^3.10.1"
+    "ts-jest": "^25.2.0",
+    "webpack-dev-server": "^3.10.3"
   },
   "jest": {
     "transform": {
