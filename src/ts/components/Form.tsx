@@ -21,17 +21,30 @@ function generateUrl(tables: ObjectTables): string {
     });
 }
 
+// format "json" and return it if it is valid JSON, otherwise return "json"
+function formatJsonIfValid(json: string): string {
+    const indent = 4;
+
+    let ret = json;
+    try {
+        ret = JSON.stringify(JSON.parse(json), undefined, indent);
+    } catch (e) {
+        console.error(e);
+    }
+
+    return ret;
+}
+
 function parseUrl(url: string): ObjectTables {
     const parsed = UrlBinder.parseUrl(url);
-    const indent = 4;
 
     return {
         basic: arrayTableToObjectTable(ColumnsDefinition.basic, parsed.query.basic),
         coord: arrayTableToObjectTable(ColumnsDefinition.coord, parsed.query.coord),
         host: arrayTableToObjectTable(UrlBinder.ColumnsDefinition.host, parsed.host),
-        json: JSON.stringify(JSON.parse(parsed.query.json), undefined, indent),
+        json: formatJsonIfValid(parsed.query.json),
         libs: arrayTableToObjectTable(ColumnsDefinition.libs, parsed.query.libs),
-        nested: JSON.stringify(JSON.parse(parsed.query.nested), undefined, indent)
+        nested: formatJsonIfValid(parsed.query.nested)
     };
 }
 
