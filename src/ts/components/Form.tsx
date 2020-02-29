@@ -25,14 +25,14 @@ function generateUrl(tables: ObjectTables): string {
 function formatJsonIfValid(json: string): string {
     const indent = 4;
 
-    var ret = json;
+    let ret = json;
     try {
         ret = JSON.stringify(JSON.parse(json), undefined, indent);
     } catch (e) {
         console.error(e);
-    } finally {
-        return ret;
     }
+
+    return ret;
 }
 
 function parseUrl(url: string): ObjectTables {
