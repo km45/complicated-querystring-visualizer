@@ -10,6 +10,8 @@ _BASIC_PARAMETERS_PARSED_GRID_BODY_CELLS_XPATH = '''//h2[contains(text(), 'Basic
 _GENERATE_BUTTON_XPATH = '''//button[contains(text(), 'generate')]'''
 _PARSE_BUTTON_XPATH = '''//button[contains(text(), 'parse')]'''
 
+_JSON_VALUE_PARAMETERS_PARSED_EDITOR_LINES_XPATH = '''//h2[contains(text(), 'JsonValueParameters')]/..//div[contains(@class,'ace_content')]//div[contains(@class,'ace_text-layer')]'''
+
 
 @pytest.fixture(params=[
     DesiredCapabilities.CHROME,
@@ -210,3 +212,36 @@ def test_grid_data_reference_problem(driver):
     assert len(basic_body_cells) == 2
     assert basic_body_cells[0].text == 'a'
     assert basic_body_cells[1].text == 'c'
+
+
+def test_no_empty_editor_for_invalid_json(driver):
+    # Open page without query
+    driver.get('file://{}'.format(_FILEPATH))
+
+    # Alias
+    textarea = driver.find_element_by_tag_name('textarea')
+    parse_button = driver.find_element_by_xpath(_PARSE_BUTTON_XPATH)
+
+    # Initial state
+    editor_lines = driver.find_elements_by_xpath(
+        _JSON_VALUE_PARAMETERS_PARSED_EDITOR_LINES_XPATH)
+
+    assert textarea.text == ''
+    assert len(editor_lines) == 1
+    assert editor_lines[0].text == '[]'
+
+    # Enter query into textarea
+    textarea.clear()
+    textarea.send_keys('json1={"coord":1,2}')
+
+    assert textarea.text == 'json1={"coord":1,2}'
+
+    # Click parse button
+    parse_button.click()
+
+    editor_lines = driver.find_elements_by_xpath(
+        _JSON_VALUE_PARAMETERS_PARSED_EDITOR_LINES_XPATH)
+
+    assert textarea.text == 'json1={"coord":1,2}'
+    assert len(editor_lines) == 1
+    assert editor_lines[0].text == '[{"json1":{"coord":1,2}}]'
