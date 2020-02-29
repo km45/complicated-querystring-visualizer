@@ -83,7 +83,6 @@ export default class Form extends React.Component<Props, State> {
         return (
             <SemanticUiReact.Form>
                 <SemanticUiReact.TextArea
-                    autoHeight={true}
                     onChange={(event): void => this.onChangeStringifiedTextArea(event)}
                     value={this.state.stringified.url}
                 />
