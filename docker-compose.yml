@@ -2,7 +2,7 @@ version: "3"
 
 services:
   develop:
-    image: node:13.0.1-alpine
+    image: node:alpine
     command: ["tail", "-f", "/dev/null"]
     environment:
       - HOME=/usr/src/app/cache/develop/home
