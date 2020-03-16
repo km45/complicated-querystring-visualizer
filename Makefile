@@ -24,7 +24,7 @@ help:
 	@echo '    dev-server [CONFIG]'
 	@echo '    unit-test [TTY] [WATCH]'
 	@echo '    e2e-test [TTY]'
-	@echo '    audit [TTY]'
+	@echo '    audit [TTY] [AUTOFIX]'
 	@echo '    lint-dockerfile'
 	@echo '    outdated'
 	@echo '    update'
@@ -120,7 +120,11 @@ e2e-test:
 
 .PHONY: audit
 audit:
+ifeq ($(AUTOFIX),true)
+	$$(misc/docker-exec-command -t $(TTY)) develop npm audit fix
+else
 	$$(misc/docker-exec-command -t $(TTY)) develop npm audit
+endif
 
 .PHONY: lint-dockerfile
 lint-dockerfile:
