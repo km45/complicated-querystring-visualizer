@@ -6,13 +6,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - run: make up SERVICE='develop'
-    - run: make clean TTY=false
-    - run: make sync TTY=false
-    - run: make audit TTY=false
-    - run: make down
+      - uses: actions/checkout@v2
+      - run: make up SERVICE='develop'
+      - run: make clean TTY=false
+      - run: make sync TTY=false
+      - run: make audit TTY=false
+      - run: make down
