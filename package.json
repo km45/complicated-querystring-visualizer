@@ -17,7 +17,7 @@
     "css-loader": "^3.4.2",
     "csv-parse": "^4.8.8",
     "csv-stringify": "^5.3.6",
-    "file-loader": "^5.1.0",
+    "file-loader": "6.x",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "4.x",
     "mini-css-extract-plugin": "0.9.x",
@@ -29,7 +29,7 @@
     "semantic-ui-react": "^0.88.2",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
-    "url-loader": "3.x",
+    "url-loader": "4.x",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
