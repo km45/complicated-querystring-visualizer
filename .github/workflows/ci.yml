@@ -14,7 +14,6 @@ jobs:
     - run: make check-version TTY=false
     - run: make clean TTY=false
     - run: make sync TTY=false
-    - run: make audit TTY=false
     - run: make lint TTY=false
     - run: make build CONFIG=production TTY=false
     - run: make unit-test TTY=false
