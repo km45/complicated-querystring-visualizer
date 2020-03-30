@@ -4,18 +4,17 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - run: make lint-dockerfile
-    - run: make up SERVICE='develop python chrome firefox chore'
-    - run: make check-version TTY=false
-    - run: make clean TTY=false
-    - run: make sync TTY=false
-    - run: make lint TTY=false
-    - run: make build CONFIG=production TTY=false
-    - run: make unit-test TTY=false
-    - run: make e2e-test TTY=false
-    - run: make down
+      - uses: actions/checkout@v2
+      - run: make lint-dockerfile
+      - run: make up SERVICE='develop python chrome firefox chore'
+      - run: make check-version TTY=false
+      - run: make clean TTY=false
+      - run: make sync TTY=false
+      - run: make lint TTY=false
+      - run: make build CONFIG=production TTY=false
+      - run: make unit-test TTY=false
+      - run: make e2e-test TTY=false
+      - run: make down
