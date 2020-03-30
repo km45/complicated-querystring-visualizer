@@ -1,0 +1,16 @@
+name: outdated
+
+on:
+  schedule:
+    - cron: "0 19 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make up SERVICE='develop'
+      - run: make clean TTY=false
+      - run: make sync TTY=false
+      - run: make outdated TTY=false
+      - run: make down
