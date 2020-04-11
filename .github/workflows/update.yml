@@ -20,7 +20,6 @@ jobs:
         uses: peter-evans/create-pull-request@v2
         with:
           title: "Update npm packages by create-pull-request action"
-          draft: true
           branch: create-pull-request/update-npm-packages
       - name: Check outputs of create-pull-request
         run: echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
