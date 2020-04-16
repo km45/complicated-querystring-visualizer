@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "7.2.9",
+  "version": "7.2.10",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
@@ -27,7 +27,7 @@
     "react-dom": "^16.13.1",
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "ts-loader": "^6.2.2",
+    "ts-loader": "7.x",
     "typescript": "^3.8.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.42.1",
