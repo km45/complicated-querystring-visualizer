@@ -43,6 +43,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "3.x",
     "jest": "^25.4.0",
+    "jscpd": "^3.2.1",
     "source-map-loader": "0.2.4",
     "ts-jest": "^25.4.0",
     "webpack-dev-server": "^3.10.3"
