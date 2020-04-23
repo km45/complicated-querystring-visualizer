@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "7.2.13",
+  "version": "7.2.14",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
@@ -16,7 +16,7 @@
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "^3.5.2",
     "csv-parse": "^4.8.9",
-    "csv-stringify": "^5.4.1",
+    "csv-stringify": "^5.4.3",
     "file-loader": "6.x",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.2.0",
