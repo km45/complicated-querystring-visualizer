@@ -13,7 +13,6 @@ jobs:
       - run: make clean TTY=false
       - run: make sync TTY=false
       - run: make update TTY=false
-      - run: make outdated TTY=false
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v2
