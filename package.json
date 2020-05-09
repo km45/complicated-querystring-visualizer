@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "7.2.20",
+  "version": "7.2.21",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
