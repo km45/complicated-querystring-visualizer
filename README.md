@@ -9,6 +9,8 @@
 ![audit](https://github.com/km45/complicated-querystring-visualizer/workflows/audit/badge.svg)
 ![outdated](https://github.com/km45/complicated-querystring-visualizer/workflows/outdated/badge.svg)
 
+![screenshot](screenshot.png)
+
 ## How to build
 
 ```
