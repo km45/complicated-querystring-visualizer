@@ -80,9 +80,7 @@ const Content: React.FC<Props> = (props: Props) => {
         <SemanticUiReact.Form>
             <SemanticUiReact.TextArea
                 onChange={
-                    (event: React.FormEvent<HTMLTextAreaElement>): void => {
-                        setStringified(event.currentTarget.value);
-                    }
+                    (event: React.FormEvent<HTMLTextAreaElement>): void => setStringified(event.currentTarget.value)
                 }
                 value={stringified}
             />
@@ -90,20 +88,14 @@ const Content: React.FC<Props> = (props: Props) => {
                 content='parse'
                 icon='arrow alternate circle down'
                 onClick={
-                    (): void => {
-                        const parsed = parseUrl(stringified);
-                        setStructured(parsed);
-                    }
+                    (): void => setStructured(parseUrl(stringified))
                 }
                 primary={true} />
             <SemanticUiReact.Button
                 content='generate'
                 icon='arrow alternate circle up'
                 onClick={
-                    (): void => {
-                        const generated = generateUrl(structured);
-                        setStringified(generated);
-                    }
+                    (): void => setStringified(generateUrl(structured))
                 }
                 secondary={true} />
             <SemanticUiReact.Button
@@ -111,18 +103,14 @@ const Content: React.FC<Props> = (props: Props) => {
                 icon='external'
                 positive={true}
                 onClick={
-                    (): void => {
-                        openQuery(stringified);
-                    }
+                    (): void => openQuery(stringified)
                 } />
             <SemanticUiReact.Button
                 content='clear'
                 icon='trash'
                 negative={true}
                 onClick={
-                    (): void => {
-                        setStringified('');
-                    }
+                    (): void => setStringified('')
                 }
             />
             <Grid
@@ -147,24 +135,20 @@ const Content: React.FC<Props> = (props: Props) => {
             />
             <Editor
                 onChange={
-                    (value: string): void => {
-                        setStructured({
-                            ...structured,
-                            json: value
-                        });
-                    }
+                    (value: string): void => setStructured({
+                        ...structured,
+                        json: value
+                    })
                 }
                 title='JsonValueParameters'
                 value={structured.json}
             />
             <Editor
                 onChange={
-                    (value: string): void => {
-                        setStructured({
-                            ...structured,
-                            nested: value
-                        });
-                    }
+                    (value: string): void => setStructured({
+                        ...structured,
+                        nested: value
+                    })
                 }
                 title='NestedParameters'
                 value={structured.nested}
