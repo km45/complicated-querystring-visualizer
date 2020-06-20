@@ -48,10 +48,6 @@ function parseUrl(url: string): ObjectTables {
     };
 }
 
-interface Stringified {
-    url: string;
-}
-
 interface Structured {
     basic: ObjectTable;
     coord: ObjectTable;
@@ -73,150 +69,95 @@ interface Props {
     query: string;
 }
 
-interface State {
-    stringified: Stringified;
-    structured: Structured;
+const Content: React.FC<Props> = (props: Props) => {
+    const url = props.query.substring('?'.length);
+    const parsed = parseUrl(url);
+
+    const [stringified, setStringified] = React.useState<string>(url);
+    const [structured, setStructured] = React.useState<Structured>(parsed);
+
+    return (
+        <SemanticUiReact.Form>
+            <SemanticUiReact.TextArea
+                onChange={
+                    (event: React.FormEvent<HTMLTextAreaElement>): void => setStringified(event.currentTarget.value)
+                }
+                value={stringified}
+            />
+            <SemanticUiReact.Button
+                content='parse'
+                icon='arrow alternate circle down'
+                onClick={
+                    (): void => setStructured(parseUrl(stringified))
+                }
+                primary={true} />
+            <SemanticUiReact.Button
+                content='generate'
+                icon='arrow alternate circle up'
+                onClick={
+                    (): void => setStringified(generateUrl(structured))
+                }
+                secondary={true} />
+            <SemanticUiReact.Button
+                content='open'
+                icon='external'
+                positive={true}
+                onClick={
+                    (): void => openQuery(stringified)
+                } />
+            <SemanticUiReact.Button
+                content='clear'
+                icon='trash'
+                negative={true}
+                onClick={
+                    (): void => setStringified('')
+                }
+            />
+            <Grid
+                columns={UrlBinder.ColumnsDefinition.host}
+                data={structured.host}
+                title='Host'
+            />
+            <Grid
+                columns={ColumnsDefinition.basic}
+                data={structured.basic}
+                title='Basic'
+            />
+            <Grid
+                columns={ColumnsDefinition.coord}
+                data={structured.coord}
+                title='Coord'
+            />
+            <Grid
+                columns={ColumnsDefinition.libs}
+                data={structured.libs}
+                title='Libs'
+            />
+            <Editor
+                onChange={
+                    (value: string): void => setStructured({
+                        ...structured,
+                        json: value
+                    })
+                }
+                title='JsonValueParameters'
+                value={structured.json}
+            />
+            <Editor
+                onChange={
+                    (value: string): void => setStructured({
+                        ...structured,
+                        nested: value
+                    })
+                }
+                title='NestedParameters'
+                value={structured.nested}
+            />
+        </SemanticUiReact.Form>
+    );
 }
 
-export default class Form extends React.Component<Props, State> {
-    public constructor(props: Props, context: State) {
-        super(props, context);
-
-        const url = props.query.substring('?'.length);
-        const parsed = parseUrl(url);
-        this.state = {
-            stringified: {
-                url
-            },
-            structured: parsed
-        };
-    }
-
-    public render(): React.ReactNode {
-        return (
-            <SemanticUiReact.Form>
-                <SemanticUiReact.TextArea
-                    onChange={(event): void => this.onChangeStringifiedTextArea(event)}
-                    value={this.state.stringified.url}
-                />
-                <SemanticUiReact.Button
-                    content='parse'
-                    icon='arrow alternate circle down'
-                    onClick={(): void => this.onClickOperationParse()}
-                    primary={true} />
-                <SemanticUiReact.Button
-                    content='generate'
-                    icon='arrow alternate circle up'
-                    onClick={(): void => this.onClickOperationGenerate()}
-                    secondary={true} />
-                <SemanticUiReact.Button
-                    content='open'
-                    icon='external'
-                    positive={true}
-                    onClick={(): void => this.onClickOperationOpen()} />
-                <SemanticUiReact.Button
-                    content='clear'
-                    icon='trash'
-                    negative={true}
-                    onClick={(): void => this.onClickOperationClear()}
-                />
-                <Grid
-                    columns={UrlBinder.ColumnsDefinition.host}
-                    data={this.state.structured.host}
-                    title='Host'
-                />
-                <Grid
-                    columns={ColumnsDefinition.basic}
-                    data={this.state.structured.basic}
-                    title='Basic'
-                />
-                <Grid
-                    columns={ColumnsDefinition.coord}
-                    data={this.state.structured.coord}
-                    title='Coord'
-                />
-                <Grid
-                    columns={ColumnsDefinition.libs}
-                    data={this.state.structured.libs}
-                    title='Libs'
-                />
-                <Editor
-                    onChange={(value): void => this.onChangeStructuredJsonEditor(value)}
-                    title='JsonValueParameters'
-                    value={this.state.structured.json}
-                />
-                <Editor
-                    onChange={(value): void => this.onChangeStructuredNestedEditor(value)}
-                    title='NestedParameters'
-                    value={this.state.structured.nested}
-                />
-            </SemanticUiReact.Form>
-        );
-    }
-
-    private onChangeStringifiedTextArea(event: React.FormEvent<HTMLTextAreaElement>): void {
-        this.setState({
-            ...this.state,
-            stringified: {
-                ...this.state.stringified,
-                url: event.currentTarget.value
-            }
-        });
-    }
-
-    private onChangeStructuredJsonEditor(value: string): void {
-        this.setState({
-            ...this.state,
-            structured: {
-                ...this.state.structured,
-                json: value
-            }
-        });
-    }
-
-    private onChangeStructuredNestedEditor(value: string): void {
-        this.setState({
-            ...this.state,
-            structured: {
-                ...this.state.structured,
-                nested: value
-            }
-        });
-    }
-
-    private onClickOperationClear(): void {
-        this.setState({
-            ...this.state,
-            stringified: {
-                ...this.state.stringified,
-                url: ''
-            }
-        });
-    }
-
-    private onClickOperationOpen(): void {
-        openQuery(this.state.stringified.url);
-    }
-
-    private onClickOperationParse(): void {
-        const parsed = parseUrl(this.state.stringified.url);
-        this.setState({
-            stringified: this.state.stringified,
-            structured: parsed
-        });
-    }
-
-    private onClickOperationGenerate(): void {
-        const generated = generateUrl(this.state.structured);
-
-        this.setState({
-            stringified: {
-                url: generated
-            },
-            structured: this.state.structured
-        });
-    }
-}
+export default Content;
 
 interface ObjectTables {
     basic: ObjectTable;

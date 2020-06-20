@@ -21,6 +21,14 @@ const defaultColDef: AgGrid.ColDef = {
     suppressMovable: true
 };
 
+function resize(api: AgGrid.ColumnApi): void {
+    const allColumnIds = api.getAllColumns().map(
+        (column: AgGrid.Column) => {
+            return column.getColId();
+        });
+    api.autoSizeColumns(allColumnIds);
+}
+
 export default class Grid extends React.Component<Props, State> {
     private agGridApi: AgGrid.GridApi | null | undefined = null;
 
@@ -59,29 +67,21 @@ export default class Grid extends React.Component<Props, State> {
                         columnDefs={this.columnDefs}
                         defaultColDef={defaultColDef}
                         domLayout={'autoHeight'}
-                        onGridReady={this.onGridReady.bind(this)}
-                        onModelUpdated={this.onModelUpdated.bind(this)}
+                        onGridReady={
+                            (event: AgGrid.GridReadyEvent): void => {
+                                this.agGridApi = event.api;
+                            }
+                        }
+                        onModelUpdated={
+                            (event: AgGrid.ModelUpdatedEvent): void => {
+                                if (event.columnApi) {
+                                    resize(event.columnApi);
+                                }
+                            }
+                        }
                         rowData={this.props.data}
                     />
                 </div>
             </div>);
-    }
-
-    private resize(api: AgGrid.ColumnApi): void {
-        const allColumnIds = api.getAllColumns().map(
-            (column: AgGrid.Column) => {
-                return column.getColId();
-            });
-        api.autoSizeColumns(allColumnIds);
-    }
-
-    private onGridReady(event: AgGrid.GridReadyEvent): void {
-        this.agGridApi = event.api;
-    }
-
-    private onModelUpdated(event: AgGrid.ModelUpdatedEvent): void {
-        if (event.columnApi) {
-            this.resize(event.columnApi);
-        }
     }
 }
