@@ -48,10 +48,6 @@ function parseUrl(url: string): ObjectTables {
     };
 }
 
-interface Stringified {
-    url: string;
-}
-
 interface Structured {
     basic: ObjectTable;
     coord: ObjectTable;
@@ -77,7 +73,7 @@ const Content: React.FC<Props> = (props: Props) => {
     const url = props.query.substring('?'.length);
     const parsed = parseUrl(url);
 
-    const [stringified, setStringified] = React.useState<Stringified>({ url });
+    const [stringified, setStringified] = React.useState<string>(url);
     const [structured, setStructured] = React.useState<Structured>(parsed);
 
     return (
@@ -85,19 +81,17 @@ const Content: React.FC<Props> = (props: Props) => {
             <SemanticUiReact.TextArea
                 onChange={
                     (event: React.FormEvent<HTMLTextAreaElement>): void => {
-                        setStringified({
-                            url: event.currentTarget.value
-                        });
+                        setStringified(event.currentTarget.value);
                     }
                 }
-                value={stringified.url}
+                value={stringified}
             />
             <SemanticUiReact.Button
                 content='parse'
                 icon='arrow alternate circle down'
                 onClick={
                     (): void => {
-                        const parsed = parseUrl(stringified.url);
+                        const parsed = parseUrl(stringified);
                         setStructured(parsed);
                     }
                 }
@@ -108,9 +102,7 @@ const Content: React.FC<Props> = (props: Props) => {
                 onClick={
                     (): void => {
                         const generated = generateUrl(structured);
-                        setStringified({
-                            url: generated
-                        });
+                        setStringified(generated);
                     }
                 }
                 secondary={true} />
@@ -120,7 +112,7 @@ const Content: React.FC<Props> = (props: Props) => {
                 positive={true}
                 onClick={
                     (): void => {
-                        openQuery(stringified.url);
+                        openQuery(stringified);
                     }
                 } />
             <SemanticUiReact.Button
@@ -129,10 +121,7 @@ const Content: React.FC<Props> = (props: Props) => {
                 negative={true}
                 onClick={
                     (): void => {
-                        setStringified({
-                            url: ''
-                        }
-                        );
+                        setStringified('');
                     }
                 }
             />
