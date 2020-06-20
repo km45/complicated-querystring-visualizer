@@ -44,7 +44,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "jest": "26.x",
     "jscpd": "^3.2.1",
-    "source-map-loader": "0.2.4",
+    "source-map-loader": "1.x",
     "ts-jest": "26.x",
     "webpack-dev-server": "^3.11.0"
   },
