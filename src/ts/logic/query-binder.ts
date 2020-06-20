@@ -66,7 +66,6 @@ export function parseQuery(query: string): QueryBinder {
         } else if (key.match(/^json[0-9]+$/)) {
             jsonParams.push([key, decodeURIComponent(value)]);
         } else if (key.match(/^nested[0-9]+$/)) {
-            // eslint-disable-next-line @typescript-eslint/camelcase
             const parsed = CsvParseSync(decodeURIComponent(value), { delimiter: ':', record_delimiter: ',', relax_column_count: true });
             console.table(parsed);
             nestedParams.push({ key, values: parsed });
@@ -163,7 +162,6 @@ export function generateQuery(binder: QueryBinder): string {
                 }), {
                     delimiter: ':',
                     eof: false,
-                    // eslint-disable-next-line @typescript-eslint/camelcase
                     record_delimiter: ','
                 }));
 
