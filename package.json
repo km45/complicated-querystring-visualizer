@@ -8,7 +8,7 @@
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "@types/jest": "^25.2.3",
+    "@types/jest": "26.x",
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.8",
     "ag-grid-community": "^23.2.1",
@@ -45,7 +45,7 @@
     "jest": "26.x",
     "jscpd": "^3.2.1",
     "source-map-loader": "0.2.4",
-    "ts-jest": "^25.5.1",
+    "ts-jest": "26.x",
     "webpack-dev-server": "^3.11.0"
   },
   "jest": {
