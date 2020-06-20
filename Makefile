@@ -29,8 +29,6 @@ help:
 	@echo '    outdated'
 	@echo '    update [TTY]'
 	@echo '    check-version [TTY]'
-	@echo '    cpd [TTY]'
-	@echo '    check-cpd [TTY]'
 	@echo
 	@echo 'Options:'
 	@echo '    CONFIG:'
@@ -144,12 +142,3 @@ update:
 .PHONY: check-version
 check-version:
 	$$(misc/docker-exec-command -t $(TTY)) chore test $$(jq .version < package.json) = $$(jq .version < package-lock.json)
-
-.PHONY: cpd
-cpd:
-	$$(misc/docker-exec-command -t $(TTY)) develop npx jscpd -r console,html,json src
-
-.PHONY: check-cpd
-check-cpd: cpd
-	@echo "Treat as error if duplications are 2% or more."
-	$$(misc/docker-exec-command -t $(TTY)) chore test $$(echo "$$(jq .statistics.total.percentage report/jscpd-report.json) < 2.0" | bc) = 1
