@@ -38,7 +38,7 @@ const Content: React.FC<Props> = (props: Props) => {
             // https://github.com/km45/complicated-querystring-visualizer/issues/6
             agGridApi.setRowData(props.data);
         }
-    }, [props.data]);
+    }, [agGridApi, props.data]);
 
     const columnDefs = props.columns.map((column): AgGrid.ColDef => {
         return {
