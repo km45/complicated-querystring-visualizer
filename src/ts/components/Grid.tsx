@@ -40,12 +40,12 @@ const Content: React.FC<Props> = (props: Props) => {
         }
     }, [agGridApi, props.data]);
 
-    const columnDefs = props.columns.map((column): AgGrid.ColDef => {
+    const columnDefs = React.useMemo(() => props.columns.map((column): AgGrid.ColDef => {
         return {
             field: column.key,
             headerName: column.name
         };
-    });
+    }), [props.columns]);
 
     return (
         <div>
