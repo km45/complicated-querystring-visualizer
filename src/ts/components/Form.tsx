@@ -70,8 +70,8 @@ interface Props {
 }
 
 const Content: React.FC<Props> = (props: Props) => {
-    const url = props.query.substring('?'.length);
-    const parsed = parseUrl(url);
+    const url = React.useMemo(() => props.query.substring('?'.length), [props.query]);
+    const parsed = React.useMemo(() => parseUrl(url), [url]);
 
     const [stringified, setStringified] = React.useState<string>(url);
     const [structured, setStructured] = React.useState<Structured>(parsed);
