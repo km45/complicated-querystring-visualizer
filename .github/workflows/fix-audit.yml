@@ -1,0 +1,25 @@
+name: update
+
+on:
+ schedule:
+   - cron: "0 21 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make up SERVICE='develop'
+      - run: make clean TTY=false
+      - run: make sync TTY=false
+      - run: make audit TTY=false AUTOFIX=true
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v2
+        with:
+          title: "Update npm packages by create-pull-request action"
+          reviewers: km45
+          branch: create-pull-request/fix-audit
+      - name: Check outputs of create-pull-request
+        run: echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+      - run: make down
