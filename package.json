@@ -2,13 +2,13 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "7.3.12",
+  "version": "7.3.13",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
   },
   "dependencies": {
-    "@types/jest": "^26.0.4",
+    "@types/jest": "^26.0.5",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "ag-grid-community": "^23.2.1",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "eslint-config-google": "0.14.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-jest": "^23.18.0",
