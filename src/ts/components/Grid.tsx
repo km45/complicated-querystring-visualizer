@@ -19,11 +19,14 @@ const defaultColDef: AgGrid.ColDef = {
 };
 
 function resize(api: AgGrid.ColumnApi): void {
-    const allColumnIds = api.getAllColumns().map(
-        (column: AgGrid.Column) => {
-            return column.getColId();
-        });
-    api.autoSizeColumns(allColumnIds);
+    const columns = api.getAllColumns();
+    if (columns) {
+        const allColumnIds = columns.map(
+            (column: AgGrid.Column) => {
+                return column.getColId();
+            });
+        api.autoSizeColumns(allColumnIds);
+    }
 }
 
 const Content: React.FC<Props> = (props: Props) => {
