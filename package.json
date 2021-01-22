@@ -26,7 +26,7 @@
     "react-ace": "^9.1.1",
     "react-dom": "^16.13.1",
     "semantic-ui-css": "2.4.1",
-    "semantic-ui-react": "^0.88.2",
+    "semantic-ui-react": "1.x",
     "ts-loader": "8.x",
     "typescript": "4.x",
     "url-loader": "^4.1.0",
