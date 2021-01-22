@@ -19,7 +19,6 @@
     "csv-stringify": "^5.5.0",
     "esbuild-loader": "^2.8.0",
     "file-loader": "6.x",
-    "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "1.x",
     "pythonic": "2.0.3",
