@@ -1,7 +1,7 @@
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {ESBuildPlugin} = require('esbuild-loader');
+const {ESBuildMinifyPlugin, ESBuildPlugin} = require('esbuild-loader');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -51,6 +51,12 @@ module.exports = (env, argv) => {
       ],
     },
     optimization: {
+      minimize: true,
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: targetEnvironment,
+        }),
+      ],
       splitChunks: {
         name: 'vendor',
         chunks: 'initial',
