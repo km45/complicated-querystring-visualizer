@@ -1,5 +1,5 @@
-import * as CsvParseSync from 'csv-parse/lib/sync';
-import * as CsvStringifySync from 'csv-stringify/lib/sync';
+import CsvParseSync from 'csv-parse/lib/sync';
+import CsvStringifySync from 'csv-stringify/lib/sync';
 
 import {
     ArrayRow, ArrayTable, Columns
