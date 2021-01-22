@@ -20,7 +20,7 @@
     "file-loader": "6.x",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.3.0",
-    "mini-css-extract-plugin": "0.9.x",
+    "mini-css-extract-plugin": "1.x",
     "pythonic": "2.0.3",
     "react": "^16.13.1",
     "react-ace": "^9.1.1",
