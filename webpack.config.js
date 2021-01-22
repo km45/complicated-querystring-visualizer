@@ -1,6 +1,7 @@
 const path = require('path');
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const {ESBuildPlugin} = require('esbuild-loader');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -15,6 +16,8 @@ module.exports = (env, argv) => {
   const srcHtmlIndex = path.resolve(__dirname, 'src', 'html', 'index.html');
   const srcTsIndex = path.resolve(__dirname, 'src', 'ts', 'index.tsx');
 
+  const targetEnvironment = 'es2018';
+
   return {
     devServer: {
       host: '0.0.0.0',
@@ -25,7 +28,11 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.(ts|tsx)$/,
-          loader: 'ts-loader',
+          loader: 'esbuild-loader',
+          options: {
+            loader: 'tsx',
+            target: targetEnvironment,
+          },
         }, {
           enforce: 'pre',
           exclude: /node_modules/,
@@ -72,6 +79,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new ESBuildPlugin(),
       new HardSourceWebpackPlugin(),
       new HtmlWebpackPlugin({
         favicon: srcFavicon,
