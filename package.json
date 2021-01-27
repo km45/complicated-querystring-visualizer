@@ -2,7 +2,7 @@
   "name": "complicated-querystring-visualizer",
   "author": "Kamei Shogo",
   "license": "MIT",
-  "version": "8.0.2",
+  "version": "8.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/km45/complicated-querystring-visualizer.git"
@@ -44,24 +44,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "jest": "^26.1.0",
     "source-map-loader": "^1.0.1",
+    "ts-node": "^9.1.1",
     "webpack-dev-server": "^3.11.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "esbuild-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testURL": "http://localhost/"
   }
 }
